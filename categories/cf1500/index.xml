@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Cf1500 on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/cf1500/</link>
+    <description>Recent content in Cf1500 on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 02 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/cf1500/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Codeforces Round #499 (Div. 2)</title>
+      <link>https://www.cheasim.com/2018/09/02/codeforces-round-499-div-2/</link>
+      <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2018/09/02/codeforces-round-499-div-2/</guid>
+      <description>&lt;h1 id=&#34;codeforces-round-499-div-2&#34;&gt;Codeforces Round #499 (Div. 2)](&lt;a href=&#34;http://codeforces.com/contest/1011&#34;&gt;http://codeforces.com/contest/1011&lt;/a&gt;)&lt;/h1&gt;
+&lt;h2 id=&#34;a-stages&#34;&gt;A. Stages&lt;/h2&gt;
+&lt;h3 id=&#34;题意&#34;&gt;题意&lt;/h3&gt;
+&lt;p&gt;给定一段序列，每个字母代表这一个权值，比如$a$代表$1$。之后问从中挑选出一个序列，要求$a[i]$和$a[i+1]$之间相隔一个字母，问从任意顺序选择$k$个字母，最少可以有多少权值。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>codeforcesPoints</title>
+      <link>https://www.cheasim.com/2018/08/18/codeforcespoints/</link>
+      <pubDate>Sat, 18 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2018/08/18/codeforcespoints/</guid>
+      <description>&lt;h1 id=&#34;codeforcespoints&#34;&gt;codeforcesPoints&lt;/h1&gt;
+&lt;h4 id=&#34;题意&#34;&gt;题意&lt;/h4&gt;
+&lt;p&gt;给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。&lt;/p&gt;
+&lt;h4 id=&#34;题解&#34;&gt;题解&lt;/h4&gt;
+&lt;p&gt;线段树+set应用&lt;/p&gt;
+&lt;p&gt;对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

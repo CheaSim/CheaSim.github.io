@@ -1,100 +1,417 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Acm | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/categories/acm/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/categories/acm/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/categories/acm/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/categories/acm/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="Acm">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Acm">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/categories/">Categories</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+  <h1>
+    Acm
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">2018 ICPC南京赛区网络赛
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="archive">
-  <h1>Posts</h1>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-02T16:00:00.000Z">2018-09-03</time>
-      <a href="/2018/09/03/2018-09-03-2018-ICPC%E5%8D%97%E4%BA%AC%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E8%B5%9B.html">2018 ICPC南京赛区网络赛</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-30T16:00:00.000Z">2018-08-31</time>
-      <a href="/2018/08/31/2018-08-31-hdoj4616-Game.html">[hdoj4616] Game</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-30T16:00:00.000Z">2018-08-31</time>
-      <a href="/2018/08/31/2018-08-31-%E5%85%AB%E6%95%B0%E7%A0%81%E9%97%AE%E9%A2%98.html">八数码问题</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-29T16:00:00.000Z">2018-08-30</time>
-      <a href="/2018/08/30/2018-08-30-UVA11174-Stand-in-a-line.html">[UVA11174] Stand in a line</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-29T16:00:00.000Z">2018-08-30</time>
-      <a href="/2018/08/30/2018-08-30-hdoj4661-Message-Passing.html">[hdoj4661] Message Passing</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-29T16:00:00.000Z">2018-08-30</time>
-      <a href="/2018/08/30/2018-08-30-hdoj1556-Color-the-ball.html">[hdoj1556]Color the ball</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-27T16:00:00.000Z">2018-08-28</time>
-      <a href="/2018/08/28/2018-08-28-nowcoder1-J-Different-Integers.html">[nowcoder1] J.Different Integers</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-27T16:00:00.000Z">2018-08-28</time>
-      <a href="/2018/08/28/2018-08-28-nowcoder2-%E8%A1%A5%E9%A2%98%E5%90%91.html">[nowcoder2] 补题向</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-26T16:00:00.000Z">2018-08-27</time>
-      <a href="/2018/08/27/2018-08-27-51Nod-1593-%E5%85%AC%E5%9B%AD%E6%99%A8%E8%B7%91.html">51Nod-1593 公园晨跑</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-08-26T16:00:00.000Z">2018-08-27</time>
-      <a href="/2018/08/27/2018-08-27-hdoj6447-YJJ-s-Salesman.html">[hdoj6447] YJJ&#39;s Salesman</a>
-    </div>
-  
-</section>
+  <div class="entry-content">
+    <p>ACM-ICPC 2018 南京赛区网络预赛 A. An Olympian Math Problem 题意 $S=1×1!&#43;2×2!&#43;⋯&#43;(n - 1) \times (n-1)!(n−1)×(n−1)!$问$Smodn$是多少。
+题解 思维题，打表题？答案就是$n-1$证明如下。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-09-03 00:00:00 +0000 UTC'>September 3, 2018</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 2018 ICPC南京赛区网络赛" href="https://www.cheasim.com/2018/09/03/2018-icpc%E5%8D%97%E4%BA%AC%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E8%B5%9B/"></a>
+</article>
 
-  <nav class="paginator">
-    <a href="/categories/acm/page/2/">上一页</a>
-    <span>3 / 4</span>
-    <a href="/categories/acm/page/4/">下一页</a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4616] Game
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Game 题意 给一颗树，已知每个点有权值和陷阱，你不能往回走，如果走过$c$个陷阱或者无路可走就结束，可以从任一点开始走，问能获得多少权值。
+题解 树形dp。
+$dp[i][j][0/1]$是在以$i$为终点，经过$j$个陷阱，$1$代表起点有陷阱，$0$代表起点没有陷阱。转移方程
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-31 00:00:00 +0000 UTC'>August 31, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4616] Game" href="https://www.cheasim.com/2018/08/31/hdoj4616-game/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">八数码问题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>八数码问题 前提知识 康拓展开 用途 相当于hash存储序列，使用更加小的空间来存储排列。
+公式 $X = a_n*(n-1)!&#43;a_{n-1}(n-2)&#43;…&#43;a_10!$，$a_i$表示当前未出现的数字是排在第几个元素。$0 \leq a_i 八数码问题
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-31 00:00:00 +0000 UTC'>August 31, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 八数码问题" href="https://www.cheasim.com/2018/08/31/%E5%85%AB%E6%95%B0%E7%A0%81%E9%97%AE%E9%A2%98/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj1556]Color the ball
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Color the ball 题意 给定$n$次操作，吧$l,r$区间内&#43;1，最后问每个点是多少。
+题解 树状数组骚操作。
+既然我单点更新只能更新一个点，那么我就更新$l$点加上1，之后$r&#43;1$的点减1，那么我对于在区间中的点，求得就是他之前$l$出现的次数。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-30 00:00:00 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj1556]Color the ball" href="https://www.cheasim.com/2018/08/30/hdoj1556-color-the-ball/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4661] Message Passing
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>HDOJ 4661: Message Passing 题意 每个人拥有一个信息，也可以传给另外一个人他拥有的所有信息。现在给定一个联络树，问至少多少次传递可以让所有人拥有所有信息。
+题解 可以看出至少要$(n-1)*2$次传递，因为每个人都至少传出一次，传入一次。而怎么可以最少传递呢？我们可以假设根为中心，先将所有信息传递给他，之后再从他传递回来。这里有一点很巧妙，传入和传出的可能种类是一样的，所以我们只需要计算一次传入，平方后便是该点为中心的方案数。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-30 00:00:00 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4661] Message Passing" href="https://www.cheasim.com/2018/08/30/hdoj4661-message-passing/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[UVA11174] Stand in a line
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Stand in a line 题意 给定$n-1​$组关系，节点$a​$不能站在节点$b​$的前面，使得$n​$站成一行，问有多少种站法。
+题解 树形dp &#43; 组合数学
+先建树，把没有父亲的节点都并入$0$节点，这样我们就有一颗完整的树了。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-30 00:00:00 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [UVA11174] Stand in a line" href="https://www.cheasim.com/2018/08/30/uva11174-stand-in-a-line/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[nowcoder1] J.Different Integers
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[nowcoder1]J. Different Integers 题意 给出一段序列$a_1,a_2,…,a_n$，和$l,r$，求区间$[1,l],[r,n]$中不同数字的个数。
+题解 树状数组&#43;倍增序列
+将查询的$l,r$转化为查询序列$[r,l&#43;n]$中不同中数字的个数。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-28 00:00:00 +0000 UTC'>August 28, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [nowcoder1] J.Different Integers" href="https://www.cheasim.com/2018/08/28/nowcoder1-j-different-integers/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[nowcoder2] 补题向
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>A.run 题意 白云可以跑$k$米或者走$1$米，但不能连续跑，问到达终点有多少种方案。
+题解 1步2步上楼梯的加强版。典型的dp题。
+$dp[i][0/1]$表示第$i$米最终是走还是跑的方案数 转移方程
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-28 00:00:00 +0000 UTC'>August 28, 2018</span>&nbsp;·&nbsp;<span>6 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [nowcoder2] 补题向" href="https://www.cheasim.com/2018/08/28/nowcoder2-%E8%A1%A5%E9%A2%98%E5%90%91/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6438]Buy and Resell
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[hdoj6438]Buy and Resell 题意 给定$n$个城市和无限制的初始金钱你可以在每个城市里
+以$a_i$的价格买个商品
+以$a_i$的价格卖出商品
+啥都不做
+问最多能赚多少钱？
+题解 贪心 &#43; 数据结构
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-27 00:00:00 +0000 UTC'>August 27, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6438]Buy and Resell" href="https://www.cheasim.com/2018/08/27/hdoj6438-buy-and-resell/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6447] YJJ&#39;s Salesman
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[hdoj6447] YJJ’s Salesman 题意 给定一个地图，只能向右或者向上走，地图上有很多点，有以下条件
+每个点有钱$val$
+你只能从该点的左下方进入点才可以拿钱。
+问最多能获得多少钱。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-27 00:00:00 +0000 UTC'>August 27, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6447] YJJ&#39;s Salesman" href="https://www.cheasim.com/2018/08/27/hdoj6447-yjj-s-salesman/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://www.cheasim.com/categories/acm/page/2/">
+      «&nbsp;&nbsp;
+    </a>
+    <a class="next" href="https://www.cheasim.com/categories/acm/page/4/">&nbsp;&nbsp;»
+    </a>
   </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

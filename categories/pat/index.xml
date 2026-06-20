@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pat on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/pat/</link>
+    <description>Recent content in Pat on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 28 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/pat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[pat1139]First Contact 前导零</title>
+      <link>https://www.cheasim.com/2019/08/28/pat1139-first-contact-%E5%89%8D%E5%AF%BC%E9%9B%B6/</link>
+      <pubDate>Wed, 28 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2019/08/28/pat1139-first-contact-%E5%89%8D%E5%AF%BC%E9%9B%B6/</guid>
+      <description>&lt;h1 id=&#34;first-contact&#34;&gt;First Contact&lt;/h1&gt;
+&lt;h2 id=&#34;题意&#34;&gt;题意&lt;/h2&gt;
+&lt;p&gt;给定一个图，图中的点只有男的点或者女的点。给定两个不同的点AB，问他们第一个点通过两个不同的点找到第二个点，并且A找到的点和A同性，B连接的点跟B同性，这样的点对有多少对。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>PAT练习</title>
+      <link>https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/</guid>
+      <description>&lt;h1 id=&#34;pat练习&#34;&gt;PAT练习&lt;/h1&gt;
+&lt;p&gt;为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。&lt;/p&gt;
+&lt;p&gt;点我连接&lt;/p&gt;
+&lt;h2 id=&#34;rational-sum&#34;&gt;Rational Sum&lt;/h2&gt;
+&lt;h3 id=&#34;题意&#34;&gt;题意&lt;/h3&gt;
+&lt;p&gt;求一百个分数的和。&lt;/p&gt;
+&lt;h3 id=&#34;题解&#34;&gt;题解&lt;/h3&gt;
+&lt;p&gt;大整数秒了。&lt;/p&gt;
+&lt;p&gt;其实我想用python，现在acm区域赛都让用python了&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

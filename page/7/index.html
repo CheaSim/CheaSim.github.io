@@ -1,252 +1,423 @@
-<!doctype html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+	<meta name="generator" content="Hugo 0.163.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CheaSim Blog</title>
+
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/index.xml" title="rss">
+<link rel="alternate" type="application/json" href="https://www.cheasim.com/index.json" title="json">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="CheaSim Blog">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CheaSim Blog">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CheaSim Blog",
+  "url": "https://www.cheasim.com/",
+  "description": "Code, notes, algorithms, systems, and things worth remembering.",
+  "logo": "https://www.cheasim.com/favicon.ico",
+  "sameAs": [
+      "https://github.com/CheaSim"
+  ]
+}
+</script>
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">IDEA 配置struts2&#43;tomcat
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="intro">
-  <p>Code, notes, algorithms, systems, and things worth remembering.</p>
-</section>
-
-<section class="post-list">
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-20T16:00:00.000Z">2018-09-21</time>
-        
-          <span>线段树</span>
-        
-      </div>
-      <h2><a href="/2018/09/21/2018-09-21-Codeforces-833B-The-Bakery.html">Codeforces 833B - The Bakery</a></h2>
-      
-        <div class="excerpt">Codeforces 833B - The Bakery题意将一段数字分成最多50个区间，每个区间的价值是区间内不同数字的个数，问怎么样分区间使得价值总和最大。
-题解$dp$加线段树。
-$dp[i][j]$表示第$j$个坐标分成$i$块最大的价值。
-转移方程
-
-$dp[i][j] &#x3D; max(dp[i][j],dp[i-1][x] + restofx)$，其中$x$是从1到$j$。
-
-因为每次要获得剩下的x中数字不同的个数，暴...</div>
-      
-      <a class="read-more" href="/2018/09/21/2018-09-21-Codeforces-833B-The-Bakery.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-19T16:00:00.000Z">2018-09-20</time>
-        
-          <span>uncategorized</span>
-        
-      </div>
-      <h2><a href="/2018/09/20/2018-09-20-IDEA-%E9%85%8D%E7%BD%AEstruts2-tomcat.html">IDEA 配置struts2+tomcat</a></h2>
-      
-        <div class="excerpt">使用IDEA配置Struts2Struts2版本选择由于笔者学校环境有限，教的是版本是2.3版本，所以先去官网上下载2.3的最新版本。
-IDEA 配置struts2+tomcat
+  <div class="entry-content">
+    <p>使用IDEA配置Struts2 Struts2版本选择 由于笔者学校环境有限，教的是版本是2.3版本，所以先去官网上下载2.3的最新版本。
+IDEA 配置struts2&#43;tomcat
 https://www.cheasim.com/uncategorized/2018/09/20/IDEA-%E9%85%8D%E7%BD%AEstruts2-tomcat.html
-作者CheaSim
-发布于2018-09-20
-更新于2018-09-20
-...</div>
-      
-      <a class="read-more" href="/2018/09/20/2018-09-20-IDEA-%E9%85%8D%E7%BD%AEstruts2-tomcat.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-17T16:00:00.000Z">2018-09-18</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/09/18/2018-09-18-HDOJ5592-ZYB-s-Premutation.html">[HDOJ5592] ZYB&#39;s Premutation</a></h2>
-      
-        <div class="excerpt">[HDOJ5592] ZYB’s Premutation题意ZYB有一个序列所有的逆序数前缀和，$a_1,a_2,a_3,…,a_n$，他们各个都表示从1到$i$的逆序数的前缀和。
-题解树状数组+二分
-首先我们可以倒着看，对于最后一个数字，他的逆序数减前面的逆序数就代表着前面大于他的个数。所以我们就可以把问题转化为，已知数字$a_i$在前$i$个中的位置，求$a_i是多少。
-我们可以用树状数组来维护，$sum(i)$表示到$i$代表着$...</div>
-      
-      <a class="read-more" href="/2018/09/18/2018-09-18-HDOJ5592-ZYB-s-Premutation.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-16T16:00:00.000Z">2018-09-17</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/09/17/2018-09-17-The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online.html">The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online</a></h2>
-      
-        <div class="excerpt">The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online（青岛网络赛）B.Red Black Tree题意题解ac代码J.Press the Button题意题解ac代码H Traveling on the Axis题意BOB走在$[1,n]$的路上，每两个点中间都有一个红绿灯，每一秒钟，
+作者 CheaSim
+发布于 2018-09-20
+更新于 2018-09-20
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-BOB先观察红绿灯是否绿，绿就走，红就停。
+<span title='2018-09-20 00:00:00 +0000 UTC'>September 20, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to IDEA 配置struts2&#43;tomcat" href="https://www.cheasim.com/2018/09/20/idea-%E9%85%8D%E7%BD%AEstruts2-tomcat/"></a>
+</article>
 
-红灯变绿，绿灯变红
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[HDOJ5592] ZYB&#39;s Premutation
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[HDOJ5592] ZYB’s Premutation 题意 ZYB有一个序列所有的逆序数前缀和，$a_1,a_2,a_3,…,a_n$，他们各个都表示从1到$i$的逆序数的前缀和。
+题解 树状数组&#43;二分
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-09-18 00:00:00 +0000 UTC'>September 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [HDOJ5592] ZYB&#39;s Premutation" href="https://www.cheasim.com/2018/09/18/hdoj5592-zyb-s-premutation/"></a>
+</article>
 
-$t(p,q)$就是$...</div>
-      
-      <a class="read-more" href="/2018/09/17/2018-09-17-The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-09T16:00:00.000Z">2018-09-10</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/09/10/2018-09-10-ACM-ICPC-2018-%E5%BE%90%E5%B7%9E%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E9%A2%84%E8%B5%9B.html">ACM-ICPC 2018 徐州赛区网络预赛</a></h2>
-      
-        <div class="excerpt">ACM-ICPC 2018 徐州赛区网络预赛A. Hard to prepare题意$n$个人围成环，每个人可以选择$[0,2^k-1]$中的一个数字，要求相邻两人不能同或为0。
-题解递归。
-可以YY出，第一个人有$2^k$种选择，之后第2到第$n-1$个人有$2^k-1$种选择，最后一个人可能可以选$2^k-2$，也可能可以选$2^k-1$。这取决于倒数第二个人是否跟第一个人选一样的。这时候我们就可以加上如果第一个人和倒数第二个人选择...</div>
-      
-      <a class="read-more" href="/2018/09/10/2018-09-10-ACM-ICPC-2018-%E5%BE%90%E5%B7%9E%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E9%A2%84%E8%B5%9B.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-09T16:00:00.000Z">2018-09-10</time>
-        
-          <span>uncategorized</span>
-        
-      </div>
-      <h2><a href="/2018/09/10/2018-09-10-%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF.html">快读模板</a></h2>
-      
-        <div class="excerpt">123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051521234567891011121314151617181920212223242526templateinlinecharintifwhileif&#125;sgn = (c == &#x27;-&#x27;ret = (c == &#x27;-&#...</div>
-      
-      <a class="read-more" href="/2018/09/10/2018-09-10-%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-09T16:00:00.000Z">2018-09-10</time>
-        
-          <span>概率dp</span>
-        
-      </div>
-      <h2><a href="/2018/09/10/2018-09-10-%E6%A6%82%E7%8E%87dp%E5%85%A5%E9%97%A8.html">概率dp入门</a></h2>
-      
-        <div class="excerpt">概率dp概率dp有两种题型，一种是求概率一种是求期望。
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online（青岛网络赛） B.Red Black Tree 题意 题解 ac代码 J.Press the Button 题意 题解 ac代码 H Traveling on the Axis 题意 BOB走在$[1,n]$的路上，每两个点中间都有一个红绿灯，每一秒钟，
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-17 00:00:00 +0000 UTC'>September 17, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online" href="https://www.cheasim.com/2018/09/17/the-2018-acm-icpc-asia-qingdao-regional-contest-online/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ACM-ICPC 2018 徐州赛区网络预赛
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ACM-ICPC 2018 徐州赛区网络预赛 A. Hard to prepare 题意 $n$个人围成环，每个人可以选择$[0,2^k-1]$中的一个数字，要求相邻两人不能同或为0。
+题解 递归。
+可以YY出，第一个人有$2^k$种选择，之后第2到第$n-1$个人有$2^k-1$种选择，最后一个人可能可以选$2^k-2$，也可能可以选$2^k-1$。这取决于倒数第二个人是否跟第一个人选一样的。这时候我们就可以加上如果第一个人和倒数第二个人选择相同，并且，最后一个人多选了那$2^k-1-(2^k-2)$种，那么他们三个点变成一个点来选择了。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-10 00:00:00 +0000 UTC'>September 10, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to ACM-ICPC 2018 徐州赛区网络预赛" href="https://www.cheasim.com/2018/09/10/acm-icpc-2018-%E5%BE%90%E5%B7%9E%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E9%A2%84%E8%B5%9B/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">概率dp入门
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>概率dp 概率dp有两种题型，一种是求概率一种是求期望。
 来结合一下题目
-Aeroplane chess题意一个人在一条线上掷骰子，在线上有类似飞行棋的可以直接到达某个点的特殊点，问从$0$到$n$掷骰子次数的数学期望是多少？
-题解期望dp，dp最重要的就是从一个已知的最优状态转化到另一个最优状态。
-为什么期望要反着求呢，因为你并不知道$dp[0]$这个点的值，因为我们定义$dp[x]$为$x$点到$n$点的掷骰子数的数学期望。而$dp[...</div>
-      
-      <a class="read-more" href="/2018/09/10/2018-09-10-%E6%A6%82%E7%8E%87dp%E5%85%A5%E9%97%A8.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-06T16:00:00.000Z">2018-09-07</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/09/07/2018-09-07-hdoj1540-Tunnel-Warfare.html">[hdoj1540]Tunnel Warfare</a></h2>
-      
-        <div class="excerpt">Tunnel Warfare题意在一条线上有二种操作
+Aeroplane chess 题意 一个人在一条线上掷骰子，在线上有类似飞行棋的可以直接到达某个点的特殊点，问从$0$到$n$掷骰子次数的数学期望是多少？
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-09-10 00:00:00 +0000 UTC'>September 10, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 概率dp入门" href="https://www.cheasim.com/2018/09/10/%E6%A6%82%E7%8E%87dp%E5%85%A5%E9%97%A8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">快读模板
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 template inline char int if while if } sgn = (c == &#39;-&#39; ret = (c == &#39;-&#39; while ret *= sgn; return } template void static if if while while } template void print(x); putchar } 快读模板
+https://www.cheasim.com/uncategorized/2018/09/10/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF.html
+作者 CheaSim
+发布于 2018-09-10
+更新于 2018-09-10
+许可协议
+</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-10 00:00:00 +0000 UTC'>September 10, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 快读模板" href="https://www.cheasim.com/2018/09/10/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj1540]Tunnel Warfare
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Tunnel Warfare 题意 在一条线上有二种操作
 删掉一个点
-
 恢复一个点
-
-
 求某一个点和与之相连点的个数。
-题解线段树设左右标志或者是树状数组二分
-HDOJ可以线段树+二分。
+题解 线段树设左右标志或者是树状数组二分
+HDOJ可以线段树&#43;二分。
 Cnm hdoj 多组数据不给提示
-如果是树状数组500ms，线段树+二分1500ms。
-POJ卡了线段树+二分。HDOJ没有写多组输入害得我WA成sb了。
-垃圾HDOJ还造假数据，毁坏多个碉堡。也是服了。
-WA代码1234567891011121314...</div>
-      
-      <a class="read-more" href="/2018/09/07/2018-09-07-hdoj1540-Tunnel-Warfare.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-06T16:00:00.000Z">2018-09-07</time>
-        
-          <span>线段树</span>
-        
-      </div>
-      <h2><a href="/2018/09/07/2018-09-07-hdoj4614-Vases-and-Flowers.html">[hdoj4614]Vases and Flowers</a></h2>
-      
-        <div class="excerpt">Vases and Flowers题意Alice去一排$n$的花盆中种花，有两种操作
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-09-07 00:00:00 +0000 UTC'>September 7, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj1540]Tunnel Warfare" href="https://www.cheasim.com/2018/09/07/hdoj1540-tunnel-warfare/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4614]Vases and Flowers
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Vases and Flowers 题意 Alice去一排$n$的花盆中种花，有两种操作
 从$a$开始种花，如果该花盆有花就跳到下一个花盆。直到没有花种或者到了$n$盆
-
 $[a,b]$区间的所有花都扔掉。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-09-07 00:00:00 +0000 UTC'>September 7, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4614]Vases and Flowers" href="https://www.cheasim.com/2018/09/07/hdoj4614-vases-and-flowers/"></a>
+</article>
 
-询问
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj5521]Meeting
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Meeting 题意 将图分成$m$个块，每个块中的点到块中点的需要的时间为$E_i$。Bessie在点1，Elsie在点$n$，问他们在最短的时间走到可以到哪一个点会和。点可以在不同的块中。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-1操作中开始种花的盆和停止种花的盆
+<span title='2018-09-06 00:00:00 +0000 UTC'>September 6, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj5521]Meeting" href="https://www.cheasim.com/2018/09/06/hdoj5521-meeting/"></a>
+</article>
 
-2操作中丢掉的花
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[kuangbin带你飞13]基础计算几何
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[kuangbin带你飞13]基础计算几何
+https://www.cheasim.com/uncategorized/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E13-%E5%9F%BA%E7%A1%80%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95.html
+作者 CheaSim
+发布于 2018-09-06
+更新于 2018-09-06
+许可协议
+</p>
+  </div>
+  <footer class="entry-footer">
 
-
-题解线段树，$sum$表示花的个数，用$lazy$来懒惰标记。
-妈的，我线段树还是不够熟悉，居然使用了$update(p,n,1)$这样子的形式，以为每个区间的$...</div>
-      
-      <a class="read-more" href="/2018/09/07/2018-09-07-hdoj4614-Vases-and-Flowers.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-05T16:00:00.000Z">2018-09-06</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/09/06/2018-09-06-hdoj5521-Meeting.html">[hdoj5521]Meeting</a></h2>
-      
-        <div class="excerpt">Meeting题意将图分成$m$个块，每个块中的点到块中点的需要的时间为$E_i$。Bessie在点1，Elsie在点$n$，问他们在最短的时间走到可以到哪一个点会和。点可以在不同的块中。
-题解如果想要每个点都建边，无疑会爆空间。我们可以看出每个点都分配到几个块，而每个块又有几个点。那么我们可以将块看做点，连接着块中的点，这样每个块的边从$O(n^2)$变成了$O(n)$。
-我tmWA了20发，就是因为以前都是将点做标记，但是这次是块也...</div>
-      
-      <a class="read-more" href="/2018/09/06/2018-09-06-hdoj5521-Meeting.html">阅读全文</a>
-    </article>
-  
-</section>
-
-
-  <nav class="paginator">
-    <a href="/page/6/">上一页</a>
-    <span>7 / 10</span>
-    <a href="/page/8/">下一页</a>
+<span title='2018-09-06 00:00:00 +0000 UTC'>September 6, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [kuangbin带你飞13]基础计算几何" href="https://www.cheasim.com/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E13-%E5%9F%BA%E7%A1%80%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://www.cheasim.com/page/6/">
+      «&nbsp;&nbsp;
+    </a>
+    <a class="next" href="https://www.cheasim.com/page/8/">&nbsp;&nbsp;»
+    </a>
   </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

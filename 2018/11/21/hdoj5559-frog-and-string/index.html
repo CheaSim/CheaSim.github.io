@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>[hdoj5559]Frog and String | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Frog and String
+题意
+给定一个字符串的长度和他里面子回文串的个数。
+
+
+子回文串是连续子串，并且相同的回文串不重复计数
+
+
+字符串由前$K$个字符构成
+
+
+题解
+构造题嘛，最重要的就是规律啦。">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="[hdoj5559]Frog and String">
+  <meta property="og:description" content="Frog and String 题意 给定一个字符串的长度和他里面子回文串的个数。
+子回文串是连续子串，并且相同的回文串不重复计数
+字符串由前$K$个字符构成
+题解 构造题嘛，最重要的就是规律啦。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-11-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2018-11-21T00:00:00+00:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="[hdoj5559]Frog and String">
+  <meta name="twitter:description" content="Frog and String 题意 给定一个字符串的长度和他里面子回文串的个数。
+子回文串是连续子串，并且相同的回文串不重复计数
+字符串由前$K$个字符构成
+题解 构造题嘛，最重要的就是规律啦。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.cheasim.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "[hdoj5559]Frog and String",
+      "item": "https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[hdoj5559]Frog and String",
+  "name": "[hdoj5559]Frog and String",
+  "description": "Frog and String 题意 给定一个字符串的长度和他里面子回文串的个数。\n子回文串是连续子串，并且相同的回文串不重复计数\n字符串由前$K$个字符构成\n题解 构造题嘛，最重要的就是规律啦。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Frog and String 题意 给定一个字符串的长度和他里面子回文串的个数。\n子回文串是连续子串，并且相同的回文串不重复计数\n字符串由前$K$个字符构成\n题解 构造题嘛，最重要的就是规律啦。\n对于构造题，我们就要一步一步来，把题目分段。\n首先对于$K=1$来说，如果$n !=m$的话，无解。\n对于$K=2$来说，这时候爆搜就起作用了，我怎么想也不肯能根据我那只有6长度的字符串想到会存在一个长度为8但是只有7个自回文串的字符串。他就是$AABABBAA$.估计只有搜才能发现这个玩意，之后就会发现只有两个字符，你也能构造一个长度很长，但只有很少的子回文串。$AABABB$这个玩意可以无限重复，但是只有$A,B,AA,BB,ABA,BAB,ABBA,BAAB$这四种玩意。\n对于$K \\ge 3$，最好想，就是$ABC$来重复计数，$m-3$个前导$A$\n我真是蠢，真的，没有去用爆搜找一下答案，就凭自己的直觉在那里搞来搞去。\n+1 $m=2$的时候少考虑了\n+1 当$k\u003em$的时候\n+1 单独测试用例 没有print case\n+1 特判m==n没有加else if\n+1 $k=2,n=m$的时候出现了错误。应该特判的。\nac代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 #include using #define #define #define #define typedef typedef const //head const const int char int #ifdef freopen(\"1.in\" #endif int rep(test_case,1 scanf bool if if if if if if printf puts continue } } printf if else rep(i,0 puts }else int rep(i,0 rep(i,0 puts }else vector rep(i,0 rep(i,0 rep(i,0 printf } puts } } return } [hdoj5559]Frog and String\nhttps://www.cheasim.com/acm/2018/11/21/hdoj5559-Frog-and-String.html\n作者 CheaSim\n发布于 2018-11-21\n更新于 2018-11-21\n许可协议\n#构造爆搜\n",
+  "wordCount" : "608",
+  "inLanguage": "zh-cn",
+  "datePublished": "2018-11-21T00:00:00Z",
+  "dateModified": "2018-11-21T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "CheaSim"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CheaSim Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.cheasim.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      [hdoj5559]Frog and String
+    </h1>
+    <div class="post-meta">
+
+<span title='2018-11-21 00:00:00 +0000 UTC'>November 21, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#frog-and-string" aria-label="Frog and String">Frog and String</a><ul>
+                    
+            <li>
+                <a href="#%e9%a2%98%e6%84%8f" aria-label="题意">题意</a></li>
+            <li>
+                <a href="#%e9%a2%98%e8%a7%a3" aria-label="题解">题解</a></li>
+            <li>
+                <a href="#ac%e4%bb%a3%e7%a0%81" aria-label="ac代码">ac代码</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h1 id="frog-and-string">Frog and String<a hidden class="anchor" aria-hidden="true" href="#frog-and-string">#</a></h1>
+<h2 id="题意">题意<a hidden class="anchor" aria-hidden="true" href="#题意">#</a></h2>
+<p>给定一个字符串的长度和他里面子回文串的个数。</p>
+<ul>
+<li>
+<p>子回文串是连续子串，并且相同的回文串不重复计数</p>
+</li>
+<li>
+<p>字符串由前$K$个字符构成</p>
+</li>
+</ul>
+<h2 id="题解">题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h2>
+<p>构造题嘛，最重要的就是规律啦。</p>
+<p>对于构造题，我们就要一步一步来，把题目分段。</p>
+<ul>
+<li>
+<p>首先对于$K=1$来说，如果$n !=m$的话，无解。</p>
+</li>
+<li>
+<p>对于$K=2$来说，这时候爆搜就起作用了，我怎么想也不肯能根据我那只有6长度的字符串想到会存在一个长度为8但是只有7个自回文串的字符串。他就是$AABABBAA$.估计只有搜才能发现这个玩意，之后就会发现只有两个字符，你也能构造一个长度很长，但只有很少的子回文串。$AABABB$这个玩意可以无限重复，但是只有$A,B,AA,BB,ABA,BAB,ABBA,BAAB$这四种玩意。</p>
+</li>
+<li>
+<p>对于$K \ge 3$，最好想，就是$ABC$来重复计数，$m-3$个前导$A$</p>
+</li>
+</ul>
+<p>我真是蠢，真的，没有去用爆搜找一下答案，就凭自己的直觉在那里搞来搞去。</p>
+<p>+1 $m=2$的时候少考虑了</p>
+<p>+1 当$k&gt;m$的时候</p>
+<p>+1 单独测试用例 没有print case</p>
+<p>+1 特判m==n没有加else if</p>
+<p>+1 $k=2,n=m$的时候出现了错误。应该特判的。</p>
+<h2 id="ac代码">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="mi">9</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="mi">13</span>
+</span></span><span class="line"><span class="cl"><span class="mi">14</span>
+</span></span><span class="line"><span class="cl"><span class="mi">15</span>
+</span></span><span class="line"><span class="cl"><span class="mi">16</span>
+</span></span><span class="line"><span class="cl"><span class="mi">17</span>
+</span></span><span class="line"><span class="cl"><span class="mi">18</span>
+</span></span><span class="line"><span class="cl"><span class="mi">19</span>
+</span></span><span class="line"><span class="cl"><span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="mi">21</span>
+</span></span><span class="line"><span class="cl"><span class="mi">22</span>
+</span></span><span class="line"><span class="cl"><span class="mi">23</span>
+</span></span><span class="line"><span class="cl"><span class="mi">24</span>
+</span></span><span class="line"><span class="cl"><span class="mi">25</span>
+</span></span><span class="line"><span class="cl"><span class="mi">26</span>
+</span></span><span class="line"><span class="cl"><span class="mi">27</span>
+</span></span><span class="line"><span class="cl"><span class="mi">28</span>
+</span></span><span class="line"><span class="cl"><span class="mi">29</span>
+</span></span><span class="line"><span class="cl"><span class="mi">30</span>
+</span></span><span class="line"><span class="cl"><span class="mi">31</span>
+</span></span><span class="line"><span class="cl"><span class="mi">32</span>
+</span></span><span class="line"><span class="cl"><span class="mi">33</span>
+</span></span><span class="line"><span class="cl"><span class="mi">34</span>
+</span></span><span class="line"><span class="cl"><span class="mi">35</span>
+</span></span><span class="line"><span class="cl"><span class="mi">36</span>
+</span></span><span class="line"><span class="cl"><span class="mi">37</span>
+</span></span><span class="line"><span class="cl"><span class="mi">38</span>
+</span></span><span class="line"><span class="cl"><span class="mi">39</span>
+</span></span><span class="line"><span class="cl"><span class="mi">40</span>
+</span></span><span class="line"><span class="cl"><span class="mi">41</span>
+</span></span><span class="line"><span class="cl"><span class="mi">42</span>
+</span></span><span class="line"><span class="cl"><span class="mi">43</span>
+</span></span><span class="line"><span class="cl"><span class="mi">44</span>
+</span></span><span class="line"><span class="cl"><span class="mi">45</span>
+</span></span><span class="line"><span class="cl"><span class="mi">46</span>
+</span></span><span class="line"><span class="cl"><span class="mi">47</span>
+</span></span><span class="line"><span class="cl"><span class="mi">48</span>
+</span></span><span class="line"><span class="cl"><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="mi">50</span>
+</span></span><span class="line"><span class="cl"><span class="mi">51</span>
+</span></span><span class="line"><span class="cl"><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="mi">53</span>
+</span></span><span class="line"><span class="cl"><span class="mi">54</span>
+</span></span><span class="line"><span class="cl"><span class="mi">55</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//head
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
+</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;1.in&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">scanf</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="n">printf</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts</span>
+</span></span><span class="line"><span class="cl"><span class="k">continue</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">printf</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">printf</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>[hdoj5559]Frog and String</p>
+<p><a href="https://www.cheasim.com/acm/2018/11/21/hdoj5559-Frog-and-String.html">https://www.cheasim.com/acm/2018/11/21/hdoj5559-Frog-and-String.html</a></p>
+<p>作者
+CheaSim</p>
+<p>发布于
+2018-11-21</p>
+<p>更新于
+2018-11-21</p>
+<p>许可协议</p>
+<p>#<a href="/tags/%E6%9E%84%E9%80%A0/">构造</a><a href="/tags/%E7%88%86%E6%90%9C/">爆搜</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://www.cheasim.com/2018/11/28/jsp%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A/">
+    <span class="title">« </span>
+    <span>jsp第七次作业</span>
+  </a>
+  <a class="next" href="https://www.cheasim.com/2018/11/19/html5%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <span class="title"> »</span>
+    <span>html5学习笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

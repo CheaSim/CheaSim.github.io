@@ -1,54 +1,271 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>开发 | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/categories/%E5%BC%80%E5%8F%91/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/categories/%E5%BC%80%E5%8F%91/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/categories/%E5%BC%80%E5%8F%91/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/categories/%E5%BC%80%E5%8F%91/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="开发">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="开发">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/categories/">Categories</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+  <h1>
+    开发
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">echarts&#43;ajax&#43;struts2 实现数据图表动态加载并显示
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="archive">
-  <h1>Posts</h1>
-  
-    <div class="archive-row">
-      <time datetime="2019-05-06T16:00:00.000Z">2019-05-07</time>
-      <a href="/2019/05/07/2019-05-07-echarts-ajax-struts2-%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%9B%BE%E8%A1%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%B9%B6%E6%98%BE%E7%A4%BA.html">echarts+ajax+struts2 实现数据图表动态加载并显示</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-18T16:00:00.000Z">2018-11-19</time>
-      <a href="/2018/11/19/2018-11-19-iBatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0.html">iBatis框架 粗略学习</a>
-    </div>
-  
-</section>
+  <div class="entry-content">
+    <p>echarts&#43;ajax&#43;struts2 实现数据图表动态加载并显示 echarts 百度出品的良心可视化数据js库。
+简单小例子 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273 图表分析 // 基于准备好的dom，初始化echarts实例 var myChart = echarts.init(document.getElementById(‘main’)); // 指定图表的配置项和数据 option = { backgroundColor: ‘#2c343c’, visualMap: { show: false, min: 80, max: 600, inRange: { colorLightness: [0, 1] } }, series : [ { name: ‘访问来源’, type: ‘pie’, radius: ‘55%’, data:[ {value:235, name:‘视频广告’}, {value:274, name:‘联盟广告’}, {value:310, name:‘邮件营销’}, {value:335, name:‘直接访问’}, {value:400, name:‘搜索引擎’} ], roseType: ‘angle’, label: { normal: { textStyle: { color: ‘rgba(255, 255, 255, 0.3)’ } } }, labelLine: { normal: { lineStyle: { color: ‘rgba(255, 255, 255, 0.3)’ } } }, itemStyle: { normal: { color: ‘#c23531’, shadowBlur: 200, shadowColor: ‘rgba(0, 0, 0, 0.5)’ } } } ] }; // 使用刚指定的配置项和数据显示图表。 myChart.setOption(option);
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2019-05-07 00:00:00 +0000 UTC'>May 7, 2019</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to echarts&#43;ajax&#43;struts2 实现数据图表动态加载并显示" href="https://www.cheasim.com/2019/05/07/echarts-ajax-struts2-%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%9B%BE%E8%A1%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%B9%B6%E6%98%BE%E7%A4%BA/"></a>
+</article>
 
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">iBatis框架 粗略学习
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>iBatis jar包 Ibatis 2.3.4
+Sql server
+配置文件 配置文件和Hibernate类似
+映射文件 他的映射方式是把CRUD映射到操作。
+1 2 3 iBatis框架 粗略学习 https://www.cheasim.com/%E5%BC%80%E5%8F%91/2018/11/19/iBatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0.html 作者 CheaSim 发布于 2018-11-19 更新于 2018-11-19 许可协议 #[开发](/tags/%E5%BC%80%E5%8F%91/) </p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-11-19 00:00:00 +0000 UTC'>November 19, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to iBatis框架 粗略学习" href="https://www.cheasim.com/2018/11/19/ibatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

@@ -1,265 +1,407 @@
-<!doctype html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+	<meta name="generator" content="Hugo 0.163.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CheaSim Blog</title>
+
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/index.xml" title="rss">
+<link rel="alternate" type="application/json" href="https://www.cheasim.com/index.json" title="json">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="CheaSim Blog">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CheaSim Blog">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CheaSim Blog",
+  "url": "https://www.cheasim.com/",
+  "description": "Code, notes, algorithms, systems, and things worth remembering.",
+  "logo": "https://www.cheasim.com/favicon.ico",
+  "sameAs": [
+      "https://github.com/CheaSim"
+  ]
+}
+</script>
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4622]Reincarnation 字符串hash&#43;dp
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="intro">
-  <p>Code, notes, algorithms, systems, and things worth remembering.</p>
-</section>
-
-<section class="post-list">
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-11-07T16:00:00.000Z">2018-11-08</time>
-        
-          <span>搬砖</span>
-        
-      </div>
-      <h2><a href="/2018/11/08/2018-11-08-SSH%E4%B8%AD%E7%9A%84SH%E9%85%8D%E7%BD%AE.html">SSH中的SH配置</a></h2>
-      
-        <div class="excerpt">IDEA+Hibernate+Struts2笔者能力有限，只能用老版Hibernate和老版Struts2.
-我们在IDEA中选择Struts2中的2.3版本我是直接下了jar包加入进去的，还有自动下载Hibernate3.6中的。之后进行配置。
-之后再加入connector我用的是Mysql5.7版本所以用了对应的connector。
-之后选择左下角的persistence，右键下面的一个文件之后generate Mapping。
-之...</div>
-      
-      <a class="read-more" href="/2018/11/08/2018-11-08-SSH%E4%B8%AD%E7%9A%84SH%E9%85%8D%E7%BD%AE.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-10-21T16:00:00.000Z">2018-10-22</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/10/22/2018-10-22-hdoj4622-Reincarnation-%E5%AD%97%E7%AC%A6%E4%B8%B2hash-dp.html">[hdoj4622]Reincarnation 字符串hash+dp</a></h2>
-      
-        <div class="excerpt">Reincarnation题意区间查询不同字符串的数量。
-题解字符串hash+dp思想
+  <div class="entry-content">
+    <p>Reincarnation 题意 区间查询不同字符串的数量。
+题解 字符串hash&#43;dp思想
 我们从$1-len$枚举子串的长度，如果该区间内子串就加1。由于可能会有重复所以记录长度为$x$的子串最后一次出现的$L$。如果子串出现过那么$dp[L][R]-1$。
-定义$dp[l][r]$为在$[l,r]$区间内不同子串的数量那么可以得到递推公式
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-$dp[i][j]&#x3D;dp[i+1][j]+dp[i][j-1]-dp[i+1][j-1...</div>
-      
-      <a class="read-more" href="/2018/10/22/2018-10-22-hdoj4622-Reincarnation-%E5%AD%97%E7%AC%A6%E4%B8%B2hash-dp.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-10-12T16:00:00.000Z">2018-10-13</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/10/13/2018-10-13-hdoj6406-Taotao-Picks-Apple.html">[hdoj6406]Taotao Picks Apple</a></h2>
-      
-        <div class="excerpt">Taotao Picks Apples题意一段序列，从中挑选的子序列是这样规定的
+<span title='2018-10-22 00:00:00 +0000 UTC'>October 22, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4622]Reincarnation 字符串hash&#43;dp" href="https://www.cheasim.com/2018/10/22/hdoj4622-reincarnation-%E5%AD%97%E7%AC%A6%E4%B8%B2hash-dp/"></a>
+</article>
 
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6406]Taotao Picks Apple
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Taotao Picks Apples 题意 一段序列，从中挑选的子序列是这样规定的
 能取就取，而且取得数字一定要比上一次取得数字要大。
-
 已知一段序列，问如果改变序列中的一个数字，那么取得数字的个数是多少。
-题解每次查询将数组分为两部分$[1,p-1],[p+1,n]$，前半部分的最长长度就是可以通过预处理得到。很容易想到先处理出从头到$i$的最大长度$dl[i]$。然后针对后半段，我们要得到的是置换的$q$，然后大于他的第一个数字到末...</div>
-      
-      <a class="read-more" href="/2018/10/13/2018-10-13-hdoj6406-Taotao-Picks-Apple.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-10-11T16:00:00.000Z">2018-10-12</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/10/12/2018-10-12-hdoj6376-%E5%BA%A6%E5%BA%A6%E7%86%8A%E5%89%AA%E7%BA%B8%E6%9D%A1.html">[hdoj6376]度度熊剪纸条</a></h2>
-      
-        <div class="excerpt">度度熊剪纸条题意将一段01的序列分成$k$段，将他们重新拼接，问拼接成的纸条中前导0最多有多少个。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-拼接不可以改变方向。
+<span title='2018-10-13 00:00:00 +0000 UTC'>October 13, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6406]Taotao Picks Apple" href="https://www.cheasim.com/2018/10/13/hdoj6406-taotao-picks-apple/"></a>
+</article>
 
-题解我模拟下来就是我们可以将这段序列分成三部分，
-比如
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6376]度度熊剪纸条
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>度度熊剪纸条 题意 将一段01的序列分成$k$段，将他们重新拼接，问拼接成的纸条中前导0最多有多少个。
+拼接不可以改变方向。 题解 我模拟下来就是我们可以将这段序列分成三部分，
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-11111&#x2F;0&#x2F;111&#x2F;0&#x2F;1111&#x2F;0&#x2F;11111
+<span title='2018-10-12 00:00:00 +0000 UTC'>October 12, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6376]度度熊剪纸条" href="https://www.cheasim.com/2018/10/12/hdoj6376-%E5%BA%A6%E5%BA%A6%E7%86%8A%E5%89%AA%E7%BA%B8%E6%9D%A1/"></a>
+</article>
 
-最前方的1部分和最后方的1部分和中间的1部分。
-如果想将中间的1放在前面就必须剪两次，前方和后方的只需要1次。
-模拟的话。
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4628]Pieces
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>HDU - 6071 题意 将一个字符串每次减少一个子回文串，例子avdffd可以减少dd，就是subsequence。问最少减少几个回文子串可以使得字符串消失。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-我们首先如果第...</div>
-      
-      <a class="read-more" href="/2018/10/12/2018-10-12-hdoj6376-%E5%BA%A6%E5%BA%A6%E7%86%8A%E5%89%AA%E7%BA%B8%E6%9D%A1.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-10-10T16:00:00.000Z">2018-10-11</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/10/11/2018-10-11-hdoj4628-Pieces.html">[hdoj4628]Pieces</a></h2>
-      
-        <div class="excerpt">HDU - 6071题意将一个字符串每次减少一个子回文串，例子avdffd可以减少dd，就是subsequence。问最少减少几个回文子串可以使得字符串消失。
-题解因为数据量只有16，所以是状压dp。
-将每个字符串的位置状态压缩，之后再将回文子串先预处理出来，每次都判断一下是否可以减少回文子串，之后就是状压dp的基本操作了。
-有一个检验是否可以减去的好方法
-123456123ifdfs(S^x);//表示了x是可以减掉的。
+<span title='2018-10-11 00:00:00 +0000 UTC'>October 11, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4628]Pieces" href="https://www.cheasim.com/2018/10/11/hdoj4628-pieces/"></a>
+</article>
 
-之后预处理...</div>
-      
-      <a class="read-more" href="/2018/10/11/2018-10-11-hdoj4628-Pieces.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-10-08T16:00:00.000Z">2018-10-09</time>
-        
-          <span>acm</span>
-        
-      </div>
-      <h2><a href="/2018/10/09/2018-10-09-%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A.html">树形dp5题连做</a></h2>
-      
-        <div class="excerpt">树形dp，3天搞定A - Information Disturbing题意对于一棵树，切断一些边使得每一个叶节点都无法连接到根节点，有两个要求
-
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">树形dp5题连做
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>树形dp，3天搞定 A - Information Disturbing 题意 对于一棵树，切断一些边使得每一个叶节点都无法连接到根节点，有两个要求
 每条边带权重，切掉的边权重和不大于$m$
-
 切掉的每条边都不能大于一个$ans$
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-10-09 00:00:00 +0000 UTC'>October 9, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 树形dp5题连做" href="https://www.cheasim.com/2018/10/09/%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A/"></a>
+</article>
 
-问$ans$最小是多少？
-题解二分+树形dp
-+1 ans初始化-1
-看别人代码发现了个好东西，链式前项星判断节点是否为叶节点可以这样判断
-123456781234if该节点是叶节点 //在双向边的时候适用i...</div>
-      
-      <a class="read-more" href="/2018/10/09/2018-10-09-%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-29T16:00:00.000Z">2018-09-30</time>
-        
-          <span>模板</span>
-        
-      </div>
-      <h2><a href="/2018/09/30/2018-09-30-%E6%A8%A1%E6%9D%BF.html">模板</a></h2>
-      
-        <div class="excerpt">Java大数模板二、Java之输入输出处理由于ACM竞赛题目的输入数据和输出数据一般有多组（不定），并且格式多种多样，所以，如何处理题目的输入输出是对大家的一项最基本的要求。这也是困扰初学者的一大问题。
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">模板
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Java大数模板 二、Java之输入输出处理由于ACM竞赛题目的输入数据和输出数据一般有多组（不定），并且格式多种多样，所以，如何处理题目的输入输出是对大家的一项最基本的要求。这也是困扰初学者的一大问题。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-输入：
+<span title='2018-09-30 00:00:00 +0000 UTC'>September 30, 2018</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 模板" href="https://www.cheasim.com/2018/09/30/%E6%A8%A1%E6%9D%BF/"></a>
+</article>
 
-格式1：Scanner sc &#x3D; new Scanner (new BufferedInputStream(System.in));
-格式2：Scanner sc &#x3D; new Scanner (Syste...</div>
-      
-      <a class="read-more" href="/2018/09/30/2018-09-30-%E6%A8%A1%E6%9D%BF.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-28T16:00:00.000Z">2018-09-29</time>
-        
-          <span>学习笔记</span>
-        
-      </div>
-      <h2><a href="/2018/09/29/2018-09-29-%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">树链剖分学习笔记</a></h2>
-      
-        <div class="excerpt">树链剖分学习笔记题型当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。
-轻重边剖分将树中的边分为两部分，轻边和重边，用$size[u]$来记录以$u$为根的子树的节点个数，之后令$v$为$u$的儿子中$size$最大的一个，那么我们就可以将$u$的边分为重边和轻边了(重边就是$(u.v)$)。
-之后我们就可以得到...</div>
-      
-      <a class="read-more" href="/2018/09/29/2018-09-29-%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-27T16:00:00.000Z">2018-09-28</time>
-        
-          <span>专项练习</span>
-        
-      </div>
-      <h2><a href="/2018/09/28/2018-09-28-LCA%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0.html">LCA专项练习</a></h2>
-      
-        <div class="excerpt">LCA专项练习前提提要由于A,B太水了，就不放了。
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">树链剖分学习笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>树链剖分学习笔记 题型 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-29 00:00:00 +0000 UTC'>September 29, 2018</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 树链剖分学习笔记" href="https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">LCA专项练习
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>LCA专项练习 前提提要 由于A,B太水了，就不放了。
 前几题先试试用trajan能不能全杀，之后再看在线算法。
-易错点统计
-如果两个点相同，那么他们的祖先节点居然会变成0。。可能是我的模板写法有点问题。可以在判断vis[u]&#x3D;2的时候加上如果u&#x3D;now也是找到了公共祖先。
+易错点统计 如果两个点相同，那么他们的祖先节点居然会变成0。。可能是我的模板写法有点问题。可以在判断vis[u]=2的时候加上如果u=now也是找到了公共祖先。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-i&#x3D;fa[j]; 应该是fa[j] &#x3D; i;
+<span title='2018-09-28 00:00:00 +0000 UTC'>September 28, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to LCA专项练习" href="https://www.cheasim.com/2018/09/28/lca%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0/"></a>
+</article>
 
-如果要加入假设边的话，G[maxn
-
-
-C - Distance Querie...</div>
-      
-      <a class="read-more" href="/2018/09/28/2018-09-28-LCA%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0.html">阅读全文</a>
-    </article>
-  
-    <article class="post-entry">
-      <div class="post-meta">
-        <time datetime="2018-09-24T16:00:00.000Z">2018-09-25</time>
-        
-          <span>学习笔记</span>
-        
-      </div>
-      <h2><a href="/2018/09/25/2018-09-25-LCA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">LCA学习笔记</a></h2>
-      
-        <div class="excerpt">LCA学习笔记祖先的定义如果学习树结构就会明白除了根节点以外每个节点都有一个父节点，所以我们定义祖先为父节点的父节点，然后我们给出最近公共祖先的定义
-
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">LCA学习笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>LCA学习笔记 祖先的定义 如果学习树结构就会明白除了根节点以外每个节点都有一个父节点，所以我们定义祖先为父节点的父节点，然后我们给出最近公共祖先的定义
 一棵树祖先中到两个点距离最近的节点。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-能够解决LCA问题的方式有很多，所以作为一个ACM选手，肯定是我全都要
-解决方案欧拉序树的欧拉序是对树进行dfs的一种序列，他有两条性质
+<span title='2018-09-25 00:00:00 +0000 UTC'>September 25, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to LCA学习笔记" href="https://www.cheasim.com/2018/09/25/lca%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+</article>
 
-在每个节点进和出都加入序列
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Codeforces 833B - The Bakery
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Codeforces 833B - The Bakery 题意 将一段数字分成最多50个区间，每个区间的价值是区间内不同数字的个数，问怎么样分区间使得价值总和最大。
+题解 $dp$加线段树。
+$dp[i][j]$表示第$j$个坐标分成$i$块最大的价值。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
-只要到达每一个节点就把他加入序列
-
-
-那么我们寻找他们的最近公共祖先就可以从第...</div>
-      
-      <a class="read-more" href="/2018/09/25/2018-09-25-LCA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">阅读全文</a>
-    </article>
-  
-</section>
-
-
-  <nav class="paginator">
-    <a href="/page/5/">上一页</a>
-    <span>6 / 10</span>
-    <a href="/page/7/">下一页</a>
+<span title='2018-09-21 00:00:00 +0000 UTC'>September 21, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to Codeforces 833B - The Bakery" href="https://www.cheasim.com/2018/09/21/codeforces-833b-the-bakery/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://www.cheasim.com/page/5/">
+      «&nbsp;&nbsp;
+    </a>
+    <a class="next" href="https://www.cheasim.com/page/7/">&nbsp;&nbsp;»
+    </a>
   </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

@@ -1,75 +1,337 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Uncategorized | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/categories/uncategorized/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/categories/uncategorized/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/categories/uncategorized/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/categories/uncategorized/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="Uncategorized">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Uncategorized">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/categories/">Categories</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+  <h1>
+    Uncategorized
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">JavaBean和Hibernate
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="archive">
-  <h1>Posts</h1>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-10T16:00:00.000Z">2018-11-11</time>
-      <a href="/2018/11/11/2018-11-11-JavaBean%E5%92%8CHibernate.html">JavaBean和Hibernate</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-10T16:00:00.000Z">2018-11-11</time>
-      <a href="/2018/11/11/2018-11-11-jsp%E4%BD%9C%E4%B8%9A.html">jsp作业</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-19T16:00:00.000Z">2018-09-20</time>
-      <a href="/2018/09/20/2018-09-20-IDEA-%E9%85%8D%E7%BD%AEstruts2-tomcat.html">IDEA 配置struts2+tomcat</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-09T16:00:00.000Z">2018-09-10</time>
-      <a href="/2018/09/10/2018-09-10-%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF.html">快读模板</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-05T16:00:00.000Z">2018-09-06</time>
-      <a href="/2018/09/06/2018-09-06-kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E13-%E5%9F%BA%E7%A1%80%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95.html">[kuangbin带你飞13]基础计算几何</a>
-    </div>
-  
-</section>
+  <div class="entry-content">
+    <p>javabean学习笔记 参考https://www.cnblogs.com/Qian123/p/5277425.html
+JavaBean简介 javabeans就是符合某种特定规范的Java类，功能区分很明确，并且有如下设计原则
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-11-11 00:00:00 +0000 UTC'>November 11, 2018</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to JavaBean和Hibernate" href="https://www.cheasim.com/2018/11/11/javabean%E5%92%8Chibernate/"></a>
+</article>
 
-  <nav class="paginator">
-    <a href="/categories/uncategorized/">上一页</a>
-    <span>2 / 2</span>
-    
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">jsp作业
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>jsp第五次上机 题目1 实现Hibernate的增加数据功能
+题目2 实现Hibernate的查找数据功能
+项目构成 DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-11 00:00:00 +0000 UTC'>November 11, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to jsp作业" href="https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">IDEA 配置struts2&#43;tomcat
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>使用IDEA配置Struts2 Struts2版本选择 由于笔者学校环境有限，教的是版本是2.3版本，所以先去官网上下载2.3的最新版本。
+IDEA 配置struts2&#43;tomcat
+https://www.cheasim.com/uncategorized/2018/09/20/IDEA-%E9%85%8D%E7%BD%AEstruts2-tomcat.html
+作者 CheaSim
+发布于 2018-09-20
+更新于 2018-09-20
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-20 00:00:00 +0000 UTC'>September 20, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to IDEA 配置struts2&#43;tomcat" href="https://www.cheasim.com/2018/09/20/idea-%E9%85%8D%E7%BD%AEstruts2-tomcat/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">快读模板
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 template inline char int if while if } sgn = (c == &#39;-&#39; ret = (c == &#39;-&#39; while ret *= sgn; return } template void static if if while while } template void print(x); putchar } 快读模板
+https://www.cheasim.com/uncategorized/2018/09/10/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF.html
+作者 CheaSim
+发布于 2018-09-10
+更新于 2018-09-10
+许可协议
+</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-10 00:00:00 +0000 UTC'>September 10, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 快读模板" href="https://www.cheasim.com/2018/09/10/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[kuangbin带你飞13]基础计算几何
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[kuangbin带你飞13]基础计算几何
+https://www.cheasim.com/uncategorized/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E13-%E5%9F%BA%E7%A1%80%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95.html
+作者 CheaSim
+发布于 2018-09-06
+更新于 2018-09-06
+许可协议
+</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-06 00:00:00 +0000 UTC'>September 6, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [kuangbin带你飞13]基础计算几何" href="https://www.cheasim.com/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E13-%E5%9F%BA%E7%A1%80%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://www.cheasim.com/categories/uncategorized/">
+      «&nbsp;&nbsp;
+    </a>
   </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

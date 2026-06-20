@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>[hdoj6387]AraBellaC | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="AraBellaC
+题意
+一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。
+
+AAAABBBBCCCCC
+
+他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="[hdoj6387]AraBellaC">
+  <meta property="og:description" content="AraBellaC 题意 一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。
+AAAABBBBCCCCC 他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-11-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2018-11-18T00:00:00+00:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="[hdoj6387]AraBellaC">
+  <meta name="twitter:description" content="AraBellaC 题意 一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。
+AAAABBBBCCCCC 他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.cheasim.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "[hdoj6387]AraBellaC",
+      "item": "https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[hdoj6387]AraBellaC",
+  "name": "[hdoj6387]AraBellaC",
+  "description": "AraBellaC 题意 一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。\nAAAABBBBCCCCC 他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "AraBellaC 题意 一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。\nAAAABBBBCCCCC 他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。\n给定以下规则。\n给你$m$个位置的值。\n其余的位置\n问你生成一个序列，使得$a,b,c$的字典序最小，如果没有输出$NO$\n题解 二分。\n枚举重复序列的长度，那么我们要检验的就是$a,b,c$满足不满足要求。下面就可以用二分来解决。\n感觉复杂度有点高。。\n我们分别用三个数组存放A,B,C的位置。那么在搜索每个区间内的最后面的一个A，B，C和最前面的一个A，B，C。\n之后比较复杂的就是，将一些不对的答案剔除。\n因为我们得到了每个字母第一次出现和最后一次出现的位置，我们就可以得到$a,b,c$并且把一些值给剔除。\n定义$a_{max},a_{min},b_{max},b_{min},c_{max},c_{min}$分别为他们出现的位置。\n$a_{max} $a=a_{max}-begin+1,b = b_{max}-a_{max}+1,c = len-a-b$\nac代码 [hdoj6387]AraBellaC\nhttps://www.cheasim.com/acm/2018/11/18/hdoj6387-AraBellaC.html\n作者 CheaSim\n发布于 2018-11-18\n更新于 2018-11-18\n许可协议\n#二分\n",
+  "wordCount" : "423",
+  "inLanguage": "zh-cn",
+  "datePublished": "2018-11-18T00:00:00Z",
+  "dateModified": "2018-11-18T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "CheaSim"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CheaSim Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.cheasim.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      [hdoj6387]AraBellaC
+    </h1>
+    <div class="post-meta">
+
+<span title='2018-11-18 00:00:00 +0000 UTC'>November 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#arabellac" aria-label="AraBellaC">AraBellaC</a><ul>
+                    
+            <li>
+                <a href="#%e9%a2%98%e6%84%8f" aria-label="题意">题意</a></li>
+            <li>
+                <a href="#%e9%a2%98%e8%a7%a3" aria-label="题解">题解</a></li>
+            <li>
+                <a href="#ac%e4%bb%a3%e7%a0%81" aria-label="ac代码">ac代码</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h1 id="arabellac">AraBellaC<a hidden class="anchor" aria-hidden="true" href="#arabellac">#</a></h1>
+<h2 id="题意">题意<a hidden class="anchor" aria-hidden="true" href="#题意">#</a></h2>
+<p>一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。</p>
+<ul>
+<li>AAAABBBBCCCCC</li>
+</ul>
+<p>他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。</p>
+<p>给定以下规则。</p>
+<ul>
+<li>
+<p>给你$m$个位置的值。</p>
+</li>
+<li>
+<p>其余的位置</p>
+</li>
+</ul>
+<p>问你生成一个序列，使得$a,b,c$的字典序最小，如果没有输出$NO$</p>
+<h2 id="题解">题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h2>
+<p>二分。</p>
+<p>枚举重复序列的长度，那么我们要检验的就是$a,b,c$满足不满足要求。下面就可以用二分来解决。</p>
+<p>感觉复杂度有点高。。</p>
+<p>我们分别用三个数组存放A,B,C的位置。那么在搜索每个区间内的最后面的一个A，B，C和最前面的一个A，B，C。</p>
+<p>之后比较复杂的就是，将一些不对的答案剔除。</p>
+<p>因为我们得到了每个字母第一次出现和最后一次出现的位置，我们就可以得到$a,b,c$并且把一些值给剔除。</p>
+<p>定义$a_{max},a_{min},b_{max},b_{min},c_{max},c_{min}$分别为他们出现的位置。</p>
+<ul>
+<li>$a_{max}</li>
+</ul>
+<p>$a=a_{max}-begin+1,b = b_{max}-a_{max}+1,c = len-a-b$</p>
+<h2 id="ac代码">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码">#</a></h2>
+<p>[hdoj6387]AraBellaC</p>
+<p><a href="https://www.cheasim.com/acm/2018/11/18/hdoj6387-AraBellaC.html">https://www.cheasim.com/acm/2018/11/18/hdoj6387-AraBellaC.html</a></p>
+<p>作者
+CheaSim</p>
+<p>发布于
+2018-11-18</p>
+<p>更新于
+2018-11-18</p>
+<p>许可协议</p>
+<p>#<a href="/tags/%E4%BA%8C%E5%88%86/">二分</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://www.cheasim.com/2018/11/18/hdoj5881-tea/">
+    <span class="title">« </span>
+    <span>[hdoj5881]Tea</span>
+  </a>
+  <a class="next" href="https://www.cheasim.com/2018/11/17/cf-767b-the-queue/">
+    <span class="title"> »</span>
+    <span>[cf-767b]The Queue</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

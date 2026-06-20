@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>开发 on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in 开发 on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 07 May 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>echarts&#43;ajax&#43;struts2 实现数据图表动态加载并显示</title>
+      <link>https://www.cheasim.com/2019/05/07/echarts-ajax-struts2-%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%9B%BE%E8%A1%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%B9%B6%E6%98%BE%E7%A4%BA/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2019/05/07/echarts-ajax-struts2-%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%9B%BE%E8%A1%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%B9%B6%E6%98%BE%E7%A4%BA/</guid>
+      <description>&lt;h1 id=&#34;echartsajaxstruts2-实现数据图表动态加载并显示&#34;&gt;echarts+ajax+struts2 实现数据图表动态加载并显示&lt;/h1&gt;
+&lt;h2 id=&#34;echarts&#34;&gt;echarts&lt;/h2&gt;
+&lt;p&gt;百度出品的良心可视化数据js库。&lt;/p&gt;
+&lt;h3 id=&#34;简单小例子&#34;&gt;简单小例子&lt;/h3&gt;
+&lt;p&gt;12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273    图表分析        // 基于准备好的dom，初始化echarts实例    var myChart = echarts.init(document.getElementById(&amp;lsquo;main&amp;rsquo;));    // 指定图表的配置项和数据    option = {        backgroundColor: &amp;lsquo;#2c343c&amp;rsquo;,        visualMap: {            show: false,            min: 80,            max: 600,            inRange: {                colorLightness: [0, 1]            }        },        series : [            {                name: &amp;lsquo;访问来源&amp;rsquo;,                type: &amp;lsquo;pie&amp;rsquo;,                radius: &amp;lsquo;55%&amp;rsquo;,                data:[                    {value:235, name:&amp;lsquo;视频广告&amp;rsquo;},                    {value:274, name:&amp;lsquo;联盟广告&amp;rsquo;},                    {value:310, name:&amp;lsquo;邮件营销&amp;rsquo;},                    {value:335, name:&amp;lsquo;直接访问&amp;rsquo;},                    {value:400, name:&amp;lsquo;搜索引擎&amp;rsquo;}                ],                roseType: &amp;lsquo;angle&amp;rsquo;,                label: {                    normal: {                        textStyle: {                            color: &amp;lsquo;rgba(255, 255, 255, 0.3)&amp;rsquo;                        }                    }                },                labelLine: {                    normal: {                        lineStyle: {                            color: &amp;lsquo;rgba(255, 255, 255, 0.3)&amp;rsquo;                        }                    }                },                itemStyle: {                    normal: {                        color: &amp;lsquo;#c23531&amp;rsquo;,                        shadowBlur: 200,                        shadowColor: &amp;lsquo;rgba(0, 0, 0, 0.5)&amp;rsquo;                    }                }            }        ]    };    // 使用刚指定的配置项和数据显示图表。    myChart.setOption(option);&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>iBatis框架 粗略学习</title>
+      <link>https://www.cheasim.com/2018/11/19/ibatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Mon, 19 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2018/11/19/ibatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0/</guid>
+      <description>&lt;h1 id=&#34;ibatis&#34;&gt;iBatis&lt;/h1&gt;
+&lt;h2 id=&#34;jar包&#34;&gt;jar包&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Ibatis 2.3.4&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sql server&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;配置文件&#34;&gt;配置文件&lt;/h2&gt;
+&lt;p&gt;配置文件和Hibernate类似&lt;/p&gt;
+&lt;h2 id=&#34;映射文件&#34;&gt;映射文件&lt;/h2&gt;
+&lt;p&gt;他的映射方式是把CRUD映射到操作。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;iBatis框架 粗略学习
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://www.cheasim.com/%E5%BC%80%E5%8F%91/2018/11/19/iBatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;作者
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CheaSim
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;发布于
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2018-11-19
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;更新于
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2018-11-19
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;许可协议
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#[开发](/tags/%E5%BC%80%E5%8F%91/)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

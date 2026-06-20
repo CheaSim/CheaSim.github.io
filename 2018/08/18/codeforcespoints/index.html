@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>codeforcesPoints | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="codeforcesPoints
+题意
+给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。
+题解
+线段树&#43;set应用
+对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/2018/08/18/codeforcespoints/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/08/18/codeforcespoints/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/2018/08/18/codeforcespoints/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="codeforcesPoints">
+  <meta property="og:description" content="codeforcesPoints 题意 给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。
+题解 线段树&#43;set应用
+对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-08-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2018-08-18T00:00:00+00:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="codeforcesPoints">
+  <meta name="twitter:description" content="codeforcesPoints 题意 给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。
+题解 线段树&#43;set应用
+对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.cheasim.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "codeforcesPoints",
+      "item": "https://www.cheasim.com/2018/08/18/codeforcespoints/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "codeforcesPoints",
+  "name": "codeforcesPoints",
+  "description": "codeforcesPoints 题意 给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。\n题解 线段树+set应用\n对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "codeforcesPoints 题意 给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。\n题解 线段树+set应用\n对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。\n这是我第一次看到离散化的线段树应用。哭泣\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 #include using #define #define #define #define #define #define typedef typedef const inline //head const int set int char vector void if maxy[rt] = -1 return }else int build(lson); build(rson); } } void maxy[rt] = Max(maxy[rt codeforcesPoints https://www.cheasim.com/cf1500/2018/08/18/codeforcesPoints.html 作者 CheaSim 发布于 2018-08-18 更新于 2018-08-18 许可协议 ",
+  "wordCount" : "303",
+  "inLanguage": "zh-cn",
+  "datePublished": "2018-08-18T00:00:00Z",
+  "dateModified": "2018-08-18T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "CheaSim"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.cheasim.com/2018/08/18/codeforcespoints/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CheaSim Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.cheasim.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      codeforcesPoints
+    </h1>
+    <div class="post-meta">
+
+<span title='2018-08-18 00:00:00 +0000 UTC'>August 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#codeforcespoints" aria-label="codeforcesPoints">codeforcesPoints</a><ul>
+                    <ul>
+                    <ul>
+                    
+            <li>
+                <a href="#%e9%a2%98%e6%84%8f" aria-label="题意">题意</a></li>
+            <li>
+                <a href="#%e9%a2%98%e8%a7%a3" aria-label="题解">题解</a>
+            </li>
+        </ul>
+        </ul>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h1 id="codeforcespoints">codeforcesPoints<a hidden class="anchor" aria-hidden="true" href="#codeforcespoints">#</a></h1>
+<h4 id="题意">题意<a hidden class="anchor" aria-hidden="true" href="#题意">#</a></h4>
+<p>给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。</p>
+<h4 id="题解">题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h4>
+<p>线段树+set应用</p>
+<p>对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。</p>
+<p>这是我第一次看到离散化的线段树应用。哭泣</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="mi">9</span>
+</span></span><span class="line"><span class="cl"><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="mi">11</span>
+</span></span><span class="line"><span class="cl"><span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="mi">13</span>
+</span></span><span class="line"><span class="cl"><span class="mi">14</span>
+</span></span><span class="line"><span class="cl"><span class="mi">15</span>
+</span></span><span class="line"><span class="cl"><span class="mi">16</span>
+</span></span><span class="line"><span class="cl"><span class="mi">17</span>
+</span></span><span class="line"><span class="cl"><span class="mi">18</span>
+</span></span><span class="line"><span class="cl"><span class="mi">19</span>
+</span></span><span class="line"><span class="cl"><span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="mi">21</span>
+</span></span><span class="line"><span class="cl"><span class="mi">22</span>
+</span></span><span class="line"><span class="cl"><span class="mi">23</span>
+</span></span><span class="line"><span class="cl"><span class="mi">24</span>
+</span></span><span class="line"><span class="cl"><span class="mi">25</span>
+</span></span><span class="line"><span class="cl"><span class="mi">26</span>
+</span></span><span class="line"><span class="cl"><span class="mi">27</span>
+</span></span><span class="line"><span class="cl"><span class="mi">28</span>
+</span></span><span class="line"><span class="cl"><span class="mi">29</span>
+</span></span><span class="line"><span class="cl"><span class="mi">30</span>
+</span></span><span class="line"><span class="cl"><span class="mi">31</span>
+</span></span><span class="line"><span class="cl"><span class="mi">32</span>
+</span></span><span class="line"><span class="cl"><span class="mi">33</span>
+</span></span><span class="line"><span class="cl"><span class="mi">34</span>
+</span></span><span class="line"><span class="cl"><span class="mi">35</span>
+</span></span><span class="line"><span class="cl"><span class="mi">36</span>
+</span></span><span class="line"><span class="cl"><span class="mi">37</span>
+</span></span><span class="line"><span class="cl"><span class="mi">38</span>
+</span></span><span class="line"><span class="cl"><span class="mi">39</span>
+</span></span><span class="line"><span class="cl"><span class="mi">40</span>
+</span></span><span class="line"><span class="cl"><span class="mi">41</span>
+</span></span><span class="line"><span class="cl"><span class="mi">42</span>
+</span></span><span class="line"><span class="cl"><span class="mi">43</span>
+</span></span><span class="line"><span class="cl"><span class="mi">44</span>
+</span></span><span class="line"><span class="cl"><span class="mi">45</span>
+</span></span><span class="line"><span class="cl"><span class="mi">46</span>
+</span></span><span class="line"><span class="cl"><span class="mi">47</span>
+</span></span><span class="line"><span class="cl"><span class="mi">48</span>
+</span></span><span class="line"><span class="cl"><span class="mi">49</span>
+</span></span><span class="line"><span class="cl"><span class="mi">50</span>
+</span></span><span class="line"><span class="cl"><span class="mi">51</span>
+</span></span><span class="line"><span class="cl"><span class="mi">52</span>
+</span></span><span class="line"><span class="cl"><span class="mi">53</span>
+</span></span><span class="line"><span class="cl"><span class="mi">54</span>
+</span></span><span class="line"><span class="cl"><span class="mi">55</span>
+</span></span><span class="line"><span class="cl"><span class="mi">56</span>
+</span></span><span class="line"><span class="cl"><span class="mi">57</span>
+</span></span><span class="line"><span class="cl"><span class="mi">58</span>
+</span></span><span class="line"><span class="cl"><span class="mi">59</span>
+</span></span><span class="line"><span class="cl"><span class="mi">60</span>
+</span></span><span class="line"><span class="cl"><span class="mi">61</span>
+</span></span><span class="line"><span class="cl"><span class="mi">62</span>
+</span></span><span class="line"><span class="cl"><span class="mi">63</span>
+</span></span><span class="line"><span class="cl"><span class="mi">64</span>
+</span></span><span class="line"><span class="cl"><span class="mi">65</span>
+</span></span><span class="line"><span class="cl"><span class="mi">66</span>
+</span></span><span class="line"><span class="cl"><span class="mi">67</span>
+</span></span><span class="line"><span class="cl"><span class="mi">68</span>
+</span></span><span class="line"><span class="cl"><span class="mi">69</span>
+</span></span><span class="line"><span class="cl"><span class="mi">70</span>
+</span></span><span class="line"><span class="cl"><span class="mi">71</span>
+</span></span><span class="line"><span class="cl"><span class="mi">72</span>
+</span></span><span class="line"><span class="cl"><span class="mi">73</span>
+</span></span><span class="line"><span class="cl"><span class="mi">74</span>
+</span></span><span class="line"><span class="cl"><span class="mi">75</span>
+</span></span><span class="line"><span class="cl"><span class="mi">76</span>
+</span></span><span class="line"><span class="cl"><span class="mi">77</span>
+</span></span><span class="line"><span class="cl"><span class="mi">78</span>
+</span></span><span class="line"><span class="cl"><span class="mi">79</span>
+</span></span><span class="line"><span class="cl"><span class="mi">80</span>
+</span></span><span class="line"><span class="cl"><span class="mi">81</span>
+</span></span><span class="line"><span class="cl"><span class="mi">82</span>
+</span></span><span class="line"><span class="cl"><span class="mi">83</span>
+</span></span><span class="line"><span class="cl"><span class="mi">84</span>
+</span></span><span class="line"><span class="cl"><span class="mi">85</span>
+</span></span><span class="line"><span class="cl"><span class="mi">86</span>
+</span></span><span class="line"><span class="cl"><span class="mi">87</span>
+</span></span><span class="line"><span class="cl"><span class="mi">88</span>
+</span></span><span class="line"><span class="cl"><span class="mi">89</span>
+</span></span><span class="line"><span class="cl"><span class="mi">90</span>
+</span></span><span class="line"><span class="cl"><span class="mi">91</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define
+</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//head
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span>
+</span></span><span class="line"><span class="cl"><span class="n">maxy</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">build</span><span class="p">(</span><span class="n">lson</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">build</span><span class="p">(</span><span class="n">rson</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="n">maxy</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">=</span> <span class="n">Max</span><span class="p">(</span><span class="n">maxy</span><span class="p">[</span><span class="n">rt</span>
+</span></span><span class="line"><span class="cl"><span class="n">codeforcesPoints</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">https</span><span class="p">:</span><span class="c1">//www.cheasim.com/cf1500/2018/08/18/codeforcesPoints.html
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">作者</span>
+</span></span><span class="line"><span class="cl"><span class="n">CheaSim</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">发布于</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">更新于</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">许可协议</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://www.cheasim.com/2018/08/19/%E9%80%86%E5%85%83%E6%A8%A1%E6%9D%BF/">
+    <span class="title">« </span>
+    <span>逆元模板</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,100 +1,408 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Acm | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/categories/acm/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/categories/acm/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/categories/acm/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/categories/acm/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="Acm">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Acm">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/categories/">Categories</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+  <h1>
+    Acm
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6376]度度熊剪纸条
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="archive">
-  <h1>Posts</h1>
-  
-    <div class="archive-row">
-      <time datetime="2018-10-11T16:00:00.000Z">2018-10-12</time>
-      <a href="/2018/10/12/2018-10-12-hdoj6376-%E5%BA%A6%E5%BA%A6%E7%86%8A%E5%89%AA%E7%BA%B8%E6%9D%A1.html">[hdoj6376]度度熊剪纸条</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-10-10T16:00:00.000Z">2018-10-11</time>
-      <a href="/2018/10/11/2018-10-11-hdoj4628-Pieces.html">[hdoj4628]Pieces</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-10-08T16:00:00.000Z">2018-10-09</time>
-      <a href="/2018/10/09/2018-10-09-%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A.html">树形dp5题连做</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-17T16:00:00.000Z">2018-09-18</time>
-      <a href="/2018/09/18/2018-09-18-HDOJ5592-ZYB-s-Premutation.html">[HDOJ5592] ZYB&#39;s Premutation</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-16T16:00:00.000Z">2018-09-17</time>
-      <a href="/2018/09/17/2018-09-17-The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online.html">The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-09T16:00:00.000Z">2018-09-10</time>
-      <a href="/2018/09/10/2018-09-10-ACM-ICPC-2018-%E5%BE%90%E5%B7%9E%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E9%A2%84%E8%B5%9B.html">ACM-ICPC 2018 徐州赛区网络预赛</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-06T16:00:00.000Z">2018-09-07</time>
-      <a href="/2018/09/07/2018-09-07-hdoj1540-Tunnel-Warfare.html">[hdoj1540]Tunnel Warfare</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-05T16:00:00.000Z">2018-09-06</time>
-      <a href="/2018/09/06/2018-09-06-hdoj5521-Meeting.html">[hdoj5521]Meeting</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-05T16:00:00.000Z">2018-09-06</time>
-      <a href="/2018/09/06/2018-09-06-kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E7-%E7%BA%BF%E6%AE%B5%E6%A0%91.html">[kuangbin带你飞7]线段树</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-09-04T16:00:00.000Z">2018-09-05</time>
-      <a href="/2018/09/05/2018-09-05-nowcoder3-%E8%A1%A5%E9%A2%98%E5%90%91.html">[nowcoder3]补题向</a>
-    </div>
-  
-</section>
+  <div class="entry-content">
+    <p>度度熊剪纸条 题意 将一段01的序列分成$k$段，将他们重新拼接，问拼接成的纸条中前导0最多有多少个。
+拼接不可以改变方向。 题解 我模拟下来就是我们可以将这段序列分成三部分，
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-10-12 00:00:00 +0000 UTC'>October 12, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6376]度度熊剪纸条" href="https://www.cheasim.com/2018/10/12/hdoj6376-%E5%BA%A6%E5%BA%A6%E7%86%8A%E5%89%AA%E7%BA%B8%E6%9D%A1/"></a>
+</article>
 
-  <nav class="paginator">
-    <a href="/categories/acm/">上一页</a>
-    <span>2 / 4</span>
-    <a href="/categories/acm/page/3/">下一页</a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4628]Pieces
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>HDU - 6071 题意 将一个字符串每次减少一个子回文串，例子avdffd可以减少dd，就是subsequence。问最少减少几个回文子串可以使得字符串消失。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-10-11 00:00:00 +0000 UTC'>October 11, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4628]Pieces" href="https://www.cheasim.com/2018/10/11/hdoj4628-pieces/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">树形dp5题连做
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>树形dp，3天搞定 A - Information Disturbing 题意 对于一棵树，切断一些边使得每一个叶节点都无法连接到根节点，有两个要求
+每条边带权重，切掉的边权重和不大于$m$
+切掉的每条边都不能大于一个$ans$
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-10-09 00:00:00 +0000 UTC'>October 9, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to 树形dp5题连做" href="https://www.cheasim.com/2018/10/09/%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[HDOJ5592] ZYB&#39;s Premutation
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[HDOJ5592] ZYB’s Premutation 题意 ZYB有一个序列所有的逆序数前缀和，$a_1,a_2,a_3,…,a_n$，他们各个都表示从1到$i$的逆序数的前缀和。
+题解 树状数组&#43;二分
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-18 00:00:00 +0000 UTC'>September 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [HDOJ5592] ZYB&#39;s Premutation" href="https://www.cheasim.com/2018/09/18/hdoj5592-zyb-s-premutation/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online（青岛网络赛） B.Red Black Tree 题意 题解 ac代码 J.Press the Button 题意 题解 ac代码 H Traveling on the Axis 题意 BOB走在$[1,n]$的路上，每两个点中间都有一个红绿灯，每一秒钟，
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-17 00:00:00 +0000 UTC'>September 17, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online" href="https://www.cheasim.com/2018/09/17/the-2018-acm-icpc-asia-qingdao-regional-contest-online/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ACM-ICPC 2018 徐州赛区网络预赛
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ACM-ICPC 2018 徐州赛区网络预赛 A. Hard to prepare 题意 $n$个人围成环，每个人可以选择$[0,2^k-1]$中的一个数字，要求相邻两人不能同或为0。
+题解 递归。
+可以YY出，第一个人有$2^k$种选择，之后第2到第$n-1$个人有$2^k-1$种选择，最后一个人可能可以选$2^k-2$，也可能可以选$2^k-1$。这取决于倒数第二个人是否跟第一个人选一样的。这时候我们就可以加上如果第一个人和倒数第二个人选择相同，并且，最后一个人多选了那$2^k-1-(2^k-2)$种，那么他们三个点变成一个点来选择了。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-10 00:00:00 +0000 UTC'>September 10, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to ACM-ICPC 2018 徐州赛区网络预赛" href="https://www.cheasim.com/2018/09/10/acm-icpc-2018-%E5%BE%90%E5%B7%9E%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E9%A2%84%E8%B5%9B/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj1540]Tunnel Warfare
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Tunnel Warfare 题意 在一条线上有二种操作
+删掉一个点
+恢复一个点
+求某一个点和与之相连点的个数。
+题解 线段树设左右标志或者是树状数组二分
+HDOJ可以线段树&#43;二分。
+Cnm hdoj 多组数据不给提示
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-07 00:00:00 +0000 UTC'>September 7, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj1540]Tunnel Warfare" href="https://www.cheasim.com/2018/09/07/hdoj1540-tunnel-warfare/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj5521]Meeting
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Meeting 题意 将图分成$m$个块，每个块中的点到块中点的需要的时间为$E_i$。Bessie在点1，Elsie在点$n$，问他们在最短的时间走到可以到哪一个点会和。点可以在不同的块中。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-06 00:00:00 +0000 UTC'>September 6, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj5521]Meeting" href="https://www.cheasim.com/2018/09/06/hdoj5521-meeting/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[kuangbin带你飞7]线段树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>kuangbin带你飞7 前言 作为一名acm选手，不能连线段树都不会，练就完事了。而且我越发觉得在赛场上不能卡机，中档题才是区分牌子的题目。只有慢慢思索的题目才能真正地提高自己，立下一个flag，每十天完成一个kuangbin专题。现在时间9/6。必须在9/16完成这个线段树专题，就算是困死也得完成。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-06 00:00:00 +0000 UTC'>September 6, 2018</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [kuangbin带你飞7]线段树" href="https://www.cheasim.com/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E7-%E7%BA%BF%E6%AE%B5%E6%A0%91/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[nowcoder3]补题向
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>J.Coloring Tree 题意 给一棵树，每个节点从$[1,k]$选择一种颜色染。定义树的颜色值为两个相同颜色节点之间的最小值。问如果一棵树的颜色值为$D$，那么它有多少种染色方式。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-09-05 00:00:00 +0000 UTC'>September 5, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [nowcoder3]补题向" href="https://www.cheasim.com/2018/09/05/nowcoder3-%E8%A1%A5%E9%A2%98%E5%90%91/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://www.cheasim.com/categories/acm/">
+      «&nbsp;&nbsp;
+    </a>
+    <a class="next" href="https://www.cheasim.com/categories/acm/page/3/">&nbsp;&nbsp;»
+    </a>
   </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

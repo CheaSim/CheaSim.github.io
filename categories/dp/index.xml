@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Dp on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/dp/</link>
+    <description>Recent content in Dp on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 03 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[cf706C]Hard Problem</title>
+      <link>https://www.cheasim.com/2019/03/03/cf706c-hard-problem/</link>
+      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2019/03/03/cf706c-hard-problem/</guid>
+      <description>&lt;h1 id=&#34;706c---hard-problem&#34;&gt;706C - Hard problem&lt;/h1&gt;
+&lt;h2 id=&#34;题意&#34;&gt;题意&lt;/h2&gt;
+&lt;p&gt;题意很简单，就是给定$n$串字符串，对每一串字符串只有一种操作，翻转。之后每翻转一个字符串需要消耗$c_i$的能量，问至少需要多少能量是的，这$n$个字符串是以字典序排列的。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,100 +1,409 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CheaSim Blog</title>
-  <meta name="description" content="CheaSim 的技术博客">
-  <link rel="stylesheet" href="/css/style.css">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Acm | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/categories/acm/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/categories/acm/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/categories/acm/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/categories/acm/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="Acm">
+  <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Acm">
+  <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
+
 </head>
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <a class="site-title" href="/">CheaSim Blog</a>
-      <div class="site-links">
-        
-          <a href="/">Home</a>
-        
-          <a href="/about/">About</a>
-        
-          <a href="/archives/">Archives</a>
-        
-          <a href="/tags/">Tags</a>
-        
-          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
-        
-      </div>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/categories/">Categories</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+  <h1>
+    Acm
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj5559]Frog and String
+    </h2>
   </header>
-  <main class="site-main">
-    <section class="archive">
-  <h1>Posts</h1>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-20T16:00:00.000Z">2018-11-21</time>
-      <a href="/2018/11/21/2018-11-21-hdoj5559-Frog-and-String.html">[hdoj5559]Frog and String</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-17T16:00:00.000Z">2018-11-18</time>
-      <a href="/2018/11/18/2018-11-18-hdoj5881-Tea.html">[hdoj5881]Tea</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-17T16:00:00.000Z">2018-11-18</time>
-      <a href="/2018/11/18/2018-11-18-hdoj6387-AraBellaC.html">[hdoj6387]AraBellaC</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-16T16:00:00.000Z">2018-11-17</time>
-      <a href="/2018/11/17/2018-11-17-cf-767D-Cartons-of-milk.html">[cf-767D]Cartons of milk</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-16T16:00:00.000Z">2018-11-17</time>
-      <a href="/2018/11/17/2018-11-17-cf-767b-The-Queue.html">[cf-767b]The Queue</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-16T16:00:00.000Z">2018-11-17</time>
-      <a href="/2018/11/17/2018-11-17-uva10479-The-Hendrie-Sqquence.html">[uva10479]The Hendrie Sqquence</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-15T16:00:00.000Z">2018-11-16</time>
-      <a href="/2018/11/16/2018-11-16-hdoj5505-GT-and-numbers.html">[hdoj5505]GT and numbers</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-11-10T16:00:00.000Z">2018-11-11</time>
-      <a href="/2018/11/11/2018-11-11-77c-Beavermuncher-0xFF%E6%A0%91%E5%BD%A2dp-%E8%B4%AA%E5%BF%83.html">[77c Beavermuncher-0xFF树形dp+贪心</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-10-21T16:00:00.000Z">2018-10-22</time>
-      <a href="/2018/10/22/2018-10-22-hdoj4622-Reincarnation-%E5%AD%97%E7%AC%A6%E4%B8%B2hash-dp.html">[hdoj4622]Reincarnation 字符串hash+dp</a>
-    </div>
-  
-    <div class="archive-row">
-      <time datetime="2018-10-12T16:00:00.000Z">2018-10-13</time>
-      <a href="/2018/10/13/2018-10-13-hdoj6406-Taotao-Picks-Apple.html">[hdoj6406]Taotao Picks Apple</a>
-    </div>
-  
-</section>
+  <div class="entry-content">
+    <p>Frog and String 题意 给定一个字符串的长度和他里面子回文串的个数。
+子回文串是连续子串，并且相同的回文串不重复计数
+字符串由前$K$个字符构成
+题解 构造题嘛，最重要的就是规律啦。
+...</p>
+  </div>
+  <footer class="entry-footer">
 
+<span title='2018-11-21 00:00:00 +0000 UTC'>November 21, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj5559]Frog and String" href="https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/"></a>
+</article>
 
-  <nav class="paginator">
-    
-    <span>1 / 4</span>
-    <a href="/categories/acm/page/2/">下一页</a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj5881]Tea
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Tea 题意 题意有点复杂。给你一壶茶，容量范围为$[L,R]$。之后给你两个杯子。让你从茶壶中往杯子里加茶。结果有以下要求。
+经过$ans$次加水,$ans$最小
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-18 00:00:00 +0000 UTC'>November 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj5881]Tea" href="https://www.cheasim.com/2018/11/18/hdoj5881-tea/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6387]AraBellaC
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>AraBellaC 题意 一段序列中只有$A,B,C$三种字母，这段序列是一段周期序列，并且他的重复序列是这样子的。
+AAAABBBBCCCCC 他的重复序列由$a$个A,$b$个B,$c$个C组成，并且是有顺序的。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-18 00:00:00 +0000 UTC'>November 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6387]AraBellaC" href="https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[cf-767b]The Queue
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>The Queue 题意 题意有点复杂，懒得写了。
+题解 贪心。
+注意的点就是，可以在还没有开始就进入队列进行排队，所以计算的时候虽然是一样的，但还是要注意一下。
+特殊情况就是对于在ed以后的人来说，他们就不算了，不算人。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-17 00:00:00 +0000 UTC'>November 17, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [cf-767b]The Queue" href="https://www.cheasim.com/2018/11/17/cf-767b-the-queue/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[cf-767D]Cartons of milk
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Cartons of milk 题意 每天喝$k$瓶牛奶，每瓶牛奶都有$s$的保质日期，现在我有$n$瓶牛奶，去商场最多可以买多少瓶牛奶。
+条件是每天都要喝$k$瓶牛奶，在最有情况下所有牛奶都不会过期。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-17 00:00:00 +0000 UTC'>November 17, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [cf-767D]Cartons of milk" href="https://www.cheasim.com/2018/11/17/cf-767d-cartons-of-milk/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[uva10479]The Hendrie Sqquence
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>The Hendrie Sequence 题意 给定一段序列的生成方式，问第$n$个元素是多少。 $0
+$H(1) = 0$
+$H(n) = H(n-1)$中的每个元素$a_i$，那么每个元素就生成一个小子序列$0,0,0,0,0,a_i&#43;1$其中$0$的个数是$a_i$。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-17 00:00:00 +0000 UTC'>November 17, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [uva10479]The Hendrie Sqquence" href="https://www.cheasim.com/2018/11/17/uva10479-the-hendrie-sqquence/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj5505]GT and numbers
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>GT and numbers 题意 题目意思比较绕，就是给定一个$N$和$M$问至少要多少次下列的操作可以使得$N$等于$M$。
+将N乘上一个它的因子(注意$N$也会变)。 题解 由于我们要求$N$转化成$M$，那么其实就是他们的素因子变成相同。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-16 00:00:00 +0000 UTC'>November 16, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj5505]GT and numbers" href="https://www.cheasim.com/2018/11/16/hdoj5505-gt-and-numbers/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[77c Beavermuncher-0xFF树形dp&#43;贪心
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>C. Beavermuncher-0xFF 题意 给你一颗树，树上的每个节点有$n$个海狸。现在你在节点$root$上你前往下一个节点的条件是下一个节点上面至少有一个海狸，之后你到这个节点之后，你就会吃掉这个海狸。问最多能吃掉多少只海狸。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-11-11 00:00:00 +0000 UTC'>November 11, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [77c Beavermuncher-0xFF树形dp&#43;贪心" href="https://www.cheasim.com/2018/11/11/77c-beavermuncher-0xff%E6%A0%91%E5%BD%A2dp-%E8%B4%AA%E5%BF%83/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj4622]Reincarnation 字符串hash&#43;dp
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Reincarnation 题意 区间查询不同字符串的数量。
+题解 字符串hash&#43;dp思想
+我们从$1-len$枚举子串的长度，如果该区间内子串就加1。由于可能会有重复所以记录长度为$x$的子串最后一次出现的$L$。如果子串出现过那么$dp[L][R]-1$。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-10-22 00:00:00 +0000 UTC'>October 22, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj4622]Reincarnation 字符串hash&#43;dp" href="https://www.cheasim.com/2018/10/22/hdoj4622-reincarnation-%E5%AD%97%E7%AC%A6%E4%B8%B2hash-dp/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">[hdoj6406]Taotao Picks Apple
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Taotao Picks Apples 题意 一段序列，从中挑选的子序列是这样规定的
+能取就取，而且取得数字一定要比上一次取得数字要大。
+已知一段序列，问如果改变序列中的一个数字，那么取得数字的个数是多少。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-10-13 00:00:00 +0000 UTC'>October 13, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [hdoj6406]Taotao Picks Apple" href="https://www.cheasim.com/2018/10/13/hdoj6406-taotao-picks-apple/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://www.cheasim.com/categories/acm/page/2/">&nbsp;&nbsp;»
+    </a>
   </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
 
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </main>
-  <footer class="site-footer">
-    <span>&copy; 2026 CheaSim</span>
-  </footer>
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
+
 </html>

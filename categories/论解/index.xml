@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>论解 on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/%E8%AE%BA%E8%A7%A3/</link>
+    <description>Recent content in 论解 on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/%E8%AE%BA%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ALBERT 更小但是更慢？</title>
+      <link>https://www.cheasim.com/2020/11/18/albert-%E6%9B%B4%E5%B0%8F%E4%BD%86%E6%98%AF%E6%9B%B4%E6%85%A2/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2020/11/18/albert-%E6%9B%B4%E5%B0%8F%E4%BD%86%E6%98%AF%E6%9B%B4%E6%85%A2/</guid>
+      <description>&lt;h1 id=&#34;albert-更小但是更慢&#34;&gt;ALBERT 更小但是更慢？&lt;/h1&gt;
+&lt;p&gt;最近由于参加阅读理解比赛，所以大量测试各种模型，惊奇地发现原本现在阅读理解比赛中SOTA的模型居然是不起眼并且以小模型闻名的ALBERT。这让我对这个“小”模型产生了好奇。从而写一下这份的论文笔记。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

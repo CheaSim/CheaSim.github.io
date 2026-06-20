@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>搬砖 on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/%E6%90%AC%E7%A0%96/</link>
+    <description>Recent content in 搬砖 on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 08 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/%E6%90%AC%E7%A0%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SSH中的SH配置</title>
+      <link>https://www.cheasim.com/2018/11/08/ssh%E4%B8%AD%E7%9A%84sh%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Thu, 08 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2018/11/08/ssh%E4%B8%AD%E7%9A%84sh%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;h1 id=&#34;ideahibernatestruts2&#34;&gt;IDEA+Hibernate+Struts2&lt;/h1&gt;
+&lt;p&gt;笔者能力有限，只能用老版Hibernate和老版Struts2.&lt;/p&gt;
+&lt;p&gt;我们在IDEA中选择Struts2中的2.3版本我是直接下了jar包加入进去的，还有自动下载Hibernate3.6中的。之后进行配置。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

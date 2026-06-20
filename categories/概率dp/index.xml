@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>概率dp on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/%E6%A6%82%E7%8E%87dp/</link>
+    <description>Recent content in 概率dp on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 10 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/%E6%A6%82%E7%8E%87dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>概率dp入门</title>
+      <link>https://www.cheasim.com/2018/09/10/%E6%A6%82%E7%8E%87dp%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2018/09/10/%E6%A6%82%E7%8E%87dp%E5%85%A5%E9%97%A8/</guid>
+      <description>&lt;h1 id=&#34;概率dp&#34;&gt;概率dp&lt;/h1&gt;
+&lt;p&gt;概率dp有两种题型，一种是求概率一种是求期望。&lt;/p&gt;
+&lt;p&gt;来结合一下题目&lt;/p&gt;
+&lt;h2 id=&#34;aeroplane-chess&#34;&gt;Aeroplane chess&lt;/h2&gt;
+&lt;h3 id=&#34;题意&#34;&gt;题意&lt;/h3&gt;
+&lt;p&gt;一个人在一条线上掷骰子，在线上有类似飞行棋的可以直接到达某个点的特殊点，问从$0$到$n$掷骰子次数的数学期望是多少？&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

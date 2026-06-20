@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>web应用开发笔记 | CheaSim Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="web应用开发
+现代人的生活方式
+
+
+移动端,mobile
+
+
+浏览器,browser
+
+
+10年前还是以客户端,client软件形式。
+两个主流技术
+
+
+.Net
+
+
+J2ee
+
+
+.Net过气了，用J2ee
+J2ee的三个方面
+
+
+M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。
+承载数据。">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://www.cheasim.com/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="web应用开发笔记">
+  <meta property="og:description" content="web应用开发 现代人的生活方式
+移动端,mobile
+浏览器,browser
+10年前还是以客户端,client软件形式。
+两个主流技术 .Net
+J2ee
+.Net过气了，用J2ee
+J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。 承载数据。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-09-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2018-09-03T00:00:00+00:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="web应用开发笔记">
+  <meta name="twitter:description" content="web应用开发 现代人的生活方式
+移动端,mobile
+浏览器,browser
+10年前还是以客户端,client软件形式。
+两个主流技术 .Net
+J2ee
+.Net过气了，用J2ee
+J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。 承载数据。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.cheasim.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "web应用开发笔记",
+      "item": "https://www.cheasim.com/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "web应用开发笔记",
+  "name": "web应用开发笔记",
+  "description": "web应用开发 现代人的生活方式\n移动端,mobile\n浏览器,browser\n10年前还是以客户端,client软件形式。\n两个主流技术 .Net\nJ2ee\n.Net过气了，用J2ee\nJ2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。 承载数据。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "web应用开发 现代人的生活方式\n移动端,mobile\n浏览器,browser\n10年前还是以客户端,client软件形式。\n两个主流技术 .Net\nJ2ee\n.Net过气了，用J2ee\nJ2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。 承载数据。\n把数据中的信息进行表达convey，存储信息和加工信息。\n不只是一个dbms。\nV 视图:将信息呈现出来，view显示。 把数据呈现给用户。\n承载用户修改功能，使用户能够修改信息。\nC 控制:把用户的信息进行处理(按照一定的算法和一定的逻辑)，之后再保存在M端。\nsummary：M存储信息，V交互，C逻辑控制（算法）。\n梅宏，杨芙青，吕健——网构建\n开发V端 V html,jsp,css,jQuery\n自学html。 在w3c学\njQuery,是js的一个库。\nextjs 扩展版js 丰富了UI设计功能\n开发M端 MySql，Oracle，SQL server,DB2,Access\n框架Hibernate统一了不同的dbms的操作。\n缺点：是将数据和公共模型进行映射，一旦确定就不好改变，开发的时候麻烦。\niBatis 容易改进的框架\nMyBatis\n开发C端 struts 框架，把数据进行逻辑处理之后保存到M端。\njQuery js spring 开发代码是Java。framework\n开发模式 Html + css + mySQL 几种在view端和modle端\njsp + css + mySQL\njQuery+css+mySQL\nPHP + css + mySQL\n这些都是小型网站。 乐色\n我们的模式\nJSP+Struts+mySQL plus + spring + ssh\nReal 项目： JSP + SSH + CSS + MYSQL\nSSH Spring Struts Hibernate JSP详解 element 语素 1 2 3 有三类语句 表达式\n小脚本\n声明\n声明 table称为一个标签，tag。标签有很多属性\n看看JSP和mySQL NaviCat可视化操作MySQL\n1433 SQLServer\n3306 mySQL 端口\n各种端口号是必记。\nMyecl 集成了子IDE,所以比较方便。\nJAR包 是将java代码和文档集成在一个包中。\n5.1.35java connect是可以用的\njdbc driver\nURL，第一节是JDBC协议，第二节是MySQL表示数据库名称，第三节是代表这MySQL服务器的名字，localhost 127.0.0.1,第四节是端口号。后面都删掉。后面是连着的库。\ndriver name 随便取。\nSchema 是 database的超集。 datebase是table的超集。\n数据库 1 StringTypeConversion //把子段转化成串 connection transantion statement resultset\n先建立连接，使用JSP连接MySQL\ngetConnection函数是静态类型，可以通过类名直接调用函数。\n语句分为两方面\n静态的，\n动态的，是由运行时候确定的查询和修改语句\n获得了resultset之后因为其中有很多条记录，所以必须要用循环。resultset自带了迭代器，iterator。一行一行，一个记录一个记录访问。\n1 2 3 4 5 6 //把当前指针指向的record赋予re,之后指针往下走。 while TypeConversion(rs,Type.VARCHAR,1 //and so on 把结果串加入过来。 } 1 2 3 4 rs.close(); stmt.close(); conn.close(); // 记得关闭连接 一级一级一级往回退 交互界面(登陆界面) 早年窗口还叫Window，现在流行叫frame。\n使用html的指令去做\n使用JSTL做窗口，使用扩展模板库\n1 2 3 - web.xml - 配置struts.xml文件 - 建立Action类文件 - 建立Action执行后转向的jsp文件。 ## 例子 ${message} 直接将message类中的信息直接输出出来。 他把control端的数据在页面里输出出来。 那么如何把view端的数据在control中获得呢？ ### 实现原理 - 数据共享 data sharing - 配置文件 configuration struts2提供在一个类中，具有一定特征的函数就可以映射成actions。 ### result dispatcher分发包裹的方式，之前建立的页面缺省的是dispatcher。 web应用开发笔记 https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0.html 作者 CheaSim 发布于 2018-09-03 更新于 2018-12-08 许可协议 #[web](/tags/web/) ",
+  "wordCount" : "1405",
+  "inLanguage": "zh-cn",
+  "datePublished": "2018-09-03T00:00:00Z",
+  "dateModified": "2018-09-03T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "CheaSim"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.cheasim.com/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CheaSim Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.cheasim.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      web应用开发笔记
+    </h1>
+    <div class="post-meta">
+
+<span title='2018-09-03 00:00:00 +0000 UTC'>September 3, 2018</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#web%e5%ba%94%e7%94%a8%e5%bc%80%e5%8f%91" aria-label="web应用开发">web应用开发</a><ul>
+                    
+            <li>
+                <a href="#%e4%b8%a4%e4%b8%aa%e4%b8%bb%e6%b5%81%e6%8a%80%e6%9c%af" aria-label="两个主流技术">两个主流技术</a><ul>
+                    
+            <li>
+                <a href="#j2ee%e7%9a%84%e4%b8%89%e4%b8%aa%e6%96%b9%e9%9d%a2" aria-label="J2ee的三个方面">J2ee的三个方面</a></li>
+            <li>
+                <a href="#%e5%bc%80%e5%8f%91v%e7%ab%af" aria-label="开发V端">开发V端</a></li>
+            <li>
+                <a href="#%e5%bc%80%e5%8f%91m%e7%ab%af" aria-label="开发M端">开发M端</a></li>
+            <li>
+                <a href="#%e5%bc%80%e5%8f%91c%e7%ab%af" aria-label="开发C端">开发C端</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%bc%80%e5%8f%91%e6%a8%a1%e5%bc%8f" aria-label="开发模式">开发模式</a><ul>
+                    
+            <li>
+                <a href="#ssh-spring-struts-hibernate" aria-label="SSH Spring Struts Hibernate">SSH Spring Struts Hibernate</a></li></ul>
+            </li>
+            <li>
+                <a href="#jsp%e8%af%a6%e8%a7%a3" aria-label="JSP详解">JSP详解</a></li>
+            <li>
+                <a href="#element-%e8%af%ad%e7%b4%a0" aria-label="element 语素">element 语素</a><ul>
+                    
+            <li>
+                <a href="#%e6%9c%89%e4%b8%89%e7%b1%bb%e8%af%ad%e5%8f%a5" aria-label="有三类语句">有三类语句</a></li>
+            <li>
+                <a href="#%e5%a3%b0%e6%98%8e" aria-label="声明">声明</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e7%9c%8b%e7%9c%8bjsp%e5%92%8cmysql" aria-label="看看JSP和mySQL">看看JSP和mySQL</a><ul>
+                    
+            <li>
+                <a href="#myecl" aria-label="Myecl">Myecl</a></li>
+            <li>
+                <a href="#jar%e5%8c%85" aria-label="JAR包">JAR包</a></li>
+            <li>
+                <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93" aria-label="数据库">数据库</a></li>
+            <li>
+                <a href="#%e4%ba%a4%e4%ba%92%e7%95%8c%e9%9d%a2%e7%99%bb%e9%99%86%e7%95%8c%e9%9d%a2" aria-label="交互界面(登陆界面)">交互界面(登陆界面)</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><h1 id="web应用开发">web应用开发<a hidden class="anchor" aria-hidden="true" href="#web应用开发">#</a></h1>
+<p>现代人的生活方式</p>
+<ul>
+<li>
+<p>移动端,mobile</p>
+</li>
+<li>
+<p>浏览器,browser</p>
+</li>
+</ul>
+<p>10年前还是以客户端,client软件形式。</p>
+<h2 id="两个主流技术">两个主流技术<a hidden class="anchor" aria-hidden="true" href="#两个主流技术">#</a></h2>
+<ul>
+<li>
+<p>.Net</p>
+</li>
+<li>
+<p>J2ee</p>
+</li>
+</ul>
+<p>.Net过气了，用J2ee</p>
+<h3 id="j2ee的三个方面">J2ee的三个方面<a hidden class="anchor" aria-hidden="true" href="#j2ee的三个方面">#</a></h3>
+<ul>
+<li>
+<p>M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。
+承载数据。</p>
+</li>
+<li>
+<p>把数据中的信息进行表达convey，存储信息和加工信息。</p>
+</li>
+<li>
+<p>不只是一个dbms。</p>
+</li>
+<li>
+<p>V 视图:将信息呈现出来，view显示。
+把数据呈现给用户。</p>
+</li>
+<li>
+<p>承载用户修改功能，使用户能够修改信息。</p>
+</li>
+<li>
+<p>C 控制:把用户的信息进行处理(按照一定的算法和一定的逻辑)，之后再保存在M端。</p>
+</li>
+</ul>
+<p>summary：M存储信息，V交互，C逻辑控制（算法）。</p>
+<p>梅宏，杨芙青，吕健——网构建</p>
+<h3 id="开发v端">开发V端<a hidden class="anchor" aria-hidden="true" href="#开发v端">#</a></h3>
+<p>V html,jsp,css,jQuery</p>
+<p>自学html。 在w3c学</p>
+<p>jQuery,是js的一个库。</p>
+<p>extjs 扩展版js 丰富了UI设计功能</p>
+<h3 id="开发m端">开发M端<a hidden class="anchor" aria-hidden="true" href="#开发m端">#</a></h3>
+<p>MySql，Oracle，SQL server,DB2,Access</p>
+<p>框架Hibernate统一了不同的dbms的操作。</p>
+<p>缺点：是将数据和公共模型进行映射，一旦确定就不好改变，开发的时候麻烦。</p>
+<p>iBatis 容易改进的框架</p>
+<p>MyBatis</p>
+<h3 id="开发c端">开发C端<a hidden class="anchor" aria-hidden="true" href="#开发c端">#</a></h3>
+<p>struts 框架，把数据进行逻辑处理之后保存到M端。</p>
+<p>jQuery js spring 开发代码是Java。framework</p>
+<h2 id="开发模式">开发模式<a hidden class="anchor" aria-hidden="true" href="#开发模式">#</a></h2>
+<p>Html + css + mySQL 几种在view端和modle端</p>
+<p>jsp + css + mySQL</p>
+<p>jQuery+css+mySQL</p>
+<p>PHP + css + mySQL</p>
+<p>这些都是小型网站。 乐色</p>
+<p>我们的模式</p>
+<p>JSP+Struts+mySQL  plus + spring + ssh</p>
+<p>Real 项目： JSP + SSH + CSS + MYSQL</p>
+<h3 id="ssh-spring-struts-hibernate">SSH Spring Struts Hibernate<a hidden class="anchor" aria-hidden="true" href="#ssh-spring-struts-hibernate">#</a></h3>
+<h2 id="jsp详解">JSP详解<a hidden class="anchor" aria-hidden="true" href="#jsp详解">#</a></h2>
+<h2 id="element-语素">element 语素<a hidden class="anchor" aria-hidden="true" href="#element-语素">#</a></h2>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">1
+2
+3
+</code></pre><h3 id="有三类语句">有三类语句<a hidden class="anchor" aria-hidden="true" href="#有三类语句">#</a></h3>
+<ul>
+<li>
+<p>表达式</p>
+</li>
+<li>
+<p>小脚本</p>
+</li>
+<li>
+<p>声明</p>
+</li>
+</ul>
+<h3 id="声明">声明<a hidden class="anchor" aria-hidden="true" href="#声明">#</a></h3>
+<p>table称为一个标签，tag。标签有很多属性</p>
+<h2 id="看看jsp和mysql">看看JSP和mySQL<a hidden class="anchor" aria-hidden="true" href="#看看jsp和mysql">#</a></h2>
+<p>NaviCat可视化操作MySQL</p>
+<p>1433 SQLServer</p>
+<p>3306 mySQL 端口</p>
+<p>各种端口号是必记。</p>
+<h3 id="myecl">Myecl<a hidden class="anchor" aria-hidden="true" href="#myecl">#</a></h3>
+<p>集成了子IDE,所以比较方便。</p>
+<h3 id="jar包">JAR包<a hidden class="anchor" aria-hidden="true" href="#jar包">#</a></h3>
+<p>是将java代码和文档集成在一个包中。</p>
+<p>5.1.35java connect是可以用的</p>
+<p>jdbc driver</p>
+<p>URL，第一节是JDBC协议，第二节是MySQL表示数据库名称，第三节是代表这MySQL服务器的名字，localhost 127.0.0.1,第四节是端口号。后面都删掉。后面是连着的库。</p>
+<p>driver name 随便取。</p>
+<p>Schema 是 database的超集。 datebase是table的超集。</p>
+<h3 id="数据库">数据库<a hidden class="anchor" aria-hidden="true" href="#数据库">#</a></h3>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">1
+StringTypeConversion //把子段转化成串
+</code></pre><p>connection transantion statement resultset</p>
+<p>先建立连接，使用JSP连接MySQL</p>
+<p>getConnection函数是静态类型，可以通过类名直接调用函数。</p>
+<p>语句分为两方面</p>
+<ul>
+<li>
+<p>静态的，</p>
+</li>
+<li>
+<p>动态的，是由运行时候确定的查询和修改语句</p>
+</li>
+</ul>
+<p>获得了resultset之后因为其中有很多条记录，所以必须要用循环。resultset自带了迭代器，iterator。一行一行，一个记录一个记录访问。</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">1
+2
+3
+4
+5
+6
+//把当前指针指向的record赋予re,之后指针往下走。
+while
+TypeConversion(rs,Type.VARCHAR,1
+//and so on 把结果串加入过来。
+
+}
+</code></pre><pre tabindex="0"><code class="language-jsp" data-lang="jsp">1
+2
+3
+4
+rs.close();
+stmt.close();
+conn.close();
+// 记得关闭连接 一级一级一级往回退
+</code></pre><h3 id="交互界面登陆界面">交互界面(登陆界面)<a hidden class="anchor" aria-hidden="true" href="#交互界面登陆界面">#</a></h3>
+<p>早年窗口还叫Window，现在流行叫frame。</p>
+<ul>
+<li>
+<p>使用html的指令去做</p>
+</li>
+<li>
+<p>使用JSTL做窗口，使用扩展模板库</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- web.xml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 配置struts.xml文件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 建立Action类文件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 建立Action执行后转向的jsp文件。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## 例子
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">${message} 直接将message类中的信息直接输出出来。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">他把control端的数据在页面里输出出来。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">那么如何把view端的数据在control中获得呢？
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### 实现原理
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 数据共享 data sharing
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 配置文件 configuration
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">struts2提供在一个类中，具有一定特征的函数就可以映射成actions。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### result
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dispatcher分发包裹的方式，之前建立的页面缺省的是dispatcher。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">web应用开发笔记
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0.html
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">作者
+</span></span><span class="line"><span class="cl">CheaSim
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">发布于
+</span></span><span class="line"><span class="cl">2018-09-03
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">更新于
+</span></span><span class="line"><span class="cl">2018-12-08
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">许可协议
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#[web](/tags/web/)
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://www.cheasim.com/2018/09/03/2018-icpc%E5%8D%97%E4%BA%AC%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E8%B5%9B/">
+    <span class="title">« </span>
+    <span>2018 ICPC南京赛区网络赛</span>
+  </a>
+  <a class="next" href="https://www.cheasim.com/2018/09/03/%E5%9B%9E%E6%96%87%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <span class="title"> »</span>
+    <span>回文树学习笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

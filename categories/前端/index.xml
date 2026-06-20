@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>前端 on CheaSim Blog</title>
+    <link>https://www.cheasim.com/categories/%E5%89%8D%E7%AB%AF/</link>
+    <description>Recent content in 前端 on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 09 May 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前端修炼手册</title>
+      <link>https://www.cheasim.com/2019/05/09/%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%82%BC%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Thu, 09 May 2019 00:00:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2019/05/09/%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%82%BC%E6%89%8B%E5%86%8C/</guid>
+      <description>&lt;h1 id=&#34;前端修炼手册&#34;&gt;前端修炼手册&lt;/h1&gt;
+&lt;h2 id=&#34;使用工具&#34;&gt;使用工具&lt;/h2&gt;
+&lt;p&gt;语言：js+html&lt;/p&gt;
+&lt;p&gt;框架:echarts+impress&lt;/p&gt;
+&lt;h2 id=&#34;经历&#34;&gt;经历&lt;/h2&gt;
+&lt;p&gt;一开始我就在寻找有什么能够跟ppt一样，展示出我们的数据分析图表的框架，之后我就搜索到了impress.js这个框架。他的效果很酷炫，非常适合拿来展示自己的作品甚至代替ppt来使用。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
