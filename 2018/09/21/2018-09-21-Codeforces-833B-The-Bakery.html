@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codeforces 833B - The Bakery - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>Codeforces 833B - The Bakery</h1>
+    <div class="post-meta">
+      <time datetime="2018-09-20T16:00:00.000Z">2018-09-21</time>
+      
+        <span>线段树</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="Codeforces-833B-The-Bakery"><a href="#Codeforces-833B-The-Bakery" class="headerlink" title="Codeforces 833B - The Bakery"></a>Codeforces 833B - The Bakery</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>将一段数字分成最多50个区间，每个区间的价值是区间内不同数字的个数，问怎么样分区间使得价值总和最大。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>$dp$加线段树。</p>
+<p>$dp[i][j]$表示第$j$个坐标分成$i$块最大的价值。</p>
+<p>转移方程</p>
+<ul>
+<li>$dp[i][j] &#x3D; max(dp[i][j],dp[i-1][x] + restofx)$，其中$x$是从1到$j$。</li>
+</ul>
+<p>因为每次要获得剩下的x中数字不同的个数，暴力的做法是$O(n^2*k)$，</p>
+<h2 id="ac代码"><a href="#ac代码" class="headerlink" title="ac代码"></a>ac代码</h2><p>Codeforces 833B - The Bakery</p>
+<p><a href="https://www.cheasim.com/%E7%BA%BF%E6%AE%B5%E6%A0%91/2018/09/21/Codeforces-833B-The-Bakery.html">https://www.cheasim.com/%E7%BA%BF%E6%AE%B5%E6%A0%91/2018/09/21/Codeforces-833B-The-Bakery.html</a></p>
+<p>作者<br>CheaSim</p>
+<p>发布于<br>2018-09-21</p>
+<p>更新于<br>2018-09-21</p>
+<p>许可协议</p>
+<p>#<a href="/tags/acm/">acm</a><a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a><a href="/tags/dp/">dp</a></p>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[cf548]Edgy Trees - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>[cf548]Edgy Trees</h1>
+    <div class="post-meta">
+      <time datetime="2019-03-28T16:00:00.000Z">2019-03-29</time>
+      
+        <span>cf</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="Codeforces-Round-548-Div-2"><a href="#Codeforces-Round-548-Div-2" class="headerlink" title="Codeforces Round #548 (Div. 2)"></a>Codeforces Round #548 (Div. 2)</h1><h2 id="C-Edgy-Trees"><a href="#C-Edgy-Trees" class="headerlink" title="C.Edgy Trees"></a>C.Edgy Trees</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给一个树，树上的边分为黑色或者红色，现在我们定义一个序列[𝑎1,𝑎2,…,𝑎𝑘]</p>
+<ul>
+<li><p>我们按照次序经过序列中的每一个点(最短路径)</p>
+</li>
+<li><p>如果进过至少一条黑边，那这个序列就是好的。</p>
+</li>
+</ul>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>至少一条的反义词就是一条都没有，这道题就是找没有黑边的子树。之后答案就是每个子树中的个数的$k$次方。</p>
+<p>想着树形dp做，想了很久都没有写出来。</p>
+<h3 id="ac代码"><a href="#ac代码" class="headerlink" title="ac代码"></a>ac代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span></span><br><span class="line"><span class="number">25</span></span><br><span class="line"><span class="number">26</span></span><br><span class="line"><span class="number">27</span></span><br><span class="line"><span class="number">28</span></span><br><span class="line"><span class="number">29</span></span><br><span class="line"><span class="number">30</span></span><br><span class="line"><span class="number">31</span></span><br><span class="line"><span class="number">32</span></span><br><span class="line"><span class="number">33</span></span><br><span class="line"><span class="number">34</span></span><br><span class="line"><span class="number">35</span></span><br><span class="line"><span class="number">36</span></span><br><span class="line"><span class="number">37</span></span><br><span class="line"><span class="number">38</span></span><br><span class="line"><span class="number">39</span></span><br><span class="line"><span class="number">40</span></span><br><span class="line"><span class="number">41</span></span><br><span class="line"><span class="number">42</span></span><br><span class="line"><span class="number">43</span></span><br><span class="line"><span class="number">44</span></span><br><span class="line"><span class="number">45</span></span><br><span class="line"><span class="number">46</span></span><br><span class="line"><span class="number">47</span></span><br><span class="line"><span class="number">48</span></span><br><span class="line"><span class="number">49</span></span><br><span class="line"><span class="number">50</span></span><br><span class="line"><span class="number">51</span></span><br><span class="line"><span class="number">52</span></span><br><span class="line"><span class="number">53</span></span><br><span class="line"><span class="number">54</span></span><br><span class="line"><span class="number">55</span></span><br><span class="line"><span class="number">56</span></span><br><span class="line"><span class="number">57</span></span><br><span class="line"><span class="number">58</span></span><br><span class="line"><span class="number">59</span></span><br><span class="line"><span class="number">60</span></span><br><span class="line"><span class="number">61</span></span><br><span class="line"><span class="number">62</span></span><br><span class="line"><span class="number">63</span></span><br><span class="line"><span class="number">64</span></span><br><span class="line"><span class="number">65</span></span><br><span class="line"><span class="number">66</span></span><br><span class="line"><span class="number">67</span></span><br><span class="line"><span class="number">68</span></span><br><span class="line"><span class="number">69</span></span><br><span class="line"><span class="number">70</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="keyword">using</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="comment">//head</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line"><span class="title class_">int</span></span><br><span class="line">&#125;G[maxn&gt;= <span class="number">1</span></span><br><span class="line">x = x*x%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span></span></span><br><span class="line"><span class="built_in">freopen</span>(<span class="string">&quot;3.in&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="built_in">init</span>();</span><br><span class="line">scanf</span><br><span class="line"><span class="built_in">rep</span>(i,<span class="number">0</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="built_in">addedge</span>(u,v,val); <span class="built_in">addedge</span>(v,u,val);</span><br><span class="line">&#125;</span><br><span class="line">ll ans = <span class="built_in">pow3</span>(n,k);</span><br><span class="line">ll last = <span class="number">0</span></span><br><span class="line"><span class="built_in">rep</span>(i,<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span></span><br><span class="line">ll temp = t - last;</span><br><span class="line">last = t;</span><br><span class="line">ans = (ans + mod - <span class="built_in">pow3</span>(temp,k)) % mod;</span><br><span class="line">&#125;</span><br><span class="line">printf</span><br><span class="line"><span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[cf548]Edgy Trees</p>
+<p><a href="https://www.cheasim.com/cf/2019/03/29/cf548-Edgy-Trees.html">https://www.cheasim.com/cf/2019/03/29/cf548-Edgy-Trees.html</a></p>
+<p>作者<br>CheaSim</p>
+<p>发布于<br>2019-03-29</p>
+<p>更新于<br>2019-03-29</p>
+<p>许可协议</p>
+<p>#<a href="/tags/cf/">cf</a><a href="/tags/dfs/">dfs</a><a href="/tags/math/">math</a></p>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

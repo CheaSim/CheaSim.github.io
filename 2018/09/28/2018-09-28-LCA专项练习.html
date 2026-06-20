@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LCA专项练习 - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>LCA专项练习</h1>
+    <div class="post-meta">
+      <time datetime="2018-09-27T16:00:00.000Z">2018-09-28</time>
+      
+        <span>专项练习</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="LCA专项练习"><a href="#LCA专项练习" class="headerlink" title="LCA专项练习"></a>LCA专项练习</h1><h2 id="前提提要"><a href="#前提提要" class="headerlink" title="前提提要"></a>前提提要</h2><p>由于A,B太水了，就不放了。</p>
+<p>前几题先试试用trajan能不能全杀，之后再看在线算法。</p>
+<h2 id="易错点统计"><a href="#易错点统计" class="headerlink" title="易错点统计"></a>易错点统计</h2><ul>
+<li><p>如果两个点相同，那么他们的祖先节点居然会变成0。。可能是我的模板写法有点问题。可以在判断vis[u]&#x3D;2的时候加上如果u&#x3D;now也是找到了公共祖先。</p>
+</li>
+<li><p>i&#x3D;fa[j]; 应该是fa[j] &#x3D; i;</p>
+</li>
+<li><p>如果要加入假设边的话，G[maxn</p>
+</li>
+</ul>
+<h2 id="C-Distance-Queries"><a href="#C-Distance-Queries" class="headerlink" title="C - Distance Queries"></a>C - Distance Queries</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>一棵树，求两点之间最短距离。</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>裸LCA+dfs求距离</p>
+<h3 id="AC代码"><a href="#AC代码" class="headerlink" title="AC代码"></a>AC代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span></span><br><span class="line"><span class="number">25</span></span><br><span class="line"><span class="number">26</span></span><br><span class="line"><span class="number">27</span></span><br><span class="line"><span class="number">28</span></span><br><span class="line"><span class="number">29</span></span><br><span class="line"><span class="number">30</span></span><br><span class="line"><span class="number">31</span></span><br><span class="line"><span class="number">32</span></span><br><span class="line"><span class="number">33</span></span><br><span class="line"><span class="number">34</span></span><br><span class="line"><span class="number">35</span></span><br><span class="line"><span class="number">36</span></span><br><span class="line"><span class="number">37</span></span><br><span class="line"><span class="number">38</span></span><br><span class="line"><span class="number">39</span></span><br><span class="line"><span class="number">40</span></span><br><span class="line"><span class="number">41</span></span><br><span class="line"><span class="number">42</span></span><br><span class="line"><span class="number">43</span></span><br><span class="line"><span class="number">44</span></span><br><span class="line"><span class="number">45</span></span><br><span class="line"><span class="number">46</span></span><br><span class="line"><span class="number">47</span></span><br><span class="line"><span class="number">48</span></span><br><span class="line"><span class="number">49</span></span><br><span class="line"><span class="number">50</span></span><br><span class="line"><span class="number">51</span></span><br><span class="line"><span class="number">52</span></span><br><span class="line"><span class="number">53</span></span><br><span class="line"><span class="number">54</span></span><br><span class="line"><span class="number">55</span></span><br><span class="line"><span class="number">56</span></span><br><span class="line"><span class="number">57</span></span><br><span class="line"><span class="number">58</span></span><br><span class="line"><span class="number">59</span></span><br><span class="line"><span class="number">60</span></span><br><span class="line"><span class="number">61</span></span><br><span class="line"><span class="number">62</span></span><br><span class="line"><span class="number">63</span></span><br><span class="line"><span class="number">64</span></span><br><span class="line"><span class="number">65</span></span><br><span class="line"><span class="number">66</span></span><br><span class="line"><span class="number">67</span></span><br><span class="line"><span class="number">68</span></span><br><span class="line"><span class="number">69</span></span><br><span class="line"><span class="number">70</span></span><br><span class="line"><span class="number">71</span></span><br><span class="line"><span class="number">72</span></span><br><span class="line"><span class="number">73</span></span><br><span class="line"><span class="number">74</span></span><br><span class="line"><span class="number">75</span></span><br><span class="line"><span class="number">76</span></span><br><span class="line"><span class="number">77</span></span><br><span class="line"><span class="number">78</span></span><br><span class="line"><span class="number">79</span></span><br><span class="line"><span class="number">80</span></span><br><span class="line"><span class="number">81</span></span><br><span class="line"><span class="number">82</span></span><br><span class="line"><span class="number">83</span></span><br><span class="line"><span class="number">84</span></span><br><span class="line"><span class="number">85</span></span><br><span class="line"><span class="number">86</span></span><br><span class="line"><span class="number">87</span></span><br><span class="line"><span class="number">88</span></span><br><span class="line"><span class="number">89</span></span><br><span class="line"><span class="number">90</span></span><br><span class="line"><span class="number">91</span></span><br><span class="line"><span class="number">92</span></span><br><span class="line"><span class="number">93</span></span><br><span class="line"><span class="number">94</span></span><br><span class="line"><span class="number">95</span></span><br><span class="line"><span class="number">96</span></span><br><span class="line"><span class="number">97</span></span><br><span class="line"><span class="number">98</span></span><br><span class="line"><span class="number">99</span></span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">101</span></span><br><span class="line"><span class="number">102</span></span><br><span class="line"><span class="number">103</span></span><br><span class="line"><span class="number">104</span></span><br><span class="line"><span class="number">105</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="keyword">using</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="comment">//head</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line"><span class="title class_">int</span></span><br><span class="line"><span class="built_in">Query</span>()&#123;&#125;</span><br><span class="line"><span class="built_in">Query</span>(<span class="type">int</span></span><br><span class="line">to = a;id = b;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">vector</span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line">&#125;G[maxn</span><br><span class="line">- 将$v$,$v$两个点之间所有的点包括这两个点的权值全部加$val$</span><br><span class="line"></span><br><span class="line">- 将$v$,$v$两个点之间所有的边的权值全部加$val$</span><br><span class="line"></span><br><span class="line">### 题解</span><br><span class="line"></span><br><span class="line">lca+标记递推</span><br><span class="line"></span><br><span class="line">我们定义$add[x][<span class="number">0</span>]$为在$x$点上往后递推的点值，那么对于两个$u,v$来说我们要让这条链上的所有点都加$val$。</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">add[u][<span class="number">0</span></span><br><span class="line">add[v][<span class="number">0</span></span><br><span class="line">add[x][<span class="number">0</span></span><br><span class="line">des[x] -= val;</span><br></pre></td></tr></table></figure>
+
+<p>其中$x$是他们的LCA，而且为了使得到了他们的LCA不继续增加这个值，我们定义一个数组$des[]$，递推的时候就加上这个数组在递推，就可以使得在LCA的时候不递推到LCA的祖先节点了。</p>
+<h3 id="树链剖分题解"><a href="#树链剖分题解" class="headerlink" title="树链剖分题解"></a>树链剖分题解</h3><p>树链剖分可以处理点权和边权，不过这是我第一次看到一起处理的。</p>
+<blockquote>
+<p>trick:<br>把点用数组存起来，到边的时候就用孩子节点来表示孩子节点到父亲节点的边。</p>
+</blockquote>
+<h3 id="ac代码"><a href="#ac代码" class="headerlink" title="ac代码"></a>ac代码</h3><h2 id="G-One-and-One-Story"><a href="#G-One-and-One-Story" class="headerlink" title="G - One and One Story"></a>G - One and One Story</h2><h2 id="H-CD操作"><a href="#H-CD操作" class="headerlink" title="H - CD操作"></a>H - CD操作</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>一个加一点背景的LCA，往父节点走要+1，从祖先节点到任意子节点也只需要加1。</p>
+<h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>LCA，我用了ST表+RMQ，跑的飞快。</p>
+<h3 id="AC代码-1"><a href="#AC代码-1" class="headerlink" title="AC代码"></a>AC代码</h3><pre><code class="language-cpp">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+const
+int
+int
+int
+struct
+int
+&#125;G[maxn
+LCA专项练习
+
+https://www.cheasim.com/%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0/2018/09/28/LCA%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0.html
+
+作者
+CheaSim
+
+发布于
+2018-09-28
+
+更新于
+2018-10-08
+
+许可协议
+
+#[acm](/tags/acm/)[LCA](/tags/LCA/)
+</code></pre>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

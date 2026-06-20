@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HuggingFace PretrainTokenizer学习笔记 - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>HuggingFace PretrainTokenizer学习笔记</h1>
+    <div class="post-meta">
+      <time datetime="2020-12-10T16:00:00.000Z">2020-12-11</time>
+      
+        <span>uncategorized</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><blockquote>
+<p>Transformers&#x3D;&#x3D;4.0.0<br>由于每次调用bert等模型都需要使用模型的tokenizer，所以写个笔记，方便自己以及后人查阅，（其实看官方文档也可以，但是英文的看着头疼。有错误也请留言吧。</p>
+</blockquote>
+<h2 id="base-PreTrainedTokenizerBase"><a href="#base-PreTrainedTokenizerBase" class="headerlink" title="base : PreTrainedTokenizerBase"></a>base : PreTrainedTokenizerBase</h2><p>作为基类，该类有着所有tokenizer都具有的方法还有属性。</p>
+<h3 id="PreTrainedTokenizer"><a href="#PreTrainedTokenizer" class="headerlink" title="PreTrainedTokenizer"></a>PreTrainedTokenizer</h3><h2 id="使用multiprocess-加速tokenize"><a href="#使用multiprocess-加速tokenize" class="headerlink" title="使用multiprocess 加速tokenize"></a>使用multiprocess 加速tokenize</h2><p>仿照这个就完事了。partial可以固定函数中的参数，简直是专门为多进程准备的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span></span><br><span class="line"><span class="number">25</span></span><br><span class="line"><span class="number">26</span></span><br><span class="line"><span class="keyword">def</span></span><br><span class="line"><span class="title function_">global</span></span><br><span class="line">tokenizer = tokenizer_for_convert</span><br><span class="line"></span><br><span class="line">features = []</span><br><span class="line"></span><br><span class="line">threads = <span class="built_in">min</span></span><br><span class="line"><span class="keyword">with</span></span><br><span class="line">annotate_ = partial(</span><br><span class="line">tokenzier.encode_plus, <span class="comment"># batch_encode_plus 不知道为什么不work</span></span><br><span class="line">max_seq_length=max_seq_length,</span><br><span class="line">doc_stride=doc_stride,</span><br><span class="line">max_query_length=max_query_length,</span><br><span class="line">padding_strategy=padding_strategy,</span><br><span class="line">is_training=is_training,</span><br><span class="line">)</span><br><span class="line">features = <span class="built_in">list</span></span><br><span class="line">tqdm(</span><br><span class="line">p.imap(annotate_, examples, chunksize=<span class="number">32</span></span><br><span class="line">total=<span class="built_in">len</span></span><br><span class="line">desc=<span class="string">&quot;convert squad examples to features&quot;</span></span><br><span class="line">disable=<span class="keyword">not</span></span><br><span class="line">)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>HuggingFace PretrainTokenizer学习笔记</p>
+<p><a href="https://www.cheasim.com/uncategorized/2020/12/11/HuggingFace-PretrainTokenizer%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">https://www.cheasim.com/uncategorized/2020/12/11/HuggingFace-PretrainTokenizer%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</a></p>
+<p>作者<br>CheaSim</p>
+<p>发布于<br>2020-12-11</p>
+<p>更新于<br>2020-12-11</p>
+<p>许可协议</p>
+<p>#<a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a href="/tags/tokenizer/">tokenizer</a></p>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

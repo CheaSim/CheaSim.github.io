@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSeek mHC 笔记：给深层模型一条更稳的连接方式 - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>DeepSeek mHC 笔记：给深层模型一条更稳的连接方式</h1>
+    <div class="post-meta">
+      <time datetime="2026-06-20T07:30:00.000Z">2026-06-20</time>
+      
+        <span>学习笔记</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <p>最近准备重新开始写博客，先拿 DeepSeek 的 mHC 开个头。</p>
+<p>mHC 全称是 Manifold-Constrained Hyper-Connections，直译有点拗口，大概可以理解成一种“带流形约束的超连接”。它想解决的问题很朴素：模型越堆越深以后，层和层之间的信息流动会变得不稳定，简单的 residual connection 虽然好用，但在更深、更复杂的结构里，可能已经不够细腻。</p>
+<p>这篇笔记先不追求把数学一次讲完，先把直觉搭起来：</p>
+<ol>
+<li>为什么普通残差连接还不够？</li>
+<li>Hyper-Connections 想多连什么？</li>
+<li>mHC 里的 manifold constraint 到底约束了什么？</li>
+<li>这件事对 DeepSeek 后续模型结构有什么意义？</li>
+</ol>
+<h2 id="从残差连接说起"><a href="#从残差连接说起" class="headerlink" title="从残差连接说起"></a>从残差连接说起</h2><p>Transformer 里每一层基本都离不开 residual connection。它的核心价值是让信息和梯度都有一条相对直接的通路，不至于每过一层都被完全重写。</p>
+<p>但残差连接也有一个问题：它通常是一条比较固定的“直连”。如果模型很深，或者不同层之间需要更动态的信息组合，那么这种连接方式就显得有点粗。</p>
+<p>可以先把普通残差想象成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x_&#123;l+1&#125; = x_l + F_l(x_l)</span><br></pre></td></tr></table></figure>
+
+<p>它保留了原输入，也叠加了当前层的变换。这个形式非常漂亮，但它默认了一个前提：上一层状态和当前层更新可以直接相加，并且这种相加足够表达层间的信息组织。</p>
+<p>mHC 讨论的方向则更进一步：层之间的连接不只是“加回去”，而是可以有更丰富的跨层交互，同时还要避免这种交互变得太散、太乱。</p>
+<h2 id="Hyper-Connections-的直觉"><a href="#Hyper-Connections-的直觉" class="headerlink" title="Hyper-Connections 的直觉"></a>Hyper-Connections 的直觉</h2><p>Hyper-Connections 可以先粗略理解为：不要只让相邻层简单相连，而是让不同深度、不同表示之间形成更灵活的信息通道。</p>
+<p>这么做的动机很直接：</p>
+<ul>
+<li>深层模型里，浅层特征不一定只服务下一层；</li>
+<li>某些中间层表示可能对后面多个层都有帮助；</li>
+<li>如果连接方式足够可控，模型可以更像是在一组表示空间里做组合，而不是机械地一层层传递。</li>
+</ul>
+<p>但是连接一多，新的问题也来了：如果没有约束，信息流可能会变得过于自由，训练不稳定，表示也可能互相干扰。</p>
+<p>这就是 mHC 里 manifold constraint 出场的地方。</p>
+<h2 id="Manifold-Constraint-在约束什么"><a href="#Manifold-Constraint-在约束什么" class="headerlink" title="Manifold Constraint 在约束什么"></a>Manifold Constraint 在约束什么</h2><p>“流形约束”这个说法听起来很数学，但可以先抓一个直觉：模型内部的表示不是随便散在高维空间里的，它们应该落在某种相对规整、可学习、可泛化的结构上。</p>
+<p>mHC 不是简单地把更多层接在一起，而是希望这些连接后的表示仍然待在一个合理的几何结构里。这样做的好处可能包括：</p>
+<ul>
+<li>控制跨层混合后的表示分布；</li>
+<li>减少深层堆叠时的信息漂移；</li>
+<li>让连接更灵活，但不至于完全失控；</li>
+<li>为更深的 Transformer 提供更稳定的训练路径。</li>
+</ul>
+<p>这里后面需要补论文里的具体公式。我的理解是，mHC 的关键不只是“多连几条线”，而是“让这些线在受约束的空间里工作”。</p>
+<h2 id="和-DeepSeek-的关系"><a href="#和-DeepSeek-的关系" class="headerlink" title="和 DeepSeek 的关系"></a>和 DeepSeek 的关系</h2><p>DeepSeek 最近几代模型给人的一个感觉是：它不只是在参数量、数据量上卷，也在非常认真地优化模型结构本身。</p>
+<p>从 MLA 到 MoE，再到这里的 mHC，很多设计都围绕一个目标：让模型在推理成本、训练稳定性和表达能力之间找到更好的平衡。</p>
+<p>mHC 如果成立，它真正有意思的地方可能不是单点 trick，而是给“继续加深模型”提供了一种更稳的结构工具。</p>
+<h2 id="后面准备继续补"><a href="#后面准备继续补" class="headerlink" title="后面准备继续补"></a>后面准备继续补</h2><p>接下来这篇可以继续展开几个部分：</p>
+<ul>
+<li>论文里的 mHC 公式和变量解释；</li>
+<li>mHC 和 residual &#x2F; dense connection &#x2F; highway network 的区别；</li>
+<li>它对训练稳定性、深层扩展的实验结果；</li>
+<li>如果放到 Transformer block 里，具体改了哪些路径；</li>
+<li>这东西到底是结构创新，还是工程上很强的正则化手段。</li>
+</ul>
+<p>先开个坑。重新写博客的第一篇，就从一个“不只是堆层数”的连接方式开始。</p>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

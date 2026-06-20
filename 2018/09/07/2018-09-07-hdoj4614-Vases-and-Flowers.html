@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[hdoj4614]Vases and Flowers - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>[hdoj4614]Vases and Flowers</h1>
+    <div class="post-meta">
+      <time datetime="2018-09-06T16:00:00.000Z">2018-09-07</time>
+      
+        <span>线段树</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="Vases-and-Flowers"><a href="#Vases-and-Flowers" class="headerlink" title="Vases and Flowers"></a>Vases and Flowers</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>Alice去一排$n$的花盆中种花，有两种操作</p>
+<ul>
+<li><p>从$a$开始种花，如果该花盆有花就跳到下一个花盆。直到没有花种或者到了$n$盆</p>
+</li>
+<li><p>$[a,b]$区间的所有花都扔掉。</p>
+</li>
+</ul>
+<p>询问</p>
+<ul>
+<li><p>1操作中开始种花的盆和停止种花的盆</p>
+</li>
+<li><p>2操作中丢掉的花</p>
+</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>线段树，$sum$表示花的个数，用$lazy$来懒惰标记。</p>
+<p>妈的，我线段树还是不够熟悉，居然使用了$update(p,n,1)$这样子的形式，以为每个区间的$rt$都是随机的，其实线段树的区间都是固定的，你只能通过$lson,rson$来寻找每一个区间，不能自己xjb改区间。</p>
+<p>寻找p开始位置的时候，需要思考一下。image一下中点和左端与p的关系就好了。</p>
+<h2 id="AC代码"><a href="#AC代码" class="headerlink" title="AC代码"></a>AC代码</h2><pre><code class="language-cpp">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+#include
+using
+#define
+#define
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+const
+int
+int
+bool
+int
+void
+sum[rt] = sum[rt
+[hdoj4614]Vases and Flowers
+
+https://www.cheasim.com/%E7%BA%BF%E6%AE%B5%E6%A0%91/2018/09/07/hdoj4614-Vases-and-Flowers.html
+
+作者
+CheaSim
+
+发布于
+2018-09-07
+
+更新于
+2018-09-07
+
+许可协议
+
+#[线段树](/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/)
+</code></pre>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

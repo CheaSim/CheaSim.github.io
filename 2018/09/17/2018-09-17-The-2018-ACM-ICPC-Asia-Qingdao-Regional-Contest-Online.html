@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online</h1>
+    <div class="post-meta">
+      <time datetime="2018-09-16T16:00:00.000Z">2018-09-17</time>
+      
+        <span>acm</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online（青岛网络赛）"><a href="#The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online（青岛网络赛）" class="headerlink" title="The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online（青岛网络赛）"></a>The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online（青岛网络赛）</h1><h2 id="B-Red-Black-Tree"><a href="#B-Red-Black-Tree" class="headerlink" title="B.Red Black Tree"></a>B.Red Black Tree</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><h3 id="ac代码"><a href="#ac代码" class="headerlink" title="ac代码"></a>ac代码</h3><h2 id="J-Press-the-Button"><a href="#J-Press-the-Button" class="headerlink" title="J.Press the Button"></a>J.Press the Button</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><h3 id="ac代码-1"><a href="#ac代码-1" class="headerlink" title="ac代码"></a>ac代码</h3><h2 id="H-Traveling-on-the-Axis"><a href="#H-Traveling-on-the-Axis" class="headerlink" title="H Traveling on the Axis"></a>H Traveling on the Axis</h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>BOB走在$[1,n]$的路上，每两个点中间都有一个红绿灯，每一秒钟，</p>
+<ul>
+<li><p>BOB先观察红绿灯是否绿，绿就走，红就停。</p>
+</li>
+<li><p>红灯变绿，绿灯变红</p>
+</li>
+</ul>
+<p>$t(p,q)$就是$p$走到$q所需要的时间。</p>
+<p>问： BOB从 $\sum^{n-1}{p&#x3D;0} \sum{q&#x3D;p+1}^nt(p,q)$的时间总和。</p>
+<h3 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h3><p>对于第$i$个单独的红绿灯我们可以证明他对答案的贡献是</p>
+<p>​                          $(i)(len-i+1)(t(i))$</p>
+<p>我们对于两个灯进行分析。</p>
+<p>01 第一个零要2s，第二个一要1s</p>
+<p>10 第一个一要1s，第二个零要1s</p>
+<p>00 第一个零要2s，第二个一要2s</p>
+<p>11 第一个一要1s，第二个一要2s</p>
+<p>综上可以发现，</p>
+<ul>
+<li><p>该灯初始为0，那么他当头的时候贡献为2，如果不当头那么他的贡献就为1，除非跟前者相同。</p>
+</li>
+<li><p>该灯初始为1，那么他和前一个灯相同时贡献为2，就算变成0了，不在头上的话贡献也为1.</p>
+</li>
+</ul>
+<p>我他妈sb了，不应该看着一段一段的区间，应该把红绿灯作为每一次状态的扩展，从红绿灯这$n$个出发开始计算，不应该考虑一个一个的单位为1的区间。</p>
+<h3 id="AC代码"><a href="#AC代码" class="headerlink" title="AC代码"></a>AC代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span></span><br><span class="line"><span class="number">25</span></span><br><span class="line"><span class="comment">// CSL 代码</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="keyword">using</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="type">char</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span></span><br><span class="line">scanf</span><br><span class="line"><span class="keyword">while</span></span><br><span class="line">&#123;</span><br><span class="line">scanf</span><br><span class="line">ll ans = <span class="number">0</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="keyword">for</span></span><br><span class="line"><span class="keyword">for</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span></span><br><span class="line"><span class="keyword">if</span></span><br><span class="line"><span class="comment">//要跟包含前者的可能，要两个相同才能这么加。</span></span><br><span class="line">&#125;</span><br><span class="line">printf</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line"><span class="number">20</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="number">23</span></span><br><span class="line"><span class="number">24</span></span><br><span class="line"><span class="number">25</span></span><br><span class="line"><span class="number">26</span></span><br><span class="line"><span class="number">27</span></span><br><span class="line"><span class="number">28</span></span><br><span class="line"><span class="number">29</span></span><br><span class="line"><span class="number">30</span></span><br><span class="line"><span class="number">31</span></span><br><span class="line"><span class="number">32</span></span><br><span class="line"><span class="number">33</span></span><br><span class="line"><span class="number">34</span></span><br><span class="line"><span class="number">35</span></span><br><span class="line"><span class="number">36</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span></span></span><br><span class="line"><span class="keyword">using</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span></span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="comment">//head</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span></span><br><span class="line"><span class="type">char</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span></span></span><br><span class="line"><span class="built_in">freopen</span>(<span class="string">&quot;h.in&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="keyword">while</span></span><br><span class="line">scanf</span><br><span class="line"><span class="type">int</span></span><br><span class="line">ll ans = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">rep</span>(i,<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">if</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">ans += w;</span><br><span class="line">&#125;</span><br><span class="line">printf</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>reference:<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/tianyizhicheng/article/details/82728350">https://blog.csdn.net/tianyizhicheng/article/details/82728350</a></p>
+</blockquote>
+<p>The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online</p>
+<p><a href="https://www.cheasim.com/acm/2018/09/17/The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online.html">https://www.cheasim.com/acm/2018/09/17/The-2018-ACM-ICPC-Asia-Qingdao-Regional-Contest-Online.html</a></p>
+<p>作者<br>CheaSim</p>
+<p>发布于<br>2018-09-17</p>
+<p>更新于<br>2018-09-17</p>
+<p>许可协议</p>
+<p>#<a href="/tags/%E7%BD%91%E7%BB%9C%E8%B5%9B/">网络赛</a><a href="/tags/acm/">acm</a></p>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

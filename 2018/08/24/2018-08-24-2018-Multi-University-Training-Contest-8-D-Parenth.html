@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2018 Multi-University Training Contest 8 D.Parenth - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>2018 Multi-University Training Contest 8 D.Parenth</h1>
+    <div class="post-meta">
+      <time datetime="2018-08-23T16:00:00.000Z">2018-08-24</time>
+      
+        <span>acm</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="2018-Multi-University-Training-Contest-8-D-Parentheses-Matrix"><a href="#2018-Multi-University-Training-Contest-8-D-Parentheses-Matrix" class="headerlink" title="2018 Multi-University Training Contest 8 D.Parentheses Matrix"></a>2018 Multi-University Training Contest 8 D.Parentheses Matrix</h1><p>传送门</p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>一个由左括号和右括号组成的矩阵，定义矩阵的权值是矩阵中匹配的行数和列数的和。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>一道比较典型的构造题。</p>
+<p>如果行数或者列数是奇数那么矩阵显然是奇数的行或列匹配不了。</p>
+<blockquote>
+<p>(())<br>(())<br>(())</p>
+</blockquote>
+<p>当情况很多有两个变量的时候我们可以假设一个变量小于另一个变量，假设$h\leq m$。</p>
+<p>构造过程还是题解比较清晰。</p>
+<p>首先，第一行、最后一列中最多只有一个能够匹配，第一列、最后一行也只有一个能够匹配（考 虑右上角和左下角的括号选取方法），故答案不会超过 w+h−2。 当 h &#x3D; 2 时，每一列可以构造一对匹配，这样答案已经到达上界。 当 h &#x3D; 4 时，可以如下构造：</p>
+<blockquote>
+<p>( ( ( ( ( (<br>) ) ) ) ) )<br>( ( ( ( ( (<br>) ) ) ) ) )</p>
+</blockquote>
+<p>这样答案是 w+h−3。</p>
+<p>若存在更优的答案，则必有一个边界能够匹配，不妨设是第一列。这样，就已 经有除第一行以外的两行（右括号开头的行）不匹配了，而第一行和最后一列中至少有一个不匹配， 因此最优解不会超过 w+h−3。</p>
+<p>当 h≥6 时，可以如下构造：</p>
+<blockquote>
+<p>( ( ( ( ( ( ( (<br>( ) ( ) ( ) ( )<br>( ( ) ( ) ( ) )<br>( ( ( ( ) ) ) )<br>( ( ) ( ) ( ) )<br>) ) ) ) ) ) ) )</p>
+</blockquote>
+<p>答案是 w+h−4。同理可证明不存在更优的方法。</p>
+<p>在实际操作的时候如果$h&gt;m$可以将矩阵反转一下。就ok了。</p>
+<pre><code class="language-cpp">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+int
+char
+int
+#ifdef
+freopen(&quot;d.in&quot;
+#endif
+scanf
+while
+bool
+scanf
+if
+rep(i,0
+rep(j,0
+g[i][j] = (j
+2018 Multi-University Training Contest 8 D.Parenth
+
+https://www.cheasim.com/acm/2018/08/24/2018-Multi-University-Training-Contest-8-D-Parenth.html
+
+作者
+CheaSim
+
+发布于
+2018-08-24
+
+更新于
+2018-08-24
+
+许可协议
+
+#[acm](/tags/acm/)
+</code></pre>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>

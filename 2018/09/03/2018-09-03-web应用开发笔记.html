@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>web应用开发笔记 - CheaSim Blog</title>
+  <meta name="description" content="CheaSim 的技术博客">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+      <a class="site-title" href="/">CheaSim Blog</a>
+      <div class="site-links">
+        
+          <a href="/">Home</a>
+        
+          <a href="/about/">About</a>
+        
+          <a href="/archives/">Archives</a>
+        
+          <a href="/tags/">Tags</a>
+        
+          <a target="_blank" rel="noopener" href="https://github.com/CheaSim">GitHub</a>
+        
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <article class="post">
+  <header class="post-header">
+    <h1>web应用开发笔记</h1>
+    <div class="post-meta">
+      <time datetime="2018-09-02T16:00:00.000Z">2018-09-03</time>
+      
+        <span>学习笔记</span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <h1 id="web应用开发"><a href="#web应用开发" class="headerlink" title="web应用开发"></a>web应用开发</h1><p>现代人的生活方式</p>
+<ul>
+<li><p>移动端,mobile</p>
+</li>
+<li><p>浏览器,browser</p>
+</li>
+</ul>
+<p>10年前还是以客户端,client软件形式。</p>
+<h2 id="两个主流技术"><a href="#两个主流技术" class="headerlink" title="两个主流技术"></a>两个主流技术</h2><ul>
+<li><p>.Net</p>
+</li>
+<li><p>J2ee</p>
+</li>
+</ul>
+<p>.Net过气了，用J2ee</p>
+<h3 id="J2ee的三个方面"><a href="#J2ee的三个方面" class="headerlink" title="J2ee的三个方面"></a>J2ee的三个方面</h3><ul>
+<li><p>M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。<br>承载数据。</p>
+</li>
+<li><p>把数据中的信息进行表达convey，存储信息和加工信息。</p>
+</li>
+<li><p>不只是一个dbms。</p>
+</li>
+<li><p>V 视图:将信息呈现出来，view显示。<br>把数据呈现给用户。</p>
+</li>
+<li><p>承载用户修改功能，使用户能够修改信息。</p>
+</li>
+<li><p>C 控制:把用户的信息进行处理(按照一定的算法和一定的逻辑)，之后再保存在M端。</p>
+</li>
+</ul>
+<p>summary：M存储信息，V交互，C逻辑控制（算法）。</p>
+<p>梅宏，杨芙青，吕健——网构建</p>
+<h3 id="开发V端"><a href="#开发V端" class="headerlink" title="开发V端"></a>开发V端</h3><p>V html,jsp,css,jQuery</p>
+<p>自学html。 在w3c学</p>
+<p>jQuery,是js的一个库。</p>
+<p>extjs 扩展版js 丰富了UI设计功能</p>
+<h3 id="开发M端"><a href="#开发M端" class="headerlink" title="开发M端"></a>开发M端</h3><p>MySql，Oracle，SQL server,DB2,Access</p>
+<p>框架Hibernate统一了不同的dbms的操作。</p>
+<p>缺点：是将数据和公共模型进行映射，一旦确定就不好改变，开发的时候麻烦。</p>
+<p>iBatis 容易改进的框架</p>
+<p>MyBatis</p>
+<h3 id="开发C端"><a href="#开发C端" class="headerlink" title="开发C端"></a>开发C端</h3><p>struts 框架，把数据进行逻辑处理之后保存到M端。</p>
+<p>jQuery js spring 开发代码是Java。framework</p>
+<h2 id="开发模式"><a href="#开发模式" class="headerlink" title="开发模式"></a>开发模式</h2><p>Html + css + mySQL 几种在view端和modle端</p>
+<p>jsp + css + mySQL</p>
+<p>jQuery+css+mySQL</p>
+<p>PHP + css + mySQL</p>
+<p>这些都是小型网站。 乐色</p>
+<p>我们的模式</p>
+<p>JSP+Struts+mySQL  plus + spring + ssh</p>
+<p>Real 项目： JSP + SSH + CSS + MYSQL</p>
+<h3 id="SSH-Spring-Struts-Hibernate"><a href="#SSH-Spring-Struts-Hibernate" class="headerlink" title="SSH Spring Struts Hibernate"></a>SSH Spring Struts Hibernate</h3><h2 id="JSP详解"><a href="#JSP详解" class="headerlink" title="JSP详解"></a>JSP详解</h2><h2 id="element-语素"><a href="#element-语素" class="headerlink" title="element 语素"></a>element 语素</h2><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="有三类语句"><a href="#有三类语句" class="headerlink" title="有三类语句"></a>有三类语句</h3><ul>
+<li><p>表达式</p>
+</li>
+<li><p>小脚本</p>
+</li>
+<li><p>声明</p>
+</li>
+</ul>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>table称为一个标签，tag。标签有很多属性</p>
+<h2 id="看看JSP和mySQL"><a href="#看看JSP和mySQL" class="headerlink" title="看看JSP和mySQL"></a>看看JSP和mySQL</h2><p>NaviCat可视化操作MySQL</p>
+<p>1433 SQLServer</p>
+<p>3306 mySQL 端口</p>
+<p>各种端口号是必记。</p>
+<h3 id="Myecl"><a href="#Myecl" class="headerlink" title="Myecl"></a>Myecl</h3><p>集成了子IDE,所以比较方便。</p>
+<h3 id="JAR包"><a href="#JAR包" class="headerlink" title="JAR包"></a>JAR包</h3><p>是将java代码和文档集成在一个包中。</p>
+<p>5.1.35java connect是可以用的</p>
+<p>jdbc driver</p>
+<p>URL，第一节是JDBC协议，第二节是MySQL表示数据库名称，第三节是代表这MySQL服务器的名字，localhost 127.0.0.1,第四节是端口号。后面都删掉。后面是连着的库。</p>
+<p>driver name 随便取。</p>
+<p>Schema 是 database的超集。 datebase是table的超集。</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line">StringTypeConversion <span class="comment">//把子段转化成串</span></span><br></pre></td></tr></table></figure>
+
+<p>connection transantion statement resultset</p>
+<p>先建立连接，使用JSP连接MySQL</p>
+<p>getConnection函数是静态类型，可以通过类名直接调用函数。</p>
+<p>语句分为两方面</p>
+<ul>
+<li><p>静态的，</p>
+</li>
+<li><p>动态的，是由运行时候确定的查询和修改语句</p>
+</li>
+</ul>
+<p>获得了resultset之后因为其中有很多条记录，所以必须要用循环。resultset自带了迭代器，iterator。一行一行，一个记录一个记录访问。</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="comment">//把当前指针指向的record赋予re,之后指针往下走。</span></span><br><span class="line"><span class="keyword">while</span></span><br><span class="line"><span class="title function_">TypeConversion</span><span class="params">(rs,Type.VARCHAR,<span class="number">1</span></span></span><br><span class="line"><span class="params">//and so on 把结果串加入过来。</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">rs.close();</span><br><span class="line">stmt.close();</span><br><span class="line">conn.close();</span><br><span class="line"><span class="comment">// 记得关闭连接 一级一级一级往回退</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="交互界面-登陆界面"><a href="#交互界面-登陆界面" class="headerlink" title="交互界面(登陆界面)"></a>交互界面(登陆界面)</h3><p>早年窗口还叫Window，现在流行叫frame。</p>
+<ul>
+<li><p>使用html的指令去做</p>
+</li>
+<li><p>使用JSTL做窗口，使用扩展模板库</p>
+</li>
+</ul>
+<pre><code class="language-html">1
+2
+3
+
+- web.xml
+
+- 配置struts.xml文件
+
+- 建立Action类文件
+
+- 建立Action执行后转向的jsp文件。
+
+## 例子
+
+$&#123;message&#125; 直接将message类中的信息直接输出出来。
+
+他把control端的数据在页面里输出出来。
+
+那么如何把view端的数据在control中获得呢？
+
+### 实现原理
+
+- 数据共享 data sharing
+
+- 配置文件 configuration
+
+struts2提供在一个类中，具有一定特征的函数就可以映射成actions。
+
+### result
+
+dispatcher分发包裹的方式，之前建立的页面缺省的是dispatcher。
+
+web应用开发笔记
+
+https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0.html
+
+作者
+CheaSim
+
+发布于
+2018-09-03
+
+更新于
+2018-12-08
+
+许可协议
+
+#[web](/tags/web/)
+</code></pre>
+
+  </div>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>&copy; 2026 CheaSim</span>
+  </footer>
+</body>
+</html>
