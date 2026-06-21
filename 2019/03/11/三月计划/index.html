@@ -86,7 +86,25 @@ hash完成了两道。
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2019/03/11/%E4%B8%89%E6%9C%88%E8%AE%A1%E5%88%92/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2019/03/11/%E4%B8%89%E6%9C%88%E8%AE%A1%E5%88%92/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="三月计划">
   <meta property="og:description" content="March 每天记录一点在计算中心的计划。

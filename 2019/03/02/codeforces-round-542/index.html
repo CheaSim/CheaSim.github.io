@@ -67,7 +67,25 @@ A. Be Positive
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2019/03/02/codeforces-round-542/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2019/03/02/codeforces-round-542/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="Codeforces Round #542">
   <meta property="og:description" content="Codeforces Round #542 A. Be Positive 题意 给定一个数组$a_1,a_2,…,a_n$，让你到一个数字，是的数组内的所有数字处以这个数字之后，数组内大于0的数字超过$\cfrac{n}{2}$的上界。">
@@ -272,287 +290,287 @@ A. Be Positive
 <h3 id="题解">题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h3>
 <p>由于没有要求整除，所以直接看负数多还是正数多，哪个超过上届，就用$-1或者1$</p>
 <h3 id="ac代码">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;1.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="b-two-cakes">B. Two Cakes<a hidden class="anchor" aria-hidden="true" href="#b-two-cakes">#</a></h2>
 <h3 id="题意-1">题意<a hidden class="anchor" aria-hidden="true" href="#题意-1">#</a></h3>
 <p>两个人要买$n$层蛋糕，他们必须从$1$开始买到$n$，之后给定$2n$个蛋糕店，他们从$1$这个点出发，之后去买蛋糕。其中一旦一个人从一家蛋糕店买了蛋糕，那么另外一个人就不能在那家蛋糕店买蛋糕。问两个人花费的最少步数是多少？</p>
 <h3 id="题解-1">题解<a hidden class="anchor" aria-hidden="true" href="#题解-1">#</a></h3>
 <p>由于每一步只有两种可能，一个人去$x+1$中的一家蛋糕店，另外一个人去另一家。每一步的选择都只有两种，且无后效性。所以我们用贪心来解决。每一步的时候都选择花费步数最少的选择。</p>
 <h3 id="ac代码-1">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码-1">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="mi">40</span>
-</span></span><span class="line"><span class="cl"><span class="mi">41</span>
-</span></span><span class="line"><span class="cl"><span class="mi">42</span>
-</span></span><span class="line"><span class="cl"><span class="mi">43</span>
-</span></span><span class="line"><span class="cl"><span class="mi">44</span>
-</span></span><span class="line"><span class="cl"><span class="mi">45</span>
-</span></span><span class="line"><span class="cl"><span class="mi">46</span>
-</span></span><span class="line"><span class="cl"><span class="mi">47</span>
-</span></span><span class="line"><span class="cl"><span class="mi">48</span>
-</span></span><span class="line"><span class="cl"><span class="mi">49</span>
-</span></span><span class="line"><span class="cl"><span class="mi">50</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span>
-</span></span><span class="line"><span class="cl"><span class="nc">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="n">a</span><span class="p">[</span><span class="n">maxn</span>
-</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">桥的花费是欧几里得距离的平方</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">只能建造一座桥</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="err">可能不需要建造桥</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">### 题解
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">由于只建造一座桥，所以我们可以枚举起始点的陆地和终点的陆地，之后挑选出最近的点。</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">由于数据小，随便做。</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">### ac代码
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">cpp</span>
-</span></span><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="mi">40</span>
-</span></span><span class="line"><span class="cl"><span class="mi">41</span>
-</span></span><span class="line"><span class="cl"><span class="mi">42</span>
-</span></span><span class="line"><span class="cl"><span class="mi">43</span>
-</span></span><span class="line"><span class="cl"><span class="mi">44</span>
-</span></span><span class="line"><span class="cl"><span class="mi">45</span>
-</span></span><span class="line"><span class="cl"><span class="mi">46</span>
-</span></span><span class="line"><span class="cl"><span class="mi">47</span>
-</span></span><span class="line"><span class="cl"><span class="mi">48</span>
-</span></span><span class="line"><span class="cl"><span class="mi">49</span>
-</span></span><span class="line"><span class="cl"><span class="mi">50</span>
-</span></span><span class="line"><span class="cl"><span class="mi">51</span>
-</span></span><span class="line"><span class="cl"><span class="mi">52</span>
-</span></span><span class="line"><span class="cl"><span class="mi">53</span>
-</span></span><span class="line"><span class="cl"><span class="mi">54</span>
-</span></span><span class="line"><span class="cl"><span class="mi">55</span>
-</span></span><span class="line"><span class="cl"><span class="mi">56</span>
-</span></span><span class="line"><span class="cl"><span class="mi">57</span>
-</span></span><span class="line"><span class="cl"><span class="mi">58</span>
-</span></span><span class="line"><span class="cl"><span class="mi">59</span>
-</span></span><span class="line"><span class="cl"><span class="mi">60</span>
-</span></span><span class="line"><span class="cl"><span class="mi">61</span>
-</span></span><span class="line"><span class="cl"><span class="mi">62</span>
-</span></span><span class="line"><span class="cl"><span class="mi">63</span>
-</span></span><span class="line"><span class="cl"><span class="mi">64</span>
-</span></span><span class="line"><span class="cl"><span class="mi">65</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">char</span>
-</span></span><span class="line"><span class="cl"><span class="n">vector</span>
-</span></span><span class="line"><span class="cl"><span class="n">vector</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span>
-</span></span><span class="line"><span class="cl"><span class="n">vis</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">queue</span>
-</span></span><span class="line"><span class="cl"><span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="n">vis</span><span class="p">[</span><span class="n">xxx</span><span class="p">][</span><span class="n">yyy</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;3.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="n">stx</span><span class="o">--</span><span class="p">;</span><span class="n">sty</span><span class="o">--</span><span class="p">;</span><span class="n">edx</span><span class="o">--</span><span class="p">;</span><span class="n">edy</span><span class="o">--</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="nf">bfs</span><span class="p">(</span><span class="n">stx</span><span class="p">,</span><span class="n">sty</span><span class="p">,</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">bfs</span><span class="p">(</span><span class="n">edx</span><span class="p">,</span><span class="n">edy</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">ans</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,(</span><span class="n">x1</span><span class="o">-</span><span class="n">x2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">x2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span><span class="o">-</span><span class="n">y2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="o">-</span><span class="n">y2</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">45</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">46</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">47</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">49</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}a[maxn
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">桥的花费是欧几里得距离的平方</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">只能建造一座桥</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">可能不需要建造桥</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### 题解
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">由于只建造一座桥，所以我们可以枚举起始点的陆地和终点的陆地，之后挑选出最近的点。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">由于数据小，随便做。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### ac代码
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">```</span>cpp
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">45</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">46</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">47</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">49</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">51</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">52</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">54</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">56</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">57</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">58</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">59</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">62</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">65</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span>
+</span></span><span style="display:flex;"><span>vector
+</span></span><span style="display:flex;"><span>vector
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>vis[x][y] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>queue
+</span></span><span style="display:flex;"><span>q.push(make_pair
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>q.pop();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>vis[xxx][yyy] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>q.push(make_pair
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;3.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span>stx<span style="color:#f92672">--</span>;sty<span style="color:#f92672">--</span>;edx<span style="color:#f92672">--</span>;edy<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">bfs</span>(stx,sty,<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>bfs(edx,edy,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>rep(j,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> min(ans,(x1<span style="color:#f92672">-</span>x2)<span style="color:#f92672">*</span>(x1<span style="color:#f92672">-</span>x2) <span style="color:#f92672">+</span> (y1<span style="color:#f92672">-</span>y2)<span style="color:#f92672">*</span>(y1<span style="color:#f92672">-</span>y2));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="d2-toy-train">D2. Toy Train<a hidden class="anchor" aria-hidden="true" href="#d2-toy-train">#</a></h2>
 <h3 id="题意-2">题意<a hidden class="anchor" aria-hidden="true" href="#题意-2">#</a></h3>
 <p>Alice开火车，他火车的轨道是确定的，之后火车开的方向也是确定的，火车的轨迹是一个圈，轨迹上有很多站点，每个站点上有糖果。</p>
@@ -572,94 +590,94 @@ A. Be Positive
 <p>之后我们需要从那个点到最近的放置点.$dis(j,z) = (z-j+n)\mod n$</p>
 <p>之后两层循环即可。</p>
 <h3 id="ac代码-2">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码-2">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="mi">40</span>
-</span></span><span class="line"><span class="cl"><span class="mi">41</span>
-</span></span><span class="line"><span class="cl"><span class="mi">42</span>
-</span></span><span class="line"><span class="cl"><span class="mi">43</span>
-</span></span><span class="line"><span class="cl"><span class="mi">44</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">vector</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;4.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">candys</span><span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="nf">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">mmax</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">mmax</span><span class="p">,(</span><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// ans
-</span></span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">tx</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">tx</span><span class="p">,(</span><span class="n">x</span><span class="o">-</span><span class="n">j</span><span class="o">+</span><span class="n">n</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="p">((</span><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>vector
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;4.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>candys[x<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rep</span>(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>mmax <span style="color:#f92672">=</span> max(mmax,(<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ans
+</span></span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>rep(j,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>tx <span style="color:#f92672">=</span> min(tx,(x<span style="color:#f92672">-</span>j<span style="color:#f92672">+</span>n)<span style="color:#f92672">%</span>n);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> max(ans, ((<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Codeforces Round #542</p>
 <p><a href="https://www.cheasim.com/cf/2019/03/02/Codeforces-Round-542.html">https://www.cheasim.com/cf/2019/03/02/Codeforces-Round-542.html</a></p>
 <p>作者

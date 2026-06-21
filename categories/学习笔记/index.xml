@@ -127,7 +127,7 @@ UDP&lt;/p&gt;
 &lt;p&gt;预处理复杂度:$O(nlongn)$，查询复杂度$O(1)$。&lt;/p&gt;
 &lt;h2 id=&#34;详解&#34;&gt;详解&lt;/h2&gt;
 &lt;h3 id=&#34;原理&#34;&gt;原理&lt;/h3&gt;
-&lt;p&gt;将原数组分成以2幂次的区间块，用$mn[i][j]$表示从$j$到$j-2^i-1$的最小值，最小值显然等于$$min(前半段最小值,后半段中最小值)$$从而得到递推式子&lt;/p&gt;</description>
+&lt;p&gt;将原数组分成以2幂次的区间块，用$mn[i][j]$表示从$j$到$j-2^i-1$的最小值，最小值显然等于&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -69,7 +69,25 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2019/05/09/%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%82%BC%E6%89%8B%E5%86%8C/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2019/05/09/%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%82%BC%E6%89%8B%E5%86%8C/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="前端修炼手册">
   <meta property="og:description" content="前端修炼手册 使用工具 语言：js&#43;html

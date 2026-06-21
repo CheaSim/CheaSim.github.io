@@ -72,7 +72,25 @@ $[a,b]$区间的所有花都扔掉。">
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2018/09/07/hdoj4614-vases-and-flowers/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2018/09/07/hdoj4614-vases-and-flowers/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="[hdoj4614]Vases and Flowers">
   <meta property="og:description" content="Vases and Flowers 题意 Alice去一排$n$的花盆中种花，有两种操作
@@ -274,146 +292,146 @@ $[a,b]$区间的所有花都扔掉。">
 <p>妈的，我线段树还是不够熟悉，居然使用了$update(p,n,1)$这样子的形式，以为每个区间的$rt$都是随机的，其实线段树的区间都是固定的，你只能通过$lson,rson$来寻找每一个区间，不能自己xjb改区间。</p>
 <p>寻找p开始位置的时候，需要思考一下。image一下中点和左端与p的关系就好了。</p>
 <h2 id="ac代码">AC代码<a hidden class="anchor" aria-hidden="true" href="#ac代码">#</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="mi">40</span>
-</span></span><span class="line"><span class="cl"><span class="mi">41</span>
-</span></span><span class="line"><span class="cl"><span class="mi">42</span>
-</span></span><span class="line"><span class="cl"><span class="mi">43</span>
-</span></span><span class="line"><span class="cl"><span class="mi">44</span>
-</span></span><span class="line"><span class="cl"><span class="mi">45</span>
-</span></span><span class="line"><span class="cl"><span class="mi">46</span>
-</span></span><span class="line"><span class="cl"><span class="mi">47</span>
-</span></span><span class="line"><span class="cl"><span class="mi">48</span>
-</span></span><span class="line"><span class="cl"><span class="mi">49</span>
-</span></span><span class="line"><span class="cl"><span class="mi">50</span>
-</span></span><span class="line"><span class="cl"><span class="mi">51</span>
-</span></span><span class="line"><span class="cl"><span class="mi">52</span>
-</span></span><span class="line"><span class="cl"><span class="mi">53</span>
-</span></span><span class="line"><span class="cl"><span class="mi">54</span>
-</span></span><span class="line"><span class="cl"><span class="mi">55</span>
-</span></span><span class="line"><span class="cl"><span class="mi">56</span>
-</span></span><span class="line"><span class="cl"><span class="mi">57</span>
-</span></span><span class="line"><span class="cl"><span class="mi">58</span>
-</span></span><span class="line"><span class="cl"><span class="mi">59</span>
-</span></span><span class="line"><span class="cl"><span class="mi">60</span>
-</span></span><span class="line"><span class="cl"><span class="mi">61</span>
-</span></span><span class="line"><span class="cl"><span class="mi">62</span>
-</span></span><span class="line"><span class="cl"><span class="mi">63</span>
-</span></span><span class="line"><span class="cl"><span class="mi">64</span>
-</span></span><span class="line"><span class="cl"><span class="mi">65</span>
-</span></span><span class="line"><span class="cl"><span class="mi">66</span>
-</span></span><span class="line"><span class="cl"><span class="mi">67</span>
-</span></span><span class="line"><span class="cl"><span class="mi">68</span>
-</span></span><span class="line"><span class="cl"><span class="mi">69</span>
-</span></span><span class="line"><span class="cl"><span class="mi">70</span>
-</span></span><span class="line"><span class="cl"><span class="mi">71</span>
-</span></span><span class="line"><span class="cl"><span class="mi">72</span>
-</span></span><span class="line"><span class="cl"><span class="mi">73</span>
-</span></span><span class="line"><span class="cl"><span class="mi">74</span>
-</span></span><span class="line"><span class="cl"><span class="mi">75</span>
-</span></span><span class="line"><span class="cl"><span class="mi">76</span>
-</span></span><span class="line"><span class="cl"><span class="mi">77</span>
-</span></span><span class="line"><span class="cl"><span class="mi">78</span>
-</span></span><span class="line"><span class="cl"><span class="mi">79</span>
-</span></span><span class="line"><span class="cl"><span class="mi">80</span>
-</span></span><span class="line"><span class="cl"><span class="mi">81</span>
-</span></span><span class="line"><span class="cl"><span class="mi">82</span>
-</span></span><span class="line"><span class="cl"><span class="mi">83</span>
-</span></span><span class="line"><span class="cl"><span class="mi">84</span>
-</span></span><span class="line"><span class="cl"><span class="mi">85</span>
-</span></span><span class="line"><span class="cl"><span class="mi">86</span>
-</span></span><span class="line"><span class="cl"><span class="mi">87</span>
-</span></span><span class="line"><span class="cl"><span class="mi">88</span>
-</span></span><span class="line"><span class="cl"><span class="mi">89</span>
-</span></span><span class="line"><span class="cl"><span class="mi">90</span>
-</span></span><span class="line"><span class="cl"><span class="mi">91</span>
-</span></span><span class="line"><span class="cl"><span class="mi">92</span>
-</span></span><span class="line"><span class="cl"><span class="mi">93</span>
-</span></span><span class="line"><span class="cl"><span class="mi">94</span>
-</span></span><span class="line"><span class="cl"><span class="mi">95</span>
-</span></span><span class="line"><span class="cl"><span class="mi">96</span>
-</span></span><span class="line"><span class="cl"><span class="mi">97</span>
-</span></span><span class="line"><span class="cl"><span class="mi">98</span>
-</span></span><span class="line"><span class="cl"><span class="mi">99</span>
-</span></span><span class="line"><span class="cl"><span class="mi">100</span>
-</span></span><span class="line"><span class="cl"><span class="mi">101</span>
-</span></span><span class="line"><span class="cl"><span class="mi">102</span>
-</span></span><span class="line"><span class="cl"><span class="mi">103</span>
-</span></span><span class="line"><span class="cl"><span class="mi">104</span>
-</span></span><span class="line"><span class="cl"><span class="mi">105</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span>
-</span></span><span class="line"><span class="cl"><span class="n">sum</span><span class="p">[</span><span class="n">rt</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum</span><span class="p">[</span><span class="n">rt</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">hdoj4614</span><span class="p">]</span><span class="n">Vases</span> <span class="n">and</span> <span class="n">Flowers</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nl">https</span><span class="p">:</span><span class="c1">//www.cheasim.com/%E7%BA%BF%E6%AE%B5%E6%A0%91/2018/09/07/hdoj4614-Vases-and-Flowers.html
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">作者</span>
-</span></span><span class="line"><span class="cl"><span class="n">CheaSim</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">发布于</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mo">07</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">更新于</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mo">07</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">许可协议</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">#[线段树](/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">45</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">46</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">47</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">49</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">51</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">52</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">54</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">56</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">57</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">58</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">59</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">62</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">65</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">66</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">67</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">68</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">69</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">70</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">71</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">72</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">73</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">74</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">75</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">76</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">77</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">78</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">79</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">81</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">82</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">83</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">84</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">85</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">86</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">87</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">88</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">89</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">90</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">91</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">92</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">93</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">94</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">95</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">96</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">97</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">98</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">99</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">101</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">102</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">103</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">104</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">105</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>sum[rt] <span style="color:#f92672">=</span> sum[rt
+</span></span><span style="display:flex;"><span>[hdoj4614]Vases and Flowers
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>https:<span style="color:#75715e">//www.cheasim.com/%E7%BA%BF%E6%AE%B5%E6%A0%91/2018/09/07/hdoj4614-Vases-and-Flowers.html
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">作者</span>
+</span></span><span style="display:flex;"><span>CheaSim
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">发布于</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">09</span><span style="color:#f92672">-</span><span style="color:#ae81ff">07</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">更新于</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">09</span><span style="color:#f92672">-</span><span style="color:#ae81ff">07</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">许可协议</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[线段树](/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/)
 </span></span></span></code></pre></div>
 
   </div>

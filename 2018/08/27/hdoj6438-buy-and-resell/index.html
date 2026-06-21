@@ -80,7 +80,25 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2018/08/27/hdoj6438-buy-and-resell/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2018/08/27/hdoj6438-buy-and-resell/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="[hdoj6438]Buy and Resell">
   <meta property="og:description" content="[hdoj6438]Buy and Resell 题意 给定$n$个城市和无限制的初始金钱你可以在每个城市里
@@ -287,73 +305,73 @@
 <p>$2$表示他是没有买卖，直接抵消了。</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;3.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span>
-</span></span><span class="line"><span class="cl"><span class="n">priority_queue</span>
-</span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span>
-</span></span><span class="line"><span class="cl"><span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">fi</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="n">ans</span> <span class="o">+=</span> <span class="n">temp</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>ll ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;3.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
+</span></span><span style="display:flex;"><span>priority_queue
+</span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>pq.push(make_pair
+</span></span><span style="display:flex;"><span>pq.push(make_pair
+</span></span><span style="display:flex;"><span>ll temp <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> pq.top().fi;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">+=</span> temp;
+</span></span><span style="display:flex;"><span>pq.pop();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>[hdoj6438]Buy and Resell</p>
 <p><a href="https://www.cheasim.com/acm/2018/08/27/hdoj6438-Buy-and-Resell.html">https://www.cheasim.com/acm/2018/08/27/hdoj6438-Buy-and-Resell.html</a></p>
 <p>作者

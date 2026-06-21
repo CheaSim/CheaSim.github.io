@@ -65,7 +65,25 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/posts/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/posts/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="Posts">
   <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
@@ -214,7 +232,7 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
   </div>
   <footer class="entry-footer">
 
-<span title='2021-01-12 00:00:00 +0000 UTC'>January 12, 2021</span>&nbsp;·&nbsp;<span>10 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+<span title='2021-01-12 00:00:00 +0000 UTC'>January 12, 2021</span>&nbsp;·&nbsp;<span>11 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
   <a class="entry-link" aria-label="post link to NLP基础" href="https://www.cheasim.com/2021/01/12/nlp%E5%9F%BA%E7%A1%80/"></a>
 </article>
 

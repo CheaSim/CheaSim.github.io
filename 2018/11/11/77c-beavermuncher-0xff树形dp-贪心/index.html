@@ -66,7 +66,25 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2018/11/11/77c-beavermuncher-0xff%E6%A0%91%E5%BD%A2dp-%E8%B4%AA%E5%BF%83/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2018/11/11/77c-beavermuncher-0xff%E6%A0%91%E5%BD%A2dp-%E8%B4%AA%E5%BF%83/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="[77c Beavermuncher-0xFF树形dp&#43;贪心">
   <meta property="og:description" content="C. Beavermuncher-0xFF 题意 给你一颗树，树上的每个节点有$n$个海狸。现在你在节点$root$上你前往下一个节点的条件是下一个节点上面至少有一个海狸，之后你到这个节点之后，你就会吃掉这个海狸。问最多能吃掉多少只海狸。">

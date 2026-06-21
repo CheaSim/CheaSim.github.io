@@ -130,7 +130,25 @@ return
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2019/03/29/%E7%AC%AC%E5%8D%81%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E9%A2%98%E8%A7%A3/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2019/03/29/%E7%AC%AC%E5%8D%81%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E9%A2%98%E8%A7%A3/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="第十届蓝桥杯题解">
   <meta property="og:description" content="第十届蓝桥杯题解(个人向) 第一题 平方和 算$1 ​$到$2019​$中含有$2,0,1,9​$的数的平方和。
@@ -321,124 +339,124 @@ return
   <div class="post-content md-content"><h1 id="第十届蓝桥杯题解个人向">第十届蓝桥杯题解(个人向)<a hidden class="anchor" aria-hidden="true" href="#第十届蓝桥杯题解个人向">#</a></h1>
 <h2 id="第一题-平方和">第一题 平方和<a hidden class="anchor" aria-hidden="true" href="#第一题-平方和">#</a></h2>
 <p>算$1 ​$到$2019​$中含有$2,0,1,9​$的数的平方和。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">/=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;1.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">/=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>ll ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="第二题-数列求值">第二题 数列求值<a hidden class="anchor" aria-hidden="true" href="#第二题-数列求值">#</a></h2>
 <p>求类似斐波那契数列$f[i] = f[i-1] + f[i-2] + f[i-3]$ ，求$f[20190324]%10000$。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;1.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>a[<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>a[<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>a[<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>a[<span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>rep(j,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="第三题-最大降雨量">第三题 最大降雨量<a hidden class="anchor" aria-hidden="true" href="#第三题-最大降雨量">#</a></h2>
 <p>答案34.贪心即可。注意中位数的中位数</p>
 <h2 id="第四题-迷宫">第四题 迷宫<a hidden class="anchor" aria-hidden="true" href="#第四题-迷宫">#</a></h2>
@@ -451,78 +469,78 @@ return
 <p>因为他的$m$低于20所以我们可以用二进制位来表示。总的复杂度$O(2^m *n)$</p>
 <p>状态转移方程 $dp[S|i] = min(dp[S|i],dp[i]+1)$</p>
 <h3 id="可能ac的代码">可能ac的代码<a hidden class="anchor" aria-hidden="true" href="#可能ac的代码">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;1.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">scanf</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="p">[</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">|</span><span class="n">sta</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">printf</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>scanf
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>rep(j,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>dp[i] <span style="color:#f92672">|=</span> (<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>dp[<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>rep(j,<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>dp[i<span style="color:#f92672">|</span>sta[j]] <span style="color:#f92672">=</span> min(dp[i]<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>printf
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>第十届蓝桥杯题解</p>
 <p><a href="https://www.cheasim.com/%E8%93%9D%E6%A1%A5%E6%9D%AF/2019/03/29/%E7%AC%AC%E5%8D%81%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E9%A2%98%E8%A7%A3.html">https://www.cheasim.com/%E8%93%9D%E6%A1%A5%E6%9D%AF/2019/03/29/%E7%AC%AC%E5%8D%81%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E9%A2%98%E8%A7%A3.html</a></p>
 <p>作者

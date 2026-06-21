@@ -72,7 +72,25 @@ $H(n) = H(n-1)$中的每个元素$a_i$，那么每个元素就生成一个小子
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2018/11/17/uva10479-the-hendrie-sqquence/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2018/11/17/uva10479-the-hendrie-sqquence/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="[uva10479]The Hendrie Sqquence">
   <meta property="og:description" content="The Hendrie Sequence 题意 给定一段序列的生成方式，问第$n$个元素是多少。 $0
@@ -281,117 +299,117 @@ $H(n) = H(n-1)$中的每个元素$a_i$，那么每个元素就生成一个小子
 <p>那么我们就可以从第$n$个元素表示在它属于的那次增长中，它排第几个递归到最初的那几个元素中去，要判断一下范围。</p>
 <p>由于题目中的数据比较极限，所以能用unsigned long long 还是用unsigned long long 吧。</p>
 <p>如果用unsigned long long。一般数据量输入很小 可以用cin很靠谱。但是要把endl换成’\n’还有输入</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="n">std</span>
-</span></span><span class="line"><span class="cl"><span class="n">cin</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>std
+</span></span><span style="display:flex;"><span>cin
 </span></span></code></pre></div><p>或者判断他是$2$的几次幂的时候可以这样子判断最高位的$1$在哪里。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">n</span><span class="p">;</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span>
-</span></span><span class="line"><span class="cl"><span class="n">dep</span><span class="o">--</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>ll n; <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>ll temp <span style="color:#f92672">=</span> n;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
+</span></span><span style="display:flex;"><span>dep<span style="color:#f92672">--</span>;
 </span></span></code></pre></div><h2 id="ac代码">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码">#</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="mi">40</span>
-</span></span><span class="line"><span class="cl"><span class="mi">41</span>
-</span></span><span class="line"><span class="cl"><span class="mi">42</span>
-</span></span><span class="line"><span class="cl"><span class="mi">43</span>
-</span></span><span class="line"><span class="cl"><span class="mi">44</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include
-</span></span></span><span class="line"><span class="cl"><span class="k">using</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define
-</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">typedef</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//head
-</span></span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">n</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">lie</span><span class="p">[</span><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">solve</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">st</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pow</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="n">st</span> <span class="o">+=</span> <span class="n">temp</span><span class="o">*</span><span class="p">(</span><span class="n">ll</span><span class="p">)(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifdef
-</span></span></span><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;4.in&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="n">std</span>
-</span></span><span class="line"><span class="cl"><span class="n">cin</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">--</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span>
-</span></span><span class="line"><span class="cl"><span class="n">temp</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">uva10479</span><span class="p">]</span><span class="n">The</span> <span class="n">Hendrie</span> <span class="n">Sqquence</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nl">https</span><span class="p">:</span><span class="c1">//www.cheasim.com/acm/2018/11/17/uva10479-The-Hendrie-Sqquence.html
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">作者</span>
-</span></span><span class="line"><span class="cl"><span class="n">CheaSim</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">发布于</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2018</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">17</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">更新于</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2018</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">17</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">许可协议</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">#[递归](/tags/%E9%80%92%E5%BD%92/)[规律](/tags/%E8%A7%84%E5%BE%8B/)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
+</span></span></span><span style="display:flex;"><span>ll n;
+</span></span><span style="display:flex;"><span>ll lie[<span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>ll solve
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>ll st <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>ll temp <span style="color:#f92672">=</span> pow
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>st <span style="color:#f92672">+=</span> temp<span style="color:#f92672">*</span>(ll)(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
+</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;4.in&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>std
+</span></span><span style="display:flex;"><span>cin
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>n<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>ll tn <span style="color:#f92672">=</span> n;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
+</span></span><span style="display:flex;"><span>temp
+</span></span><span style="display:flex;"><span>[uva10479]The Hendrie Sqquence
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>https:<span style="color:#75715e">//www.cheasim.com/acm/2018/11/17/uva10479-The-Hendrie-Sqquence.html
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">作者</span>
+</span></span><span style="display:flex;"><span>CheaSim
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">发布于</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">更新于</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">许可协议</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[递归](/tags/%E9%80%92%E5%BD%92/)[规律](/tags/%E8%A7%84%E5%BE%8B/)
 </span></span></span></code></pre></div>
 
   </div>

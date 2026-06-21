@@ -85,7 +85,25 @@ tf-idf
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2021/01/12/nlp%E5%9F%BA%E7%A1%80/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2021/01/12/nlp%E5%9F%BA%E7%A1%80/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="NLP基础">
   <meta property="og:description" content="nlp 深度学习基础 将每一个模型以
@@ -144,8 +162,8 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
   "keywords": [
     
   ],
-  "articleBody": "nlp 深度学习基础 将每一个模型以\n简单介绍\n解决的问题\n代码\n优缺点\n使用tips\n来归类。比较现代的会分析分析。\ntf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，IDF指的是逆文本频率指数。他们的计算公式如下：\n$TF_w=\\cfrac{N_w}{N}$，一个词在该句子中出现的频率。\n$IDF_w=\\log{\\cfrac{Y}{Y_w+1}}$，$Y_w$是所有文档中包含该词的文档个数。+1是方式分母为0.\nTF-IDF的思想在于，一个词如果在一段小文本中出现得越多，那么他对这段文本的权重就越大，但是如果在所有的文本中，他出现的次数都很多，就像计算信息熵一样，在所有情况下出现的概率很大时，那么词的信息就很少。所有使用IDF来抵消一些常用词的影响。综上，计算公式为\n$TFIDF_w=TF_w \\times IDF_w$\n注意，对于不同的样本的同一个词，$TF$可能是不同的，但是$IDF$是相同的。\n解决的问题 TF-IDF相当于在以前把关键字作为短文本表示的基础上加入了一个正则化，削弱了高频词的权重。在一些简单的文本匹配(对于给定的问题，与已知文本的词语将TFIDF加和得到相似度)，文本分类上可以起到一定的效果。\n代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 import class def self.documents_list = documents_list self.tf = [] self.idf = {} df = {} for temp = {} for temp[word] = temp.get(word, 0 self.tf.append(temp) # 出现过的词，都+1 for df[k] = df.get(k, 0 for self.idf[k] = np.log(len self.tfidf = [] for temp = {} for temp[k] = v * self.idf[k] self.tfidf.append(temp) tfidf = TFIDF(['I have a pen' print(tfidf.tf) print(tfidf.idf) print(tfidf.tfidf) 优点 一种无监督的生成句子词语向量的方法。\n可以很快地找到一句话的关键字\n耗费的计算资源较少。\n缺点 句子向量，或者词语向量没有上下文信息，词语与词语之间的位置关系也没有融入到表示当中。\n会将生僻词作为关键词，但其实生僻词意义不大。\n人名地名比较难以区分。\nhttps://zhuanlan.zhihu.com/p/113017752\nps: python dict是真好用。\nword2vec word2vec说明白了也就是和TFIDF一样的将词语使用一个$f(x)$映射到数值的向量空间当中。由于词语不像是像素点有着天然的数值表示，word2vec针对词语转化为计算机可以理解的表示。\nword2vec的思想是一个词的意思由它旁边的词构成。就像老话说的好，物以类聚，人以群分。但其实word2vec的损失函数和模型解决的问题是有一点割裂开的。word2vec想解决的问题是生成稠密的word embedding，而优化损失函数的目的是让两个词在window下的关系符合文本。损失函数是想，在一个窗口下，如果我中心词是”帅哥”,那么模型应该能推测前两个词是”我”和”是”。因为在样本中”我是帅哥”出现过很多次。之后由于损失函数的计算中，预测的条件概率是通过词向量的相似度来计算的，所以在优化模型中，也就达成了相似词汇产生相似词向量的目的。\nword2vec又分为两种模型：\nskip-gram： 使用中心词周围的词来预测中心词。\nCBOW： 使用中心词来预测周围的词。\n每一个词汇表示成为两个$d$维的向量，用来计算条件概率。$v_i \\in \\mathbb{R^d}$.之后每一个window下在中心词预测上下文的条件概率就是。\n$$P(O=o|C=c)=\\cfrac{\\exp(u_o^Tv_c)}{\\sum_{w \\in Vocab} \\exp(u_w^Tv_c)}$$\n使用极大似然估计就是，$L(\\theta)=\\prod_{t=1}^T \\prod_{-m \\leq j \\leq m ,j \\neq 0} P(w_{t+j} | w_t; \\theta)$\n之后对极大似然估计常规操作，取log再正负相反，从而作为损失函数求最小。\n![image-20210113160811012](/Users/cheasim/Library/Application Support/typora-user-images/image-20210113160811012.png)\n$W_{V\\times N}$就是由中心词汇组成的矩阵，$W’_{N \\times V}$就是上下文词汇表示组成的矩阵。\nskip gram 每一个词汇表示成为两个$d$维的向量，用来计算条件概率。$v_i \\in \\mathbb{R^d}$.这里我们直接想象成深度学习的模型，那么我们的输入是一个one hot embedding，输出是维度为词表的向量。之后我们要使得向量在上下文词上的值接近为1(在激活归一化之后)。由于词表一般很长，所以训练skip gram的时候有一个trick。\nCBOW 使用平均加权的one hot embedding输入上下文词汇，去预测中心词汇。\nHierarchical Softmax 对于整个词表计算一次softmax的开销是很大的$O(|V|)$其中$|V|»|d|$，所以我们需要构建一种不一样的softmax来处理这个问题。这个就是Hierarchical softmax 等级制的softmax，它首先会将词表进行分层，构建成一颗平衡二叉树，🌲上的节点就是我们要判断的word，我们知道平衡二叉树的深度是$O(\\log n)$。经过$\\log n$次的判断之后，就可以计算损失函数了。一次forward复杂度是$O(\\log |V| * d2)$，其中2是在左右选择，相比于$O(|V|+d|V|)$减少了很多。计算P需要把从根节点到叶子节点上的每个节点挨个算一遍概率。\n![image-20210113164654789](/Users/cheasim/Library/Application Support/typora-user-images/image-20210113164654789.png)\nnegative sampling 在一次训练的时候，skip gram 只会输入一个词，很稀疏，浪费了其他的embedding训练。在训练的时候，不使用矩阵直接乘，而是使用挑选比如(1+10)10个负样本更新矩阵。挑选的公式为出现评率比较大的。\n$$P(w_i)=\\cfrac{f(w_i)^{0.75}}{\\sum_{j=0}^nf(w_j)^{0.75}}$$\n解决的问题 解决one-hot embedding中过于稀疏，以及难以表达语义特征的问题。\n代码 1 2 3 class def 优点 无监督训练生成词向量\n对于相似的词汇有着很好的解释性，Man - King = Woman - Queen\n缺点 无法一词多义。\n训练时没有加入位置信息，训练效率较低。\ntext-cnn Convolutional Naural Networks for Sentence Classification\n拷贝忍者卡卡sei，直接抄CV的CNN就完事了。我们可以将一句话利用word embedding看成是一副图像，比如长度为10的句子，词向量维度为300。那么这个句子的输入就是$10 \\times 300$的矩阵。之后我们就可以像图像一样处理文本了。\n模型可以分为三层。\n输入层是一个$k \\times n$的矩阵\n卷积层与CV有一些区别，因为我们需要把词向量看做是一个整体，所以不会在横（纵？）方向上进行卷积，卷积窗口只会上下移动。核大小为$filter_size \\times embedding_size$.文中定义filiter_size为[3,4,5]。将局部的信息聚合。每一个不同的卷积核都会生成不同的feature map，比如输入是$10 \\times 300$，之后经过128个大小为3的卷积操作，会生成128个维度为10的向量。\npooling层，由于要处理变长文本，所以是对每一个feature map上取最大值作为输出，所以最终得到的是一个128维度的向量。\nFFN和Softmax 常规操作，分类模型获得每一类的概率。\n解决的问题 将CNN引入到NLP当中，从而减少了模型的参数，并在CNN在捕捉局部信息时有奇效。\n1 2 3 4 5 import import class def pass 优点 跨时代地提出了CNN在NLP领域的应用\n实验做得很详细，针对预训练，随机生成的词向量都进行了比对。（是不是这个给bert一点思考，不需要一个word embedding，随机初始化就好了）\n缺点 CNN卷积对于句子来说还是太小了。没有全局信息。一个CNN只能估计5-gram的信息 https://zhuanlan.zhihu.com/p/102426363\nrnn lstm RNN想对于CNN模型来说多了很多变种。首先来说一下RNN的思想吧。RNN灵感来源于人类进行阅读过程中，会从左到右一个字一个字地读入文字，之后再得到自己的理解。那么是否有模型能够捕捉这种从左到右的时序信息呢？那就是RNN(Recurrent Neural Network)。RNN由于结构精巧有很多变种。\nLSTM LSTM使用门机制来进行有效地方式了梯度爆炸或者梯度消失。他三个门的公式分别是输入门，遗忘门，输出门。\n$f_i=$\nhttp://codewithzhangyi.com/2018/10/31/NLP%E7%AC%94%E8%AE%B0-RNN/\ntransformer BERT 代码来自transformers==3.3.1\ninput BERT模型的输入由三部分得到，token embdding, segment embedding, position embedding。\ntoken embedding 对于所有文字来说，计算机都是无法理解的，需要转化为浮点向量或者整型向量。BERT采用的是WordPiece tokenization，是一种数据驱动的分词算法，他以char作为最小的粒度，不断地寻找出现最多以char为单位组成的token，之后将word进行分词，分为一个一个的token。比如ing这个会经常出现在英文当中，所以WordPiece 会吧”I am playing the computer games”分为”I am play ##ing the computer games”。为了解决OOV问题。词表中有30522个词。\n在WordPiece 分词的基础上，之后会加入4个特殊词汇[CLS],[SEP],[PAD],[UNK]。[CLS]加入到句首，不参与预训练，针对下游任务进行fine-tune。[SEP]作为句尾以及分段标志。[PAD]是填充，使得句子长度一样，方便批处理，[UNK]是表明不在词表当中。将他们转换成one-hot embedding之后，接一个embedding层，将词转化为最初的词向量。\nsegment embedding segment embedding 仅仅作为区分两个句子来使用。在预训练中，还要使用预测句子是否相邻作为预训练任务之一。在输入时，也会经过一个线性层来形成segment embedding.\nposition embedding position embedding 纯使用nn.embedding 获得。训练了一个位置词表。$W\\in \\mathbb{R^{512 \\times 768}}$。输入就是[0,1,2,…,len_seq-1]\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 class \"\"\"Construct the embeddings from word, position and token_type embeddings.\"\"\" def super self.word_embeddings = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=config.pad_token_id) self.position_embeddings = nn.Embedding(config.max_position_embeddings, config.hidden_size) self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size) # self.LayerNorm is not snake-cased to stick with TensorFlow model variable name and be able to load # any TensorFlow checkpoint file self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps) self.dropout = nn.Dropout(config.hidden_dropout_prob) # position_ids (1, len position emb) is contiguous in memory and exported when serialized self.register_buffer(\"position_ids\" def if input_shape = input_ids.size() else input_shape = inputs_embeds.size()[:-1 seq_length = input_shape[1 if position_ids = self.position_ids[:, :seq_length] if token_type_ids = torch.zeros(input_shape, dtype=torch.long, device=self.position_ids.device) if inputs_embeds = self.word_embeddings(input_ids) position_embeddings = self.position_embeddings(position_ids) token_type_embeddings = self.token_type_embeddings(token_type_ids) embeddings = inputs_embeds + position_embeddings + token_type_embeddings embeddings = self.LayerNorm(embeddings) embeddings = self.dropout(embeddings) return transformer encoder 层 transformer encoder层主要如下图所示\n使用一个上面所说的输入，经过Multi-Head Attention，在通过残差连接以及Layer Normalization，之后通过FFN以及又一个残差连接作为输出。\nMulti-Head Attention BERT使用的是自注意力机制，即用于$Q,K,V$全部源自同一个向量。注意力机制使用了上下文的信息来对每一个token进行表示。计算机通过利用上下文的信息，对每一个token进行理解。比如“冬天到了，天气变冷了。”BERT会根据大量该类的文本，将冬天和冷的语义进行融合。Attention值的计算公式如下\n$$Attention(Q,K,V)=softmax(\\cfrac{QK^T}{\\sqrt{d_k}})V \\in \\mathbb{R^{len\\times d}}$$\n其中，$Q,K,V\\in \\mathbb{R^{d\\times k}},Q=xW_q,K=xW_k,V=xW_v$，$d$是隐层维度这里可以注意到，因为softmax是非线性的，所以这里的矩阵变换是没法单纯使用线性变换用$Wx$代替的。\n多头在哪里多头。直接将原来的$x$进行转化后切分，详情看下图就懂了。每一个attention生成的维度都不高，拼起来就跟原来一样了。这张图有点问题，其实BERT没有$W^O$，因为$Z_0,…,Z_7$拼起来正好是$Z$。\nBERT 实现中，多头的目的是降低参数的个数，增加表达能力。 类似于CNN多个卷积核？\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 class def super if raise \"The hidden size (%d) is not a multiple of the number of attention \" \"heads (%d)\" ) self.num_attention_heads = config.num_attention_heads self.attention_head_size = int self.all_head_size = self.num_attention_heads * self.attention_head_size self.query = nn.Linear(config.hidden_size, self.all_head_size) self.key = nn.Linear(config.hidden_size, self.all_head_size) self.value = nn.Linear(config.hidden_size, self.all_head_size) self.dropout = nn.Dropout(config.attention_probs_dropout_prob) def new_x_shape = x.size()[:-1 x = x.view(*new_x_shape) return def self, hidden_states, attention_mask=None head_mask=None encoder_hidden_states=None encoder_attention_mask=None output_attentions=False mixed_query_layer = self.query(hidden_states) # If this is instantiated as a cross-attention module, the keys # and values come from an encoder; the attention mask needs to be # such that the encoder's padding tokens are not attended to. if mixed_key_layer = self.key(encoder_hidden_states) mixed_value_layer = self.value(encoder_hidden_states) attention_mask = encoder_attention_mask else mixed_key_layer = self.key(hidden_states) mixed_value_layer = self.value(hidden_states) query_layer = self.transpose_for_scores(mixed_query_layer) key_layer = self.transpose_for_scores(mixed_key_layer) value_layer = self.transpose_for_scores(mixed_value_layer) # Take the dot product between \"query\" and \"key\" to get the raw attention scores. attention_scores = torch.matmul(query_layer, key_layer.transpose(-1 attention_scores = attention_scores / math.sqrt(self.attention_head_size) if # Apply the attention mask is (precomputed for all layers in BertModel forward() function) [1,1,1,0,0] -\u003e [0,0,0,-10000,-10000] attention_scores = attention_scores + attention_mask # Normalize the attention scores to probabilities. attention_probs = nn.Softmax(dim=-1 # This is actually dropping out entire tokens to attend to, which might # seem a bit unusual, but is taken from the original Transformer paper. attention_probs = self.dropout(attention_probs) # Mask heads if we want to if attention_probs = attention_probs * head_mask context_layer = torch.matmul(attention_probs, value_layer) context_layer = context_layer.permute(0 new_context_layer_shape = context_layer.size()[:-2 context_layer = context_layer.view(*new_context_layer_shape) outputs = (context_layer, attention_probs) if return ps: 代码里实现attention_mask使用了加法，因为softmax中针对e^0也会输出1，所以我们要对于忽视的token进行$e^{-inf}$，才能使他在softmax之后的权重为0。\nadd and norm 常见的残差网络方式梯度消失，增加模型的训练，打破了网络的对称性，提升了网络的表征能力。\n1 2 3 4 5 6 7 8 9 10 11 12 class def super self.dense = nn.Linear(config.hidden_size, config.hidden_size) self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps) self.dropout = nn.Dropout(config.hidden_dropout_prob) def hidden_states = self.dense(hidden_states) hidden_states = self.dropout(hidden_states) hidden_states = self.LayerNorm(hidden_states + input_tensor) return FFN and Add Norm 先经过中间层3072，hidden_size扩大4倍。之后再经过一个缩小了。注意这里最后才有一个dropout。激活函数用的gelu，比relu稍微缓和了一些。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 class def super self.dense = nn.Linear(config.hidden_size, config.intermediate_size) if self.intermediate_act_fn = ACT2FN[config.hidden_act] else self.intermediate_act_fn = config.hidden_act def hidden_states = self.dense(hidden_states) hidden_states = self.intermediate_act_fn(hidden_states) return class def super self.dense = nn.Linear(config.intermediate_size, config.hidden_size) self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps) self.dropout = nn.Dropout(config.hidden_dropout_prob) def hidden_states = self.dense(hidden_states) hidden_states = self.dropout(hidden_states) hidden_states = self.LayerNorm(hidden_states + input_tensor) return 最后处理 综上，把这个bert_layer叠个12层就行了。但是在最后输出的时候[CLS]有一个特殊的处理。输出的时候会经过一个线性层+一个tanh激活。\nNER token classification 在每一个token对应的输出加入一个线性分类层，对应所有的实体类型标签比如B-PER,I-PER。\nhttps://zhuanlan.zhihu.com/p/109250703 https://zhuanlan.zhihu.com/p/47282410\nNLP基础\nhttps://www.cheasim.com/uncategorized/2021/01/12/NLP%E5%9F%BA%E7%A1%80.html\n作者 CheaSim\n发布于 2021-01-12\n更新于 2021-03-08\n许可协议\n#nlp\n",
-  "wordCount" : "4997",
+  "articleBody": "nlp 深度学习基础 将每一个模型以\n简单介绍\n解决的问题\n代码\n优缺点\n使用tips\n来归类。比较现代的会分析分析。\ntf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，IDF指的是逆文本频率指数。他们的计算公式如下：\n$TF_w=\\cfrac{N_w}{N}$，一个词在该句子中出现的频率。\n$IDF_w=\\log{\\cfrac{Y}{Y_w+1}}$，$Y_w$是所有文档中包含该词的文档个数。+1是方式分母为0.\nTF-IDF的思想在于，一个词如果在一段小文本中出现得越多，那么他对这段文本的权重就越大，但是如果在所有的文本中，他出现的次数都很多，就像计算信息熵一样，在所有情况下出现的概率很大时，那么词的信息就很少。所有使用IDF来抵消一些常用词的影响。综上，计算公式为\n$TFIDF_w=TF_w \\times IDF_w$\n注意，对于不同的样本的同一个词，$TF$可能是不同的，但是$IDF$是相同的。\n解决的问题 TF-IDF相当于在以前把关键字作为短文本表示的基础上加入了一个正则化，削弱了高频词的权重。在一些简单的文本匹配(对于给定的问题，与已知文本的词语将TFIDF加和得到相似度)，文本分类上可以起到一定的效果。\n代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 import class def self.documents_list = documents_list self.tf = [] self.idf = {} df = {} for temp = {} for temp[word] = temp.get(word, 0 self.tf.append(temp) # 出现过的词，都+1 for df[k] = df.get(k, 0 for self.idf[k] = np.log(len self.tfidf = [] for temp = {} for temp[k] = v * self.idf[k] self.tfidf.append(temp) tfidf = TFIDF(['I have a pen' print(tfidf.tf) print(tfidf.idf) print(tfidf.tfidf) 优点 一种无监督的生成句子词语向量的方法。\n可以很快地找到一句话的关键字\n耗费的计算资源较少。\n缺点 句子向量，或者词语向量没有上下文信息，词语与词语之间的位置关系也没有融入到表示当中。\n会将生僻词作为关键词，但其实生僻词意义不大。\n人名地名比较难以区分。\nhttps://zhuanlan.zhihu.com/p/113017752\nps: python dict是真好用。\nword2vec word2vec说明白了也就是和TFIDF一样的将词语使用一个$f(x)$映射到数值的向量空间当中。由于词语不像是像素点有着天然的数值表示，word2vec针对词语转化为计算机可以理解的表示。\nword2vec的思想是一个词的意思由它旁边的词构成。就像老话说的好，物以类聚，人以群分。但其实word2vec的损失函数和模型解决的问题是有一点割裂开的。word2vec想解决的问题是生成稠密的word embedding，而优化损失函数的目的是让两个词在window下的关系符合文本。损失函数是想，在一个窗口下，如果我中心词是”帅哥”,那么模型应该能推测前两个词是”我”和”是”。因为在样本中”我是帅哥”出现过很多次。之后由于损失函数的计算中，预测的条件概率是通过词向量的相似度来计算的，所以在优化模型中，也就达成了相似词汇产生相似词向量的目的。\nword2vec又分为两种模型：\nskip-gram： 使用中心词周围的词来预测中心词。\nCBOW： 使用中心词来预测周围的词。\n每一个词汇表示成为两个$d$维的向量，用来计算条件概率。$v_i \\in \\mathbb{R^d}$.之后每一个window下在中心词预测上下文的条件概率就是。\n$$P(O=o|C=c)=\\cfrac{\\exp(u_o^Tv_c)}{\\sum_{w \\in Vocab} \\exp(u_w^Tv_c)}$$使用极大似然估计就是，$L(\\theta)=\\prod_{t=1}^T \\prod_{-m \\leq j \\leq m ,j \\neq 0} P(w_{t+j} | w_t; \\theta)$\n之后对极大似然估计常规操作，取log再正负相反，从而作为损失函数求最小。\n![image-20210113160811012](/Users/cheasim/Library/Application Support/typora-user-images/image-20210113160811012.png)\n$W_{V\\times N}$就是由中心词汇组成的矩阵，$W’_{N \\times V}$就是上下文词汇表示组成的矩阵。\nskip gram 每一个词汇表示成为两个$d$维的向量，用来计算条件概率。$v_i \\in \\mathbb{R^d}$.这里我们直接想象成深度学习的模型，那么我们的输入是一个one hot embedding，输出是维度为词表的向量。之后我们要使得向量在上下文词上的值接近为1(在激活归一化之后)。由于词表一般很长，所以训练skip gram的时候有一个trick。\nCBOW 使用平均加权的one hot embedding输入上下文词汇，去预测中心词汇。\nHierarchical Softmax 对于整个词表计算一次softmax的开销是很大的$O(|V|)$其中$|V|\u003e\u003e|d|$，所以我们需要构建一种不一样的softmax来处理这个问题。这个就是Hierarchical softmax 等级制的softmax，它首先会将词表进行分层，构建成一颗平衡二叉树，🌲上的节点就是我们要判断的word，我们知道平衡二叉树的深度是$O(\\log n)$。经过$\\log n$次的判断之后，就可以计算损失函数了。一次forward复杂度是$O(\\log |V| * d2)$，其中2是在左右选择，相比于$O(|V|+d|V|)$减少了很多。计算P需要把从根节点到叶子节点上的每个节点挨个算一遍概率。\n![image-20210113164654789](/Users/cheasim/Library/Application Support/typora-user-images/image-20210113164654789.png)\nnegative sampling 在一次训练的时候，skip gram 只会输入一个词，很稀疏，浪费了其他的embedding训练。在训练的时候，不使用矩阵直接乘，而是使用挑选比如(1+10)10个负样本更新矩阵。挑选的公式为出现评率比较大的。\n$$P(w_i)=\\cfrac{f(w_i)^{0.75}}{\\sum_{j=0}^nf(w_j)^{0.75}}$$解决的问题 解决one-hot embedding中过于稀疏，以及难以表达语义特征的问题。\n代码 1 2 3 class def 优点 无监督训练生成词向量\n对于相似的词汇有着很好的解释性，Man - King = Woman - Queen\n缺点 无法一词多义。\n训练时没有加入位置信息，训练效率较低。\ntext-cnn Convolutional Naural Networks for Sentence Classification\n拷贝忍者卡卡sei，直接抄CV的CNN就完事了。我们可以将一句话利用word embedding看成是一副图像，比如长度为10的句子，词向量维度为300。那么这个句子的输入就是$10 \\times 300$的矩阵。之后我们就可以像图像一样处理文本了。\n模型可以分为三层。\n输入层是一个$k \\times n$的矩阵\n卷积层与CV有一些区别，因为我们需要把词向量看做是一个整体，所以不会在横（纵？）方向上进行卷积，卷积窗口只会上下移动。核大小为$filter_size \\times embedding_size$.文中定义filiter_size为[3,4,5]。将局部的信息聚合。每一个不同的卷积核都会生成不同的feature map，比如输入是$10 \\times 300$，之后经过128个大小为3的卷积操作，会生成128个维度为10的向量。\npooling层，由于要处理变长文本，所以是对每一个feature map上取最大值作为输出，所以最终得到的是一个128维度的向量。\nFFN和Softmax 常规操作，分类模型获得每一类的概率。\n解决的问题 将CNN引入到NLP当中，从而减少了模型的参数，并在CNN在捕捉局部信息时有奇效。\n1 2 3 4 5 import import class def pass 优点 跨时代地提出了CNN在NLP领域的应用\n实验做得很详细，针对预训练，随机生成的词向量都进行了比对。（是不是这个给bert一点思考，不需要一个word embedding，随机初始化就好了）\n缺点 CNN卷积对于句子来说还是太小了。没有全局信息。一个CNN只能估计5-gram的信息 https://zhuanlan.zhihu.com/p/102426363\nrnn lstm RNN想对于CNN模型来说多了很多变种。首先来说一下RNN的思想吧。RNN灵感来源于人类进行阅读过程中，会从左到右一个字一个字地读入文字，之后再得到自己的理解。那么是否有模型能够捕捉这种从左到右的时序信息呢？那就是RNN(Recurrent Neural Network)。RNN由于结构精巧有很多变种。\nLSTM LSTM使用门机制来进行有效地方式了梯度爆炸或者梯度消失。他三个门的公式分别是输入门，遗忘门，输出门。\n$f_i=$\nhttp://codewithzhangyi.com/2018/10/31/NLP%E7%AC%94%E8%AE%B0-RNN/\ntransformer BERT 代码来自transformers==3.3.1\ninput BERT模型的输入由三部分得到，token embdding, segment embedding, position embedding。\ntoken embedding 对于所有文字来说，计算机都是无法理解的，需要转化为浮点向量或者整型向量。BERT采用的是WordPiece tokenization，是一种数据驱动的分词算法，他以char作为最小的粒度，不断地寻找出现最多以char为单位组成的token，之后将word进行分词，分为一个一个的token。比如ing这个会经常出现在英文当中，所以WordPiece 会吧”I am playing the computer games”分为”I am play ##ing the computer games”。为了解决OOV问题。词表中有30522个词。\n在WordPiece 分词的基础上，之后会加入4个特殊词汇[CLS],[SEP],[PAD],[UNK]。[CLS]加入到句首，不参与预训练，针对下游任务进行fine-tune。[SEP]作为句尾以及分段标志。[PAD]是填充，使得句子长度一样，方便批处理，[UNK]是表明不在词表当中。将他们转换成one-hot embedding之后，接一个embedding层，将词转化为最初的词向量。\nsegment embedding segment embedding 仅仅作为区分两个句子来使用。在预训练中，还要使用预测句子是否相邻作为预训练任务之一。在输入时，也会经过一个线性层来形成segment embedding.\nposition embedding position embedding 纯使用nn.embedding 获得。训练了一个位置词表。$W\\in \\mathbb{R^{512 \\times 768}}$。输入就是[0,1,2,…,len_seq-1]\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 class \"\"\"Construct the embeddings from word, position and token_type embeddings.\"\"\" def super self.word_embeddings = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=config.pad_token_id) self.position_embeddings = nn.Embedding(config.max_position_embeddings, config.hidden_size) self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size) # self.LayerNorm is not snake-cased to stick with TensorFlow model variable name and be able to load # any TensorFlow checkpoint file self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps) self.dropout = nn.Dropout(config.hidden_dropout_prob) # position_ids (1, len position emb) is contiguous in memory and exported when serialized self.register_buffer(\"position_ids\" def if input_shape = input_ids.size() else input_shape = inputs_embeds.size()[:-1 seq_length = input_shape[1 if position_ids = self.position_ids[:, :seq_length] if token_type_ids = torch.zeros(input_shape, dtype=torch.long, device=self.position_ids.device) if inputs_embeds = self.word_embeddings(input_ids) position_embeddings = self.position_embeddings(position_ids) token_type_embeddings = self.token_type_embeddings(token_type_ids) embeddings = inputs_embeds + position_embeddings + token_type_embeddings embeddings = self.LayerNorm(embeddings) embeddings = self.dropout(embeddings) return transformer encoder 层 transformer encoder层主要如下图所示\n使用一个上面所说的输入，经过Multi-Head Attention，在通过残差连接以及Layer Normalization，之后通过FFN以及又一个残差连接作为输出。\nMulti-Head Attention BERT使用的是自注意力机制，即用于$Q,K,V$全部源自同一个向量。注意力机制使用了上下文的信息来对每一个token进行表示。计算机通过利用上下文的信息，对每一个token进行理解。比如“冬天到了，天气变冷了。”BERT会根据大量该类的文本，将冬天和冷的语义进行融合。Attention值的计算公式如下\n$$Attention(Q,K,V)=softmax(\\cfrac{QK^T}{\\sqrt{d_k}})V \\in \\mathbb{R^{len\\times d}}$$其中，$Q,K,V\\in \\mathbb{R^{d\\times k}},Q=xW_q,K=xW_k,V=xW_v$，$d$是隐层维度这里可以注意到，因为softmax是非线性的，所以这里的矩阵变换是没法单纯使用线性变换用$Wx$代替的。\n多头在哪里多头。直接将原来的$x$进行转化后切分，详情看下图就懂了。每一个attention生成的维度都不高，拼起来就跟原来一样了。这张图有点问题，其实BERT没有$W^O$，因为$Z_0,…,Z_7$拼起来正好是$Z$。\nBERT 实现中，多头的目的是降低参数的个数，增加表达能力。 类似于CNN多个卷积核？\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 class def super if raise \"The hidden size (%d) is not a multiple of the number of attention \" \"heads (%d)\" ) self.num_attention_heads = config.num_attention_heads self.attention_head_size = int self.all_head_size = self.num_attention_heads * self.attention_head_size self.query = nn.Linear(config.hidden_size, self.all_head_size) self.key = nn.Linear(config.hidden_size, self.all_head_size) self.value = nn.Linear(config.hidden_size, self.all_head_size) self.dropout = nn.Dropout(config.attention_probs_dropout_prob) def new_x_shape = x.size()[:-1 x = x.view(*new_x_shape) return def self, hidden_states, attention_mask=None head_mask=None encoder_hidden_states=None encoder_attention_mask=None output_attentions=False mixed_query_layer = self.query(hidden_states) # If this is instantiated as a cross-attention module, the keys # and values come from an encoder; the attention mask needs to be # such that the encoder's padding tokens are not attended to. if mixed_key_layer = self.key(encoder_hidden_states) mixed_value_layer = self.value(encoder_hidden_states) attention_mask = encoder_attention_mask else mixed_key_layer = self.key(hidden_states) mixed_value_layer = self.value(hidden_states) query_layer = self.transpose_for_scores(mixed_query_layer) key_layer = self.transpose_for_scores(mixed_key_layer) value_layer = self.transpose_for_scores(mixed_value_layer) # Take the dot product between \"query\" and \"key\" to get the raw attention scores. attention_scores = torch.matmul(query_layer, key_layer.transpose(-1 attention_scores = attention_scores / math.sqrt(self.attention_head_size) if # Apply the attention mask is (precomputed for all layers in BertModel forward() function) [1,1,1,0,0] -\u003e [0,0,0,-10000,-10000] attention_scores = attention_scores + attention_mask # Normalize the attention scores to probabilities. attention_probs = nn.Softmax(dim=-1 # This is actually dropping out entire tokens to attend to, which might # seem a bit unusual, but is taken from the original Transformer paper. attention_probs = self.dropout(attention_probs) # Mask heads if we want to if attention_probs = attention_probs * head_mask context_layer = torch.matmul(attention_probs, value_layer) context_layer = context_layer.permute(0 new_context_layer_shape = context_layer.size()[:-2 context_layer = context_layer.view(*new_context_layer_shape) outputs = (context_layer, attention_probs) if return ps: 代码里实现attention_mask使用了加法，因为softmax中针对e^0也会输出1，所以我们要对于忽视的token进行$e^{-inf}$，才能使他在softmax之后的权重为0。\nadd and norm 常见的残差网络方式梯度消失，增加模型的训练，打破了网络的对称性，提升了网络的表征能力。\n1 2 3 4 5 6 7 8 9 10 11 12 class def super self.dense = nn.Linear(config.hidden_size, config.hidden_size) self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps) self.dropout = nn.Dropout(config.hidden_dropout_prob) def hidden_states = self.dense(hidden_states) hidden_states = self.dropout(hidden_states) hidden_states = self.LayerNorm(hidden_states + input_tensor) return FFN and Add Norm 先经过中间层3072，hidden_size扩大4倍。之后再经过一个缩小了。注意这里最后才有一个dropout。激活函数用的gelu，比relu稍微缓和了一些。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 class def super self.dense = nn.Linear(config.hidden_size, config.intermediate_size) if self.intermediate_act_fn = ACT2FN[config.hidden_act] else self.intermediate_act_fn = config.hidden_act def hidden_states = self.dense(hidden_states) hidden_states = self.intermediate_act_fn(hidden_states) return class def super self.dense = nn.Linear(config.intermediate_size, config.hidden_size) self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps) self.dropout = nn.Dropout(config.hidden_dropout_prob) def hidden_states = self.dense(hidden_states) hidden_states = self.dropout(hidden_states) hidden_states = self.LayerNorm(hidden_states + input_tensor) return 最后处理 综上，把这个bert_layer叠个12层就行了。但是在最后输出的时候[CLS]有一个特殊的处理。输出的时候会经过一个线性层+一个tanh激活。\nNER token classification 在每一个token对应的输出加入一个线性分类层，对应所有的实体类型标签比如B-PER,I-PER。\nhttps://zhuanlan.zhihu.com/p/109250703 https://zhuanlan.zhihu.com/p/47282410\nNLP基础\nhttps://www.cheasim.com/uncategorized/2021/01/12/NLP%E5%9F%BA%E7%A1%80.html\n作者 CheaSim\n发布于 2021-01-12\n更新于 2021-03-08\n许可协议\n#nlp\n",
+  "wordCount" : "5070",
   "inLanguage": "zh-cn",
   "datePublished": "2021-01-12T00:00:00Z",
   "dateModified": "2021-01-12T00:00:00Z",
@@ -247,7 +265,7 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
     </h1>
     <div class="post-meta">
 
-<span title='2021-01-12 00:00:00 +0000 UTC'>January 12, 2021</span>&nbsp;·&nbsp;<span>10 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+<span title='2021-01-12 00:00:00 +0000 UTC'>January 12, 2021</span>&nbsp;·&nbsp;<span>11 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
 
 </div>
   </header> <details class="toc" >
@@ -375,60 +393,60 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
 <h3 id="解决的问题">解决的问题<a hidden class="anchor" aria-hidden="true" href="#解决的问题">#</a></h3>
 <p>TF-IDF相当于在以前把关键字作为短文本表示的基础上加入了一个正则化，削弱了高频词的权重。在一些简单的文本匹配(对于给定的问题，与已知文本的词语将TFIDF加和得到相似度)，文本分类上可以起到一定的效果。</p>
 <p>代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span>
-</span></span><span class="line"><span class="cl"><span class="nn">class</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span>
-</span></span><span class="line"><span class="cl"><span class="nf">self</span><span class="o">.</span><span class="n">documents_list</span> <span class="o">=</span> <span class="n">documents_list</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">idf</span> <span class="o">=</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">temp</span> <span class="o">=</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">temp</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 出现过的词，都+1</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">tfidf</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">temp</span> <span class="o">=</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span>
-</span></span><span class="line"><span class="cl"><span class="n">temp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">tfidf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TFIDF</span><span class="p">([</span><span class="s1">&#39;I have a pen&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tfidf</span><span class="o">.</span><span class="n">tf</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tfidf</span><span class="o">.</span><span class="n">idf</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">tfidf</span><span class="o">.</span><span class="n">tfidf</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
+</span></span><span style="display:flex;"><span>class
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span><span style="color:#f92672">.</span>documents_list <span style="color:#f92672">=</span> documents_list
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>tf <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>idf <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>temp[word] <span style="color:#f92672">=</span> temp<span style="color:#f92672">.</span>get(word, <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>tf<span style="color:#f92672">.</span>append(temp)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 出现过的词，都+1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>df[k] <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>get(k, <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>idf[k] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>log(len
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>tfidf <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>temp[k] <span style="color:#f92672">=</span> v <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>idf[k]
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>tfidf<span style="color:#f92672">.</span>append(temp)
+</span></span><span style="display:flex;"><span>tfidf <span style="color:#f92672">=</span> TFIDF([<span style="color:#e6db74">&#39;I have a pen&#39;</span>
+</span></span><span style="display:flex;"><span>print(tfidf<span style="color:#f92672">.</span>tf)
+</span></span><span style="display:flex;"><span>print(tfidf<span style="color:#f92672">.</span>idf)
+</span></span><span style="display:flex;"><span>print(tfidf<span style="color:#f92672">.</span>tfidf)
 </span></span></code></pre></div><h3 id="优点">优点<a hidden class="anchor" aria-hidden="true" href="#优点">#</a></h3>
 <ul>
 <li>
@@ -470,8 +488,7 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
 </li>
 </ul>
 <p>每一个词汇表示成为两个$d$维的向量，用来计算条件概率。$v_i \in \mathbb{R^d}$.之后每一个window下在中心词预测上下文的条件概率就是。</p>
-<p>$$P(O=o|C=c)=\cfrac{\exp(u_o^Tv_c)}{\sum_{w \in Vocab} \exp(u_w^Tv_c)}$$</p>
-<p>使用极大似然估计就是，$L(\theta)=\prod_{t=1}^T \prod_{-m \leq j \leq m ,j \neq 0} P(w_{t+j} | w_t; \theta)$</p>
+$$P(O=o|C=c)=\cfrac{\exp(u_o^Tv_c)}{\sum_{w \in Vocab} \exp(u_w^Tv_c)}$$<p>使用极大似然估计就是，$L(\theta)=\prod_{t=1}^T \prod_{-m \leq j \leq m ,j \neq 0} P(w_{t+j} | w_t; \theta)$</p>
 <p>之后对极大似然估计常规操作，取log再正负相反，从而作为损失函数求最小。</p>
 <p>![image-20210113160811012](/Users/cheasim/Library/Application Support/typora-user-images/image-20210113160811012.png)</p>
 <p>$W_{V\times N}$就是由中心词汇组成的矩阵，$W’_{N \times V}$就是上下文词汇表示组成的矩阵。</p>
@@ -480,19 +497,18 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
 <h3 id="cbow">CBOW<a hidden class="anchor" aria-hidden="true" href="#cbow">#</a></h3>
 <p>使用平均加权的one hot embedding输入上下文词汇，去预测中心词汇。</p>
 <h4 id="hierarchical-softmax">Hierarchical Softmax<a hidden class="anchor" aria-hidden="true" href="#hierarchical-softmax">#</a></h4>
-<p>对于整个词表计算一次softmax的开销是很大的$O(|V|)$其中$|V|&raquo;|d|$，所以我们需要构建一种不一样的softmax来处理这个问题。这个就是Hierarchical softmax 等级制的softmax，它首先会将词表进行分层，构建成一颗平衡二叉树，🌲上的节点就是我们要判断的word，我们知道平衡二叉树的深度是$O(\log n)$。经过$\log n$次的判断之后，就可以计算损失函数了。一次forward复杂度是$O(\log |V| * d2)$，其中2是在左右选择，相比于$O(|V|+d|V|)$减少了很多。计算P需要把从根节点到叶子节点上的每个节点挨个算一遍概率。</p>
+<p>对于整个词表计算一次softmax的开销是很大的$O(|V|)$其中$|V|>>|d|$，所以我们需要构建一种不一样的softmax来处理这个问题。这个就是Hierarchical softmax 等级制的softmax，它首先会将词表进行分层，构建成一颗平衡二叉树，🌲上的节点就是我们要判断的word，我们知道平衡二叉树的深度是$O(\log n)$。经过$\log n$次的判断之后，就可以计算损失函数了。一次forward复杂度是$O(\log |V| * d2)$，其中2是在左右选择，相比于$O(|V|+d|V|)$减少了很多。计算P需要把从根节点到叶子节点上的每个节点挨个算一遍概率。</p>
 <p>![image-20210113164654789](/Users/cheasim/Library/Application Support/typora-user-images/image-20210113164654789.png)</p>
 <h4 id="negative-sampling">negative sampling<a hidden class="anchor" aria-hidden="true" href="#negative-sampling">#</a></h4>
 <p>在一次训练的时候，skip gram 只会输入一个词，很稀疏，浪费了其他的embedding训练。在训练的时候，不使用矩阵直接乘，而是使用挑选比如(1+10)10个负样本更新矩阵。挑选的公式为出现评率比较大的。</p>
-<p>$$P(w_i)=\cfrac{f(w_i)^{0.75}}{\sum_{j=0}^nf(w_j)^{0.75}}$$</p>
-<h3 id="解决的问题-1">解决的问题<a hidden class="anchor" aria-hidden="true" href="#解决的问题-1">#</a></h3>
+$$P(w_i)=\cfrac{f(w_i)^{0.75}}{\sum_{j=0}^nf(w_j)^{0.75}}$$<h3 id="解决的问题-1">解决的问题<a hidden class="anchor" aria-hidden="true" href="#解决的问题-1">#</a></h3>
 <p>解决one-hot embedding中过于稀疏，以及难以表达语义特征的问题。</p>
 <h3 id="代码">代码<a hidden class="anchor" aria-hidden="true" href="#代码">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="nc">def</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span>
 </span></span></code></pre></div><h3 id="优点-1">优点<a hidden class="anchor" aria-hidden="true" href="#优点-1">#</a></h3>
 <ul>
 <li>
@@ -531,16 +547,16 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
 </ul>
 <h3 id="解决的问题-2">解决的问题<a hidden class="anchor" aria-hidden="true" href="#解决的问题-2">#</a></h3>
 <p>将CNN引入到NLP当中，从而减少了模型的参数，并在CNN在捕捉局部信息时有奇效。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span>
-</span></span><span class="line"><span class="cl"><span class="nn">import</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="nc">def</span>
-</span></span><span class="line"><span class="cl"><span class="k">pass</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
+</span></span><span style="display:flex;"><span>import
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pass</span>
 </span></span></code></pre></div><h3 id="优点-2">优点<a hidden class="anchor" aria-hidden="true" href="#优点-2">#</a></h3>
 <ul>
 <li>
@@ -577,328 +593,327 @@ tf-idf 全称(term frequency-inverse document frequency)，TF指的是词频，I
 <p>segment embedding 仅仅作为区分两个句子来使用。在预训练中，还要使用预测句子是否相邻作为预训练任务之一。在输入时，也会经过一个线性层来形成segment embedding.</p>
 <h4 id="position-embedding">position embedding<a hidden class="anchor" aria-hidden="true" href="#position-embedding">#</a></h4>
 <p>position embedding 纯使用nn.embedding 获得。训练了一个位置词表。$W\in \mathbb{R^{512 \times 768}}$。输入就是[0,1,2,…,len_seq-1]</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="err">&#34;&#34;&#34;</span><span class="nc">Construct</span> <span class="n">the</span> <span class="n">embeddings</span> <span class="kn">from</span> <span class="nn">word</span><span class="p">,</span> <span class="n">position</span> <span class="ow">and</span> <span class="n">token_type</span> <span class="n">embeddings</span><span class="o">.</span><span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">def
-</span></span></span><span class="line"><span class="cl"><span class="s2">super
-</span></span></span><span class="line"><span class="cl"><span class="s2">self.word_embeddings = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=config.pad_token_id)
-</span></span></span><span class="line"><span class="cl"><span class="s2">self.position_embeddings = nn.Embedding(config.max_position_embeddings, config.hidden_size)
-</span></span></span><span class="line"><span class="cl"><span class="s2">self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size)
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2"># self.LayerNorm is not snake-cased to stick with TensorFlow model variable name and be able to load
-</span></span></span><span class="line"><span class="cl"><span class="s2"># any TensorFlow checkpoint file
-</span></span></span><span class="line"><span class="cl"><span class="s2">self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
-</span></span></span><span class="line"><span class="cl"><span class="s2">self.dropout = nn.Dropout(config.hidden_dropout_prob)
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2"># position_ids (1, len position emb) is contiguous in memory and exported when serialized
-</span></span></span><span class="line"><span class="cl"><span class="s2">self.register_buffer(&#34;position_ids&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">def
-</span></span></span><span class="line"><span class="cl"><span class="s2">if
-</span></span></span><span class="line"><span class="cl"><span class="s2">input_shape = input_ids.size()
-</span></span></span><span class="line"><span class="cl"><span class="s2">else
-</span></span></span><span class="line"><span class="cl"><span class="s2">input_shape = inputs_embeds.size()[:-1
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">seq_length = input_shape[1
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">if
-</span></span></span><span class="line"><span class="cl"><span class="s2">position_ids = self.position_ids[:, :seq_length]
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">if
-</span></span></span><span class="line"><span class="cl"><span class="s2">token_type_ids = torch.zeros(input_shape, dtype=torch.long, device=self.position_ids.device)
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">if
-</span></span></span><span class="line"><span class="cl"><span class="s2">inputs_embeds = self.word_embeddings(input_ids)
-</span></span></span><span class="line"><span class="cl"><span class="s2">position_embeddings = self.position_embeddings(position_ids)
-</span></span></span><span class="line"><span class="cl"><span class="s2">token_type_embeddings = self.token_type_embeddings(token_type_ids)
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">embeddings = inputs_embeds + position_embeddings + token_type_embeddings
-</span></span></span><span class="line"><span class="cl"><span class="s2">embeddings = self.LayerNorm(embeddings)
-</span></span></span><span class="line"><span class="cl"><span class="s2">embeddings = self.dropout(embeddings)
-</span></span></span><span class="line"><span class="cl"><span class="s2">return
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#34;&#34;&#34;</span><span style="color:#a6e22e">Construct</span> the embeddings <span style="color:#f92672">from</span> word, position <span style="color:#f92672">and</span> token_type embeddings<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">def
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">super
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">self.word_embeddings = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=config.pad_token_id)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">self.position_embeddings = nn.Embedding(config.max_position_embeddings, config.hidden_size)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># self.LayerNorm is not snake-cased to stick with TensorFlow model variable name and be able to load
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># any TensorFlow checkpoint file
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">self.dropout = nn.Dropout(config.hidden_dropout_prob)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># position_ids (1, len position emb) is contiguous in memory and exported when serialized
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">self.register_buffer(&#34;position_ids&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">def
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">if
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">input_shape = input_ids.size()
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">else
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">input_shape = inputs_embeds.size()[:-1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">seq_length = input_shape[1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">if
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">position_ids = self.position_ids[:, :seq_length]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">if
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">token_type_ids = torch.zeros(input_shape, dtype=torch.long, device=self.position_ids.device)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">if
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">inputs_embeds = self.word_embeddings(input_ids)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">position_embeddings = self.position_embeddings(position_ids)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">token_type_embeddings = self.token_type_embeddings(token_type_ids)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">embeddings = inputs_embeds + position_embeddings + token_type_embeddings
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">embeddings = self.LayerNorm(embeddings)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">embeddings = self.dropout(embeddings)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">return
 </span></span></span></code></pre></div><h3 id="transformer-encoder-层">transformer encoder 层<a hidden class="anchor" aria-hidden="true" href="#transformer-encoder-层">#</a></h3>
 <p>transformer encoder层主要如下图所示</p>
 <p>使用一个上面所说的输入，经过Multi-Head Attention，在通过残差连接以及Layer Normalization，之后通过FFN以及又一个残差连接作为输出。</p>
 <h3 id="multi-head-attention">Multi-Head Attention<a hidden class="anchor" aria-hidden="true" href="#multi-head-attention">#</a></h3>
 <p>BERT使用的是自注意力机制，即用于$Q,K,V$全部源自同一个向量。注意力机制使用了上下文的信息来对每一个token进行表示。计算机通过利用上下文的信息，对每一个token进行理解。比如“冬天到了，天气变冷了。”BERT会根据大量该类的文本，将冬天和冷的语义进行融合。Attention值的计算公式如下</p>
-<p>$$Attention(Q,K,V)=softmax(\cfrac{QK^T}{\sqrt{d_k}})V \in \mathbb{R^{len\times d}}$$</p>
-<p>其中，$Q,K,V\in \mathbb{R^{d\times k}},Q=xW_q,K=xW_k,V=xW_v$，$d$是隐层维度这里可以注意到，因为softmax是非线性的，所以这里的矩阵变换是没法单纯使用线性变换用$Wx$代替的。</p>
+$$Attention(Q,K,V)=softmax(\cfrac{QK^T}{\sqrt{d_k}})V \in \mathbb{R^{len\times d}}$$<p>其中，$Q,K,V\in \mathbb{R^{d\times k}},Q=xW_q,K=xW_k,V=xW_v$，$d$是隐层维度这里可以注意到，因为softmax是非线性的，所以这里的矩阵变换是没法单纯使用线性变换用$Wx$代替的。</p>
 <p>多头在哪里多头。直接将原来的$x$进行转化后切分，详情看下图就懂了。每一个attention生成的维度都不高，拼起来就跟原来一样了。这张图有点问题，其实BERT没有$W^O$，因为$Z_0,…,Z_7$拼起来正好是$Z$。</p>
 <blockquote>
 <p>BERT 实现中，多头的目的是降低参数的个数，增加表达能力。 类似于CNN多个卷积核？</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="mi">27</span>
-</span></span><span class="line"><span class="cl"><span class="mi">28</span>
-</span></span><span class="line"><span class="cl"><span class="mi">29</span>
-</span></span><span class="line"><span class="cl"><span class="mi">30</span>
-</span></span><span class="line"><span class="cl"><span class="mi">31</span>
-</span></span><span class="line"><span class="cl"><span class="mi">32</span>
-</span></span><span class="line"><span class="cl"><span class="mi">33</span>
-</span></span><span class="line"><span class="cl"><span class="mi">34</span>
-</span></span><span class="line"><span class="cl"><span class="mi">35</span>
-</span></span><span class="line"><span class="cl"><span class="mi">36</span>
-</span></span><span class="line"><span class="cl"><span class="mi">37</span>
-</span></span><span class="line"><span class="cl"><span class="mi">38</span>
-</span></span><span class="line"><span class="cl"><span class="mi">39</span>
-</span></span><span class="line"><span class="cl"><span class="mi">40</span>
-</span></span><span class="line"><span class="cl"><span class="mi">41</span>
-</span></span><span class="line"><span class="cl"><span class="mi">42</span>
-</span></span><span class="line"><span class="cl"><span class="mi">43</span>
-</span></span><span class="line"><span class="cl"><span class="mi">44</span>
-</span></span><span class="line"><span class="cl"><span class="mi">45</span>
-</span></span><span class="line"><span class="cl"><span class="mi">46</span>
-</span></span><span class="line"><span class="cl"><span class="mi">47</span>
-</span></span><span class="line"><span class="cl"><span class="mi">48</span>
-</span></span><span class="line"><span class="cl"><span class="mi">49</span>
-</span></span><span class="line"><span class="cl"><span class="mi">50</span>
-</span></span><span class="line"><span class="cl"><span class="mi">51</span>
-</span></span><span class="line"><span class="cl"><span class="mi">52</span>
-</span></span><span class="line"><span class="cl"><span class="mi">53</span>
-</span></span><span class="line"><span class="cl"><span class="mi">54</span>
-</span></span><span class="line"><span class="cl"><span class="mi">55</span>
-</span></span><span class="line"><span class="cl"><span class="mi">56</span>
-</span></span><span class="line"><span class="cl"><span class="mi">57</span>
-</span></span><span class="line"><span class="cl"><span class="mi">58</span>
-</span></span><span class="line"><span class="cl"><span class="mi">59</span>
-</span></span><span class="line"><span class="cl"><span class="mi">60</span>
-</span></span><span class="line"><span class="cl"><span class="mi">61</span>
-</span></span><span class="line"><span class="cl"><span class="mi">62</span>
-</span></span><span class="line"><span class="cl"><span class="mi">63</span>
-</span></span><span class="line"><span class="cl"><span class="mi">64</span>
-</span></span><span class="line"><span class="cl"><span class="mi">65</span>
-</span></span><span class="line"><span class="cl"><span class="mi">66</span>
-</span></span><span class="line"><span class="cl"><span class="mi">67</span>
-</span></span><span class="line"><span class="cl"><span class="mi">68</span>
-</span></span><span class="line"><span class="cl"><span class="mi">69</span>
-</span></span><span class="line"><span class="cl"><span class="mi">70</span>
-</span></span><span class="line"><span class="cl"><span class="mi">71</span>
-</span></span><span class="line"><span class="cl"><span class="mi">72</span>
-</span></span><span class="line"><span class="cl"><span class="mi">73</span>
-</span></span><span class="line"><span class="cl"><span class="mi">74</span>
-</span></span><span class="line"><span class="cl"><span class="mi">75</span>
-</span></span><span class="line"><span class="cl"><span class="mi">76</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="nc">def</span>
-</span></span><span class="line"><span class="cl"><span class="nb">super</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">raise</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;The hidden size (</span><span class="si">%d</span><span class="s2">) is not a multiple of the number of attention &#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;heads (</span><span class="si">%d</span><span class="s2">)&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">num_attention_heads</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">num_attention_heads</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">attention_head_size</span> <span class="o">=</span> <span class="nb">int</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">all_head_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_attention_heads</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">attention_head_size</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_head_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_head_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_head_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">attention_probs_dropout_prob</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span>
-</span></span><span class="line"><span class="cl"><span class="nf">new_x_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">new_x_shape</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span>
-</span></span><span class="line"><span class="cl"><span class="nf">self</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="n">hidden_states</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_mask</span><span class="o">=</span><span class="kc">None</span>
-</span></span><span class="line"><span class="cl"><span class="n">head_mask</span><span class="o">=</span><span class="kc">None</span>
-</span></span><span class="line"><span class="cl"><span class="n">encoder_hidden_states</span><span class="o">=</span><span class="kc">None</span>
-</span></span><span class="line"><span class="cl"><span class="n">encoder_attention_mask</span><span class="o">=</span><span class="kc">None</span>
-</span></span><span class="line"><span class="cl"><span class="n">output_attentions</span><span class="o">=</span><span class="kc">False</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">mixed_query_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># If this is instantiated as a cross-attention module, the keys</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># and values come from an encoder; the attention mask needs to be</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># such that the encoder&#39;s padding tokens are not attended to.</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="n">mixed_key_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">encoder_hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">mixed_value_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">encoder_hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_mask</span> <span class="o">=</span> <span class="n">encoder_attention_mask</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl"><span class="n">mixed_key_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">mixed_value_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">query_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose_for_scores</span><span class="p">(</span><span class="n">mixed_query_layer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">key_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose_for_scores</span><span class="p">(</span><span class="n">mixed_key_layer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">value_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose_for_scores</span><span class="p">(</span><span class="n">mixed_value_layer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Take the dot product between &#34;query&#34; and &#34;key&#34; to get the raw attention scores.</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_scores</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">query_layer</span><span class="p">,</span> <span class="n">key_layer</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_scores</span> <span class="o">=</span> <span class="n">attention_scores</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attention_head_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Apply the attention mask is (precomputed for all layers in BertModel forward() function) [1,1,1,0,0] -&gt; [0,0,0,-10000,-10000]</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_scores</span> <span class="o">=</span> <span class="n">attention_scores</span> <span class="o">+</span> <span class="n">attention_mask</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Normalize the attention scores to probabilities.</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_probs</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># This is actually dropping out entire tokens to attend to, which might</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># seem a bit unusual, but is taken from the original Transformer paper.</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">attention_probs</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Mask heads if we want to</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="n">attention_probs</span> <span class="o">=</span> <span class="n">attention_probs</span> <span class="o">*</span> <span class="n">head_mask</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">context_layer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">attention_probs</span><span class="p">,</span> <span class="n">value_layer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">context_layer</span> <span class="o">=</span> <span class="n">context_layer</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="n">new_context_layer_shape</span> <span class="o">=</span> <span class="n">context_layer</span><span class="o">.</span><span class="n">size</span><span class="p">()[:</span><span class="o">-</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="n">context_layer</span> <span class="o">=</span> <span class="n">context_layer</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">new_context_layer_shape</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">outputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">context_layer</span><span class="p">,</span> <span class="n">attention_probs</span><span class="p">)</span> <span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">45</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">46</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">47</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">49</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">51</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">52</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">54</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">56</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">57</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">58</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">59</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">62</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">65</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">66</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">67</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">68</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">69</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">70</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">71</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">72</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">73</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">74</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">75</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">76</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span>
+</span></span><span style="display:flex;"><span>super
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">raise</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;The hidden size (</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">) is not a multiple of the number of attention &#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;heads (</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>num_attention_heads <span style="color:#f92672">=</span> config<span style="color:#f92672">.</span>num_attention_heads
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>attention_head_size <span style="color:#f92672">=</span> int
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>all_head_size <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>num_attention_heads <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>attention_head_size
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>query <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>hidden_size, self<span style="color:#f92672">.</span>all_head_size)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>hidden_size, self<span style="color:#f92672">.</span>all_head_size)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>hidden_size, self<span style="color:#f92672">.</span>all_head_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>dropout <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Dropout(config<span style="color:#f92672">.</span>attention_probs_dropout_prob)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">new_x_shape</span> <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>size()[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>view(<span style="color:#f92672">*</span>new_x_shape)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span>,
+</span></span><span style="display:flex;"><span>hidden_states,
+</span></span><span style="display:flex;"><span>attention_mask<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>head_mask<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>encoder_hidden_states<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>encoder_attention_mask<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>output_attentions<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mixed_query_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>query(hidden_states)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If this is instantiated as a cross-attention module, the keys</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># and values come from an encoder; the attention mask needs to be</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># such that the encoder&#39;s padding tokens are not attended to.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>mixed_key_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>key(encoder_hidden_states)
+</span></span><span style="display:flex;"><span>mixed_value_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>value(encoder_hidden_states)
+</span></span><span style="display:flex;"><span>attention_mask <span style="color:#f92672">=</span> encoder_attention_mask
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>mixed_key_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>key(hidden_states)
+</span></span><span style="display:flex;"><span>mixed_value_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>value(hidden_states)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>query_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>transpose_for_scores(mixed_query_layer)
+</span></span><span style="display:flex;"><span>key_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>transpose_for_scores(mixed_key_layer)
+</span></span><span style="display:flex;"><span>value_layer <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>transpose_for_scores(mixed_value_layer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Take the dot product between &#34;query&#34; and &#34;key&#34; to get the raw attention scores.</span>
+</span></span><span style="display:flex;"><span>attention_scores <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>matmul(query_layer, key_layer<span style="color:#f92672">.</span>transpose(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>attention_scores <span style="color:#f92672">=</span> attention_scores <span style="color:#f92672">/</span> math<span style="color:#f92672">.</span>sqrt(self<span style="color:#f92672">.</span>attention_head_size)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Apply the attention mask is (precomputed for all layers in BertModel forward() function) [1,1,1,0,0] -&gt; [0,0,0,-10000,-10000]</span>
+</span></span><span style="display:flex;"><span>attention_scores <span style="color:#f92672">=</span> attention_scores <span style="color:#f92672">+</span> attention_mask
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Normalize the attention scores to probabilities.</span>
+</span></span><span style="display:flex;"><span>attention_probs <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Softmax(dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is actually dropping out entire tokens to attend to, which might</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># seem a bit unusual, but is taken from the original Transformer paper.</span>
+</span></span><span style="display:flex;"><span>attention_probs <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dropout(attention_probs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Mask heads if we want to</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>attention_probs <span style="color:#f92672">=</span> attention_probs <span style="color:#f92672">*</span> head_mask
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context_layer <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>matmul(attention_probs, value_layer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context_layer <span style="color:#f92672">=</span> context_layer<span style="color:#f92672">.</span>permute(<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>new_context_layer_shape <span style="color:#f92672">=</span> context_layer<span style="color:#f92672">.</span>size()[:<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>context_layer <span style="color:#f92672">=</span> context_layer<span style="color:#f92672">.</span>view(<span style="color:#f92672">*</span>new_context_layer_shape)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>outputs <span style="color:#f92672">=</span> (context_layer, attention_probs) <span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
 </span></span></code></pre></div><p>ps: 代码里实现attention_mask使用了加法，因为softmax中针对e^0也会输出1，所以我们要对于忽视的token进行$e^{-inf}$，才能使他在softmax之后的权重为0。</p>
 <h3 id="add-and-norm">add and norm<a hidden class="anchor" aria-hidden="true" href="#add-and-norm">#</a></h3>
 <p>常见的残差网络方式梯度消失，增加模型的训练，打破了网络的对称性，提升了网络的表征能力。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="nc">def</span>
-</span></span><span class="line"><span class="cl"><span class="nb">super</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">LayerNorm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">layer_norm_eps</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_dropout_prob</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span>
-</span></span><span class="line"><span class="cl"><span class="nf">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">hidden_states</span> <span class="o">+</span> <span class="n">input_tensor</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span>
+</span></span><span style="display:flex;"><span>super
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>dense <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>hidden_size, config<span style="color:#f92672">.</span>hidden_size)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>LayerNorm <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LayerNorm(config<span style="color:#f92672">.</span>hidden_size, eps<span style="color:#f92672">=</span>config<span style="color:#f92672">.</span>layer_norm_eps)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>dropout <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Dropout(config<span style="color:#f92672">.</span>hidden_dropout_prob)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hidden_states</span> <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dense(hidden_states)
+</span></span><span style="display:flex;"><span>hidden_states <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dropout(hidden_states)
+</span></span><span style="display:flex;"><span>hidden_states <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>LayerNorm(hidden_states <span style="color:#f92672">+</span> input_tensor)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
 </span></span></code></pre></div><h3 id="ffn-and-add-norm">FFN and Add Norm<a hidden class="anchor" aria-hidden="true" href="#ffn-and-add-norm">#</a></h3>
 <p>先经过中间层3072，hidden_size扩大4倍。之后再经过一个缩小了。注意这里最后才有一个dropout。激活函数用的gelu，比relu稍微缓和了一些。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="mi">4</span>
-</span></span><span class="line"><span class="cl"><span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="mi">6</span>
-</span></span><span class="line"><span class="cl"><span class="mi">7</span>
-</span></span><span class="line"><span class="cl"><span class="mi">8</span>
-</span></span><span class="line"><span class="cl"><span class="mi">9</span>
-</span></span><span class="line"><span class="cl"><span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="mi">11</span>
-</span></span><span class="line"><span class="cl"><span class="mi">12</span>
-</span></span><span class="line"><span class="cl"><span class="mi">13</span>
-</span></span><span class="line"><span class="cl"><span class="mi">14</span>
-</span></span><span class="line"><span class="cl"><span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="mi">16</span>
-</span></span><span class="line"><span class="cl"><span class="mi">17</span>
-</span></span><span class="line"><span class="cl"><span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="mi">19</span>
-</span></span><span class="line"><span class="cl"><span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="mi">21</span>
-</span></span><span class="line"><span class="cl"><span class="mi">22</span>
-</span></span><span class="line"><span class="cl"><span class="mi">23</span>
-</span></span><span class="line"><span class="cl"><span class="mi">24</span>
-</span></span><span class="line"><span class="cl"><span class="mi">25</span>
-</span></span><span class="line"><span class="cl"><span class="mi">26</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="nc">def</span>
-</span></span><span class="line"><span class="cl"><span class="nb">super</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">intermediate_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">intermediate_act_fn</span> <span class="o">=</span> <span class="n">ACT2FN</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_act</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">intermediate_act_fn</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">hidden_act</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span>
-</span></span><span class="line"><span class="cl"><span class="nf">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intermediate_act_fn</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span>
-</span></span><span class="line"><span class="cl"><span class="nc">def</span>
-</span></span><span class="line"><span class="cl"><span class="nb">super</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">intermediate_size</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">LayerNorm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">layer_norm_eps</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_dropout_prob</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span>
-</span></span><span class="line"><span class="cl"><span class="nf">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">hidden_states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">hidden_states</span> <span class="o">+</span> <span class="n">input_tensor</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">return</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span>
+</span></span><span style="display:flex;"><span>super
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>dense <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>hidden_size, config<span style="color:#f92672">.</span>intermediate_size)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>intermediate_act_fn <span style="color:#f92672">=</span> ACT2FN[config<span style="color:#f92672">.</span>hidden_act]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>intermediate_act_fn <span style="color:#f92672">=</span> config<span style="color:#f92672">.</span>hidden_act
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hidden_states</span> <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dense(hidden_states)
+</span></span><span style="display:flex;"><span>hidden_states <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>intermediate_act_fn(hidden_states)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span>
+</span></span><span style="display:flex;"><span>super
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>dense <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>intermediate_size, config<span style="color:#f92672">.</span>hidden_size)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>LayerNorm <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LayerNorm(config<span style="color:#f92672">.</span>hidden_size, eps<span style="color:#f92672">=</span>config<span style="color:#f92672">.</span>layer_norm_eps)
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>dropout <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Dropout(config<span style="color:#f92672">.</span>hidden_dropout_prob)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hidden_states</span> <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dense(hidden_states)
+</span></span><span style="display:flex;"><span>hidden_states <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dropout(hidden_states)
+</span></span><span style="display:flex;"><span>hidden_states <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>LayerNorm(hidden_states <span style="color:#f92672">+</span> input_tensor)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
 </span></span></code></pre></div><h3 id="最后处理">最后处理<a hidden class="anchor" aria-hidden="true" href="#最后处理">#</a></h3>
 <p>综上，把这个bert_layer叠个12层就行了。但是在最后输出的时候[CLS]有一个特殊的处理。输出的时候会经过一个线性层+一个tanh激活。</p>
 <h3 id="ner--token-classification">NER  token classification<a hidden class="anchor" aria-hidden="true" href="#ner--token-classification">#</a></h3>

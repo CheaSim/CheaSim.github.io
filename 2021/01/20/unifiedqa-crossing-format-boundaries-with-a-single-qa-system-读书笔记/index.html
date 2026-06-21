@@ -65,7 +65,25 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2021/01/20/unifiedqa-crossing-format-boundaries-with-a-single-qa-system-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2021/01/20/unifiedqa-crossing-format-boundaries-with-a-single-qa-system-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="UNIFIEDQA Crossing Format Boundaries with a Single QA System 读书笔记">
   <meta property="og:description" content="UNIFIEDQA: Crossing Format Boundaries with a Single QA System 读书笔记 针对不同形式的QA做了一个整合的工作。对于抽取式、多选式、对错形式的QA数据集，使用了一个单一的模型进行训练，并且测试。">

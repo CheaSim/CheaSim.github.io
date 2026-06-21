@@ -69,7 +69,25 @@ $dp[i][j]$表示第$j$个坐标分成$i$块最大的价值。">
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://www.cheasim.com/2018/09/21/codeforces-833b-the-bakery/">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2018/09/21/codeforces-833b-the-bakery/">
   <meta property="og:site_name" content="CheaSim Blog">
   <meta property="og:title" content="Codeforces 833B - The Bakery">
   <meta property="og:description" content="Codeforces 833B - The Bakery 题意 将一段数字分成最多50个区间，每个区间的价值是区间内不同数字的个数，问怎么样分区间使得价值总和最大。
