@@ -129,8 +129,8 @@
   "keywords": [
     
   ],
-  "articleBody": "如何在colab用pytorch_lightning白嫖TPU 首先 我们得熟悉pytorch_lightning以及colab的操作。在使用TPU之前，先挂载好我们的云端磁盘以及配置好pytorch需要的TPU环境。\n1 2 3 4 5 6 7 8 9 from drive.mount('/content/gdrive' import os.chdir(\"gdrive/MyDrive/path_to_your_file\" ! pip install pytorch_lightning # 试图使用TPU !curl https://raw.githubusercontent.com/pytorch/xla/master/contrib/scripts/env-setup.py -o pytorch-xla-env-setup.py !python pytorch-xla-env-setup.py --apt-packages libomp5 libopenblas-dev 安装好pytorch_lightning以及配置好环境之后，我们就可以开始在pytorch_lightning框架下跟写GPU代码一样写TPU代码。下面请看VCR，一个小栗子。\n如何在colab用pytorch_lightning白嫖TPU\nhttps://www.cheasim.com/uncategorized/2021/01/07/%E5%A6%82%E4%BD%95%E5%9C%A8colab%E7%94%A8pytorch-lightning%E7%99%BD%E5%AB%96TPU.html\n作者 CheaSim\n发布于 2021-01-07\n更新于 2021-03-08\n许可协议\n#colab小技巧\n",
-  "wordCount" : "285",
+  "articleBody": "如何在colab用pytorch_lightning白嫖TPU 首先 我们得熟悉pytorch_lightning以及colab的操作。在使用TPU之前，先挂载好我们的云端磁盘以及配置好pytorch需要的TPU环境。\nfrom drive.mount('/content/gdrive' import os.chdir(\"gdrive/MyDrive/path_to_your_file\" ! pip install pytorch_lightning # 试图使用TPU !curl https://raw.githubusercontent.com/pytorch/xla/master/contrib/scripts/env-setup.py -o pytorch-xla-env-setup.py !python pytorch-xla-env-setup.py --apt-packages libomp5 libopenblas-dev 安装好pytorch_lightning以及配置好环境之后，我们就可以开始在pytorch_lightning框架下跟写GPU代码一样写TPU代码。下面请看VCR，一个小栗子。\n如何在colab用pytorch_lightning白嫖TPU\nhttps://www.cheasim.com/uncategorized/2021/01/07/%E5%A6%82%E4%BD%95%E5%9C%A8colab%E7%94%A8pytorch-lightning%E7%99%BD%E5%AB%96TPU.html\n作者 CheaSim\n发布于 2021-01-07\n更新于 2021-03-08\n许可协议\n#colab小技巧\n",
+  "wordCount" : "276",
   "inLanguage": "zh-cn",
   "datePublished": "2021-01-07T00:00:00Z",
   "dateModified": "2021-01-07T00:00:00Z",
@@ -256,16 +256,7 @@
   <div class="post-content md-content"><h1 id="如何在colab用pytorch_lightning白嫖tpu">如何在colab用pytorch_lightning白嫖TPU<a hidden class="anchor" aria-hidden="true" href="#如何在colab用pytorch_lightning白嫖tpu">#</a></h1>
 <h2 id="首先">首先<a hidden class="anchor" aria-hidden="true" href="#首先">#</a></h2>
 <p>我们得熟悉pytorch_lightning以及colab的操作。在使用TPU之前，先挂载好我们的云端磁盘以及配置好pytorch需要的TPU环境。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span>
 </span></span><span style="display:flex;"><span>drive.mount(<span style="color:#e6db74">&#39;/content/gdrive&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
 </span></span><span style="display:flex;"><span>os.chdir(<span style="color:#e6db74">&#34;gdrive/MyDrive/path_to_your_file&#34;</span>

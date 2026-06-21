@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>LLM on CheaSim Blog</title>
+    <link>https://www.cheasim.com/tags/llm/</link>
+    <description>Recent content in LLM on CheaSim Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 21 Jun 2026 16:40:00 +0000</lastBuildDate>
+    <atom:link href="https://www.cheasim.com/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SGA-MCTS：把慢思考缓存成可检索经验</title>
+      <link>https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/</link>
+      <pubDate>Sun, 21 Jun 2026 16:40:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/</guid>
+      <description>&lt;p&gt;最近看到一篇挺适合拿来做博客开张读物的论文：&lt;a href=&#34;https://arxiv.org/abs/2604.14712&#34;&gt;SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

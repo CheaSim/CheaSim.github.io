@@ -128,8 +128,8 @@
   "keywords": [
     
   ],
-  "articleBody": "我是Makefile 我是makefile而不是makelove。最近学校开了Linux这门课，于是我就开始自学Linux了，看的是《Linux就是这个范儿》。实名制推荐，语言又风趣又实在。\n什么是Makefile 作为一名程序员，我们第一个程序大概率是通过vs或者是vc6.0来写的。这些都是IDE集成开发环境，他们帮我们做了很多事情，很多底层的事情。其中比较重要的就是编译这个命令了。如果像我参加acm的，会知道如果经常只是写一个单cpp文件的话，我们只需要使用GCC中的g++命令就可以完成将cpp文件编译成可执行文件，但是如果我们是写一个项目呢？如果我们的项目中有好几个头文件，好几个cpp文件呢？这时候makefile就出现了。\nMakefile的作用就是自动化编译，一旦我们写好了makefile文件，只需要一个make命令，整个工程就能自动编译。Makefile定义了一系列的规则，来指定哪些文件需要先编译，哪些文件需要后编译，就像一个shell脚本一样。\nIDE是高手的挡泥板，却是新手的遮阳伞。\n我在南大的编译原理课件中就看到，他们项目的要求也是要用Makefile来完整的做一个项目的。南大还是南大啊。\nMakefile的基本概念 目标、条件和命令 对于Makefile来说，最最重要的就是目标、条件和命令这三大要素。\n目标是make要产生的东西或者是要做的事情\n条件是用于产生目标所需要的文件\n命令是有条件转化为目标的方法\n举个例子\n1 2 main.o:main.c line.h buffer.h tedef.h cc -c -o main.o main.c main.o就是目标，main.c line.h buffer.h tedef.h就是条件，最下面那句”cc -c -o main.o main.c”就是命令。\nall命令就是Makefile的默认目标。\n基本语法 Makefile是看成是一种解释型语言，一般解释型语言都是采用“自顶向下”的解释逻辑。\ntip:所有命令都是需要以\\tab开头的，规定如此\n变量 作为一种类似语言的东西，那么变量肯定是少不了啊。Makefile中的变量类似于宏替代，采用的语法。\n1 CC := gcc -g 这就定义了一个变量，变量的名称是CC，变量的值是”gcc -g”，我们可以用”$()或者${}”来替代。\n自动变量 Makefile中有特殊变量，他们可以自动取用一条规则中目标和条件中的元素，这样就可以节省输入文件名和条件文件名的力气。ps:确实在vim一键编译中我也看到了类似的东西。\n并且自动变量不需要加$().\n我是Makefile\nhttps://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/04/11/%E6%88%91%E6%98%AFMakefile.html\n作者 CheaSim\n发布于 2019-04-11\n更新于 2019-04-11\n许可协议\n#学习笔记\n",
-  "wordCount" : "1013",
+  "articleBody": "我是Makefile 我是makefile而不是makelove。最近学校开了Linux这门课，于是我就开始自学Linux了，看的是《Linux就是这个范儿》。实名制推荐，语言又风趣又实在。\n什么是Makefile 作为一名程序员，我们第一个程序大概率是通过vs或者是vc6.0来写的。这些都是IDE集成开发环境，他们帮我们做了很多事情，很多底层的事情。其中比较重要的就是编译这个命令了。如果像我参加acm的，会知道如果经常只是写一个单cpp文件的话，我们只需要使用GCC中的g++命令就可以完成将cpp文件编译成可执行文件，但是如果我们是写一个项目呢？如果我们的项目中有好几个头文件，好几个cpp文件呢？这时候makefile就出现了。\nMakefile的作用就是自动化编译，一旦我们写好了makefile文件，只需要一个make命令，整个工程就能自动编译。Makefile定义了一系列的规则，来指定哪些文件需要先编译，哪些文件需要后编译，就像一个shell脚本一样。\nIDE是高手的挡泥板，却是新手的遮阳伞。\n我在南大的编译原理课件中就看到，他们项目的要求也是要用Makefile来完整的做一个项目的。南大还是南大啊。\nMakefile的基本概念 目标、条件和命令 对于Makefile来说，最最重要的就是目标、条件和命令这三大要素。\n目标是make要产生的东西或者是要做的事情\n条件是用于产生目标所需要的文件\n命令是有条件转化为目标的方法\n举个例子\nmain.o:main.c line.h buffer.h tedef.h cc -c -o main.o main.c main.o就是目标，main.c line.h buffer.h tedef.h就是条件，最下面那句”cc -c -o main.o main.c”就是命令。\nall命令就是Makefile的默认目标。\n基本语法 Makefile是看成是一种解释型语言，一般解释型语言都是采用“自顶向下”的解释逻辑。\ntip:所有命令都是需要以\\tab开头的，规定如此\n变量 作为一种类似语言的东西，那么变量肯定是少不了啊。Makefile中的变量类似于宏替代，采用的语法。\nCC := gcc -g 这就定义了一个变量，变量的名称是CC，变量的值是”gcc -g”，我们可以用”$()或者${}”来替代。\n自动变量 Makefile中有特殊变量，他们可以自动取用一条规则中目标和条件中的元素，这样就可以节省输入文件名和条件文件名的力气。ps:确实在vim一键编译中我也看到了类似的东西。\n并且自动变量不需要加$().\n我是Makefile\nhttps://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/04/11/%E6%88%91%E6%98%AFMakefile.html\n作者 CheaSim\n发布于 2019-04-11\n更新于 2019-04-11\n许可协议\n#学习笔记\n",
+  "wordCount" : "1010",
   "inLanguage": "zh-cn",
   "datePublished": "2019-04-11T00:00:00Z",
   "dateModified": "2019-04-11T00:00:00Z",
@@ -289,9 +289,7 @@
 </li>
 </ul>
 <p>举个例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main.o</span><span style="color:#f92672">:</span>main.c line.h buffer.h tedef.h
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#a6e22e">main.o</span><span style="color:#f92672">:</span>main.c line.h buffer.h tedef.h
 </span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">cc</span> <span style="color:#960050;background-color:#1e0010">-c</span> <span style="color:#960050;background-color:#1e0010">-o</span> <span style="color:#960050;background-color:#1e0010">main.o</span> <span style="color:#960050;background-color:#1e0010">main.c</span>
 </span></span></code></pre></div><p>main.o就是目标，main.c line.h buffer.h tedef.h就是条件，最下面那句”cc -c -o main.o main.c”就是命令。</p>
 <p>all命令就是Makefile的默认目标。</p>
@@ -300,8 +298,7 @@
 <p>tip:所有命令都是需要以\tab开头的，规定如此</p>
 <h3 id="变量">变量<a hidden class="anchor" aria-hidden="true" href="#变量">#</a></h3>
 <p>作为一种类似语言的东西，那么变量肯定是少不了啊。Makefile中的变量类似于宏替代，采用的语法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">1</span>
-</span></span><span style="display:flex;"><span>CC <span style="color:#f92672">:=</span> gcc -g
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>CC <span style="color:#f92672">:=</span> gcc -g
 </span></span></code></pre></div><p>这就定义了一个变量，变量的名称是CC，变量的值是”gcc -g”，我们可以用”$()或者${}”来替代。</p>
 <h3 id="自动变量">自动变量<a hidden class="anchor" aria-hidden="true" href="#自动变量">#</a></h3>
 <p>Makefile中有特殊变量，他们可以自动取用一条规则中目标和条件中的元素，这样就可以节省输入文件名和条件文件名的力气。ps:确实在vim一键编译中我也看到了类似的东西。</p>

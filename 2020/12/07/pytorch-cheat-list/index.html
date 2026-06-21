@@ -135,8 +135,8 @@ tensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=N
   "keywords": [
     
   ],
-  "articleBody": "pytorch 操作小计 torch==1.7.0\ntensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=None)Concatenates a sequence of tensors along a new dimension.\n1 2 b = torch.randn(4 a = torch.stack([b, b], dim = 0 torch.gather torch.gather(input, dim, index, *, sparse_grad=False, out=None) → Tensor\n英文解释为Gathers values along an axis specified by dim.\n看到比较有道理的应用场景是，在变长序列中gather到最后一个或者说倒数第几个元素。一般变长序列为inputs = [[1,2,3,0,0], [2,3,4,5,0]]。这时候想获得最后一个元素就可以。需要注意的点是，输出的tensor和index是相同shape的。\n1 2 3 4 5 6 inputs = torch.tensor([[1 [2 index = torch.tensor([[2 last_inputs = torch.gather(inputs, dim=1 \"\"\"tensor([[3], [5]])\"\"\" torch.expand 将tensor扩展维度，自动复制，十分好用。\n1 2 3 4 5 6 7 8 9 10 11 12 a = torch.randint(1 #tensor([[3, 1, 1], # [1, 2, 4]]) a = a.unsqueeze(2 \"\"\" tensor([[[3, 3, 3], [1, 1, 1], [1, 1, 1]], [[1, 1, 1], [2, 2, 2], [4, 4, 4]]])\"\"\" torch.repeat repeat(*sizes) -\u003e Tensor， 重复复制tensor在指定的维度上。其实有点类似于广播操作了？\n1 2 3 x = torch.tensor([1 x.repeat(4 x.repeat(4 torch.nn.functional F.softmax F.softmax(Tensor, dim=None) 对于多维度矩阵就是 einsum(‘ijk -\u003e jk’, a) = torch.ones(a.shape[1:])\n1 2 3 import a = torch.randn(4 a = F.softmax(a, dim = 0 torch.nn 之前一直依赖着huggingface的模型加载from_pretrained，但其实在一般任务场景下，使用torch.load的时候会更多，所以记录一下torch.load方法的使用场景。\ntorch.load \u0026 torch.save 一般我们将模型的参数保存，而不会去保存整个模型的结构。这里如果需要部分加载参数，可以使用strict=False。这里需要注意加载的是字典dict，不是模型。\n1 2 3 4 #model ... after training torch.save(model.state_dict(), cached_file_path) model_state = torch.load(cached_file_path) model.load_state_dict(model_state, strict=False 奇淫技巧 whole word mask 在bert或者其他语言模型中，对一段文本需要先进行tokenize分词操作，而分英文单词的时候，由于OOV问题，会将有些word分成token级别的，比如将trying分成try,##ing。而我们比如在建图或者以word为粒度的时候，就需要将token的输出平均给word了。那么如何操作呢？\n1 2 3 4 5 6 7 8 9 encoder_output = encoder_outputs[i] # [slen, bert_hidden_size] word_num = 123 word_index=(torch.arange(word_num) + 1 words = pos_id[i].unsqueeze(0 select_metrix = (mention_index == mentions).float # average word -\u003e mention word_total_numbers = torch.sum select_metrix = torch.where(word_total_numbers \u003e 0 x = torch.mm(select_metrix, encoder_output) pytorch cheat_list\nhttps://www.cheasim.com/uncategorized/2020/12/07/pytorch-cheat-list.html\n作者 CheaSim\n发布于 2020-12-07\n更新于 2021-01-06\n许可协议\n#AIpytorch\n",
-  "wordCount" : "835",
+  "articleBody": "pytorch 操作小计 torch==1.7.0\ntensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=None)Concatenates a sequence of tensors along a new dimension.\nb = torch.randn(4 a = torch.stack([b, b], dim = 0 torch.gather torch.gather(input, dim, index, *, sparse_grad=False, out=None) → Tensor\n英文解释为Gathers values along an axis specified by dim.\n看到比较有道理的应用场景是，在变长序列中gather到最后一个或者说倒数第几个元素。一般变长序列为inputs = [[1,2,3,0,0], [2,3,4,5,0]]。这时候想获得最后一个元素就可以。需要注意的点是，输出的tensor和index是相同shape的。\ninputs = torch.tensor([[1 [2 index = torch.tensor([[2 last_inputs = torch.gather(inputs, dim=1 \"\"\"tensor([[3], [5]])\"\"\" torch.expand 将tensor扩展维度，自动复制，十分好用。\na = torch.randint(1 #tensor([[3, 1, 1], # [1, 2, 4]]) a = a.unsqueeze(2 \"\"\" tensor([[[3, 3, 3], [1, 1, 1], [1, 1, 1]], [[1, 1, 1], [2, 2, 2], [4, 4, 4]]])\"\"\" torch.repeat repeat(*sizes) -\u003e Tensor， 重复复制tensor在指定的维度上。其实有点类似于广播操作了？\nx = torch.tensor([1 x.repeat(4 x.repeat(4 torch.nn.functional F.softmax F.softmax(Tensor, dim=None) 对于多维度矩阵就是 einsum(‘ijk -\u003e jk’, a) = torch.ones(a.shape[1:])\nimport a = torch.randn(4 a = F.softmax(a, dim = 0 torch.nn 之前一直依赖着huggingface的模型加载from_pretrained，但其实在一般任务场景下，使用torch.load的时候会更多，所以记录一下torch.load方法的使用场景。\ntorch.load \u0026 torch.save 一般我们将模型的参数保存，而不会去保存整个模型的结构。这里如果需要部分加载参数，可以使用strict=False。这里需要注意加载的是字典dict，不是模型。\n#model ... after training torch.save(model.state_dict(), cached_file_path) model_state = torch.load(cached_file_path) model.load_state_dict(model_state, strict=False 奇淫技巧 whole word mask 在bert或者其他语言模型中，对一段文本需要先进行tokenize分词操作，而分英文单词的时候，由于OOV问题，会将有些word分成token级别的，比如将trying分成try,##ing。而我们比如在建图或者以word为粒度的时候，就需要将token的输出平均给word了。那么如何操作呢？\nencoder_output = encoder_outputs[i] # [slen, bert_hidden_size] word_num = 123 word_index=(torch.arange(word_num) + 1 words = pos_id[i].unsqueeze(0 select_metrix = (mention_index == mentions).float # average word -\u003e mention word_total_numbers = torch.sum select_metrix = torch.where(word_total_numbers \u003e 0 x = torch.mm(select_metrix, encoder_output) pytorch cheat_list\nhttps://www.cheasim.com/uncategorized/2020/12/07/pytorch-cheat-list.html\n作者 CheaSim\n发布于 2020-12-07\n更新于 2021-01-06\n许可协议\n#AIpytorch\n",
+  "wordCount" : "796",
   "inLanguage": "zh-cn",
   "datePublished": "2020-12-07T00:00:00Z",
   "dateModified": "2020-12-07T00:00:00Z",
@@ -295,9 +295,7 @@ tensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=N
 <h2 id="tensor">tensor<a hidden class="anchor" aria-hidden="true" href="#tensor">#</a></h2>
 <h3 id="torchstack">torch.stack<a hidden class="anchor" aria-hidden="true" href="#torchstack">#</a></h3>
 <p>将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=None)Concatenates a sequence of tensors along a new dimension.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">4</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>b <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">4</span>
 </span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack([b, b], dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 </span></span></code></pre></div><h3 id="torchgather">torch.gather<a hidden class="anchor" aria-hidden="true" href="#torchgather">#</a></h3>
 <blockquote>
@@ -305,13 +303,7 @@ tensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=N
 </blockquote>
 <p>英文解释为Gathers values along an axis specified by dim.</p>
 <p>看到比较有道理的应用场景是，在变长序列中gather到最后一个或者说倒数第几个元素。一般变长序列为inputs = [[1,2,3,0,0], [2,3,4,5,0]]。这时候想获得最后一个元素就可以。需要注意的点是，输出的tensor和index是相同shape的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>inputs <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>inputs <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>[<span style="color:#ae81ff">2</span>
 </span></span><span style="display:flex;"><span>index <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">2</span>
 </span></span><span style="display:flex;"><span>last_inputs <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>gather(inputs, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
@@ -319,19 +311,7 @@ tensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=N
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[5]])&#34;&#34;&#34;</span>
 </span></span></code></pre></div><h3 id="torchexpand">torch.expand<a hidden class="anchor" aria-hidden="true" href="#torchexpand">#</a></h3>
 <p>将tensor扩展维度，自动复制，十分好用。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
-</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#tensor([[3, 1, 1],</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#        [1, 2, 4]])</span>
 </span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">2</span>
@@ -345,46 +325,27 @@ tensor torch.stack 将List[tensor]变成tensor。torch.stack(tensors,dim=0,out=N
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[4, 4, 4]]])&#34;&#34;&#34;</span>
 </span></span></code></pre></div><h3 id="torchrepeat">torch.repeat<a hidden class="anchor" aria-hidden="true" href="#torchrepeat">#</a></h3>
 <p>repeat(*sizes) -&gt; Tensor， 重复复制tensor在指定的维度上。其实有点类似于广播操作了？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>x<span style="color:#f92672">.</span>repeat(<span style="color:#ae81ff">4</span>
 </span></span><span style="display:flex;"><span>x<span style="color:#f92672">.</span>repeat(<span style="color:#ae81ff">4</span>
 </span></span></code></pre></div><h2 id="torchnnfunctional">torch.nn.functional<a hidden class="anchor" aria-hidden="true" href="#torchnnfunctional">#</a></h2>
 <h3 id="fsoftmax">F.softmax<a hidden class="anchor" aria-hidden="true" href="#fsoftmax">#</a></h3>
 <p>F.softmax(Tensor, dim=None) 对于多维度矩阵就是 einsum(‘ijk -&gt; jk’, a) = torch.ones(a.shape[1:])</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span>
 </span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">4</span>
 </span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>softmax(a, dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 </span></span></code></pre></div><h2 id="torchnn">torch.nn<a hidden class="anchor" aria-hidden="true" href="#torchnn">#</a></h2>
 <p>之前一直依赖着huggingface的模型加载from_pretrained，但其实在一般任务场景下，使用torch.load的时候会更多，所以记录一下torch.load方法的使用场景。</p>
 <h3 id="torchload--torchsave">torch.load &amp; torch.save<a hidden class="anchor" aria-hidden="true" href="#torchload--torchsave">#</a></h3>
 <p>一般我们将模型的参数保存，而不会去保存整个模型的结构。这里如果需要部分加载参数，可以使用strict=False。这里需要注意加载的是字典dict，不是模型。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#model ... after training</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#model ... after training</span>
 </span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>save(model<span style="color:#f92672">.</span>state_dict(), cached_file_path)
 </span></span><span style="display:flex;"><span>model_state <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>load(cached_file_path)
 </span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>load_state_dict(model_state, strict<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>
 </span></span></code></pre></div><h2 id="奇淫技巧">奇淫技巧<a hidden class="anchor" aria-hidden="true" href="#奇淫技巧">#</a></h2>
 <h3 id="whole-word-mask">whole word mask<a hidden class="anchor" aria-hidden="true" href="#whole-word-mask">#</a></h3>
 <p>在bert或者其他语言模型中，对一段文本需要先进行tokenize分词操作，而分英文单词的时候，由于OOV问题，会将有些word分成token级别的，比如将trying分成try,##ing。而我们比如在建图或者以word为粒度的时候，就需要将token的输出平均给word了。那么如何操作呢？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span>encoder_output <span style="color:#f92672">=</span> encoder_outputs[i]  <span style="color:#75715e"># [slen, bert_hidden_size]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>encoder_output <span style="color:#f92672">=</span> encoder_outputs[i]  <span style="color:#75715e"># [slen, bert_hidden_size]</span>
 </span></span><span style="display:flex;"><span>word_num <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
 </span></span><span style="display:flex;"><span>word_index<span style="color:#f92672">=</span>(torch<span style="color:#f92672">.</span>arange(word_num) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>words <span style="color:#f92672">=</span> pos_id[i]<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">0</span>

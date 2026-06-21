@@ -166,8 +166,8 @@ J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方
   "keywords": [
     
   ],
-  "articleBody": "web应用开发 现代人的生活方式\n移动端,mobile\n浏览器,browser\n10年前还是以客户端,client软件形式。\n两个主流技术 .Net\nJ2ee\n.Net过气了，用J2ee\nJ2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。 承载数据。\n把数据中的信息进行表达convey，存储信息和加工信息。\n不只是一个dbms。\nV 视图:将信息呈现出来，view显示。 把数据呈现给用户。\n承载用户修改功能，使用户能够修改信息。\nC 控制:把用户的信息进行处理(按照一定的算法和一定的逻辑)，之后再保存在M端。\nsummary：M存储信息，V交互，C逻辑控制（算法）。\n梅宏，杨芙青，吕健——网构建\n开发V端 V html,jsp,css,jQuery\n自学html。 在w3c学\njQuery,是js的一个库。\nextjs 扩展版js 丰富了UI设计功能\n开发M端 MySql，Oracle，SQL server,DB2,Access\n框架Hibernate统一了不同的dbms的操作。\n缺点：是将数据和公共模型进行映射，一旦确定就不好改变，开发的时候麻烦。\niBatis 容易改进的框架\nMyBatis\n开发C端 struts 框架，把数据进行逻辑处理之后保存到M端。\njQuery js spring 开发代码是Java。framework\n开发模式 Html + css + mySQL 几种在view端和modle端\njsp + css + mySQL\njQuery+css+mySQL\nPHP + css + mySQL\n这些都是小型网站。 乐色\n我们的模式\nJSP+Struts+mySQL plus + spring + ssh\nReal 项目： JSP + SSH + CSS + MYSQL\nSSH Spring Struts Hibernate JSP详解 element 语素 1 2 3 有三类语句 表达式\n小脚本\n声明\n声明 table称为一个标签，tag。标签有很多属性\n看看JSP和mySQL NaviCat可视化操作MySQL\n1433 SQLServer\n3306 mySQL 端口\n各种端口号是必记。\nMyecl 集成了子IDE,所以比较方便。\nJAR包 是将java代码和文档集成在一个包中。\n5.1.35java connect是可以用的\njdbc driver\nURL，第一节是JDBC协议，第二节是MySQL表示数据库名称，第三节是代表这MySQL服务器的名字，localhost 127.0.0.1,第四节是端口号。后面都删掉。后面是连着的库。\ndriver name 随便取。\nSchema 是 database的超集。 datebase是table的超集。\n数据库 1 StringTypeConversion //把子段转化成串 connection transantion statement resultset\n先建立连接，使用JSP连接MySQL\ngetConnection函数是静态类型，可以通过类名直接调用函数。\n语句分为两方面\n静态的，\n动态的，是由运行时候确定的查询和修改语句\n获得了resultset之后因为其中有很多条记录，所以必须要用循环。resultset自带了迭代器，iterator。一行一行，一个记录一个记录访问。\n1 2 3 4 5 6 //把当前指针指向的record赋予re,之后指针往下走。 while TypeConversion(rs,Type.VARCHAR,1 //and so on 把结果串加入过来。 } 1 2 3 4 rs.close(); stmt.close(); conn.close(); // 记得关闭连接 一级一级一级往回退 交互界面(登陆界面) 早年窗口还叫Window，现在流行叫frame。\n使用html的指令去做\n使用JSTL做窗口，使用扩展模板库\n1 2 3 - web.xml - 配置struts.xml文件 - 建立Action类文件 - 建立Action执行后转向的jsp文件。 ## 例子 ${message} 直接将message类中的信息直接输出出来。 他把control端的数据在页面里输出出来。 那么如何把view端的数据在control中获得呢？ ### 实现原理 - 数据共享 data sharing - 配置文件 configuration struts2提供在一个类中，具有一定特征的函数就可以映射成actions。 ### result dispatcher分发包裹的方式，之前建立的页面缺省的是dispatcher。 web应用开发笔记 https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0.html 作者 CheaSim 发布于 2018-09-03 更新于 2018-12-08 许可协议 #[web](/tags/web/) ",
-  "wordCount" : "1405",
+  "articleBody": "web应用开发 现代人的生活方式\n移动端,mobile\n浏览器,browser\n10年前还是以客户端,client软件形式。\n两个主流技术 .Net\nJ2ee\n.Net过气了，用J2ee\nJ2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方面，store存储，access访问。依靠模型完成这个功能。 承载数据。\n把数据中的信息进行表达convey，存储信息和加工信息。\n不只是一个dbms。\nV 视图:将信息呈现出来，view显示。 把数据呈现给用户。\n承载用户修改功能，使用户能够修改信息。\nC 控制:把用户的信息进行处理(按照一定的算法和一定的逻辑)，之后再保存在M端。\nsummary：M存储信息，V交互，C逻辑控制（算法）。\n梅宏，杨芙青，吕健——网构建\n开发V端 V html,jsp,css,jQuery\n自学html。 在w3c学\njQuery,是js的一个库。\nextjs 扩展版js 丰富了UI设计功能\n开发M端 MySql，Oracle，SQL server,DB2,Access\n框架Hibernate统一了不同的dbms的操作。\n缺点：是将数据和公共模型进行映射，一旦确定就不好改变，开发的时候麻烦。\niBatis 容易改进的框架\nMyBatis\n开发C端 struts 框架，把数据进行逻辑处理之后保存到M端。\njQuery js spring 开发代码是Java。framework\n开发模式 Html + css + mySQL 几种在view端和modle端\njsp + css + mySQL\njQuery+css+mySQL\nPHP + css + mySQL\n这些都是小型网站。 乐色\n我们的模式\nJSP+Struts+mySQL plus + spring + ssh\nReal 项目： JSP + SSH + CSS + MYSQL\nSSH Spring Struts Hibernate JSP详解 element 语素 有三类语句 表达式\n小脚本\n声明\n声明 table称为一个标签，tag。标签有很多属性\n看看JSP和mySQL NaviCat可视化操作MySQL\n1433 SQLServer\n3306 mySQL 端口\n各种端口号是必记。\nMyecl 集成了子IDE,所以比较方便。\nJAR包 是将java代码和文档集成在一个包中。\n5.1.35java connect是可以用的\njdbc driver\nURL，第一节是JDBC协议，第二节是MySQL表示数据库名称，第三节是代表这MySQL服务器的名字，localhost 127.0.0.1,第四节是端口号。后面都删掉。后面是连着的库。\ndriver name 随便取。\nSchema 是 database的超集。 datebase是table的超集。\n数据库 StringTypeConversion //把子段转化成串 connection transantion statement resultset\n先建立连接，使用JSP连接MySQL\ngetConnection函数是静态类型，可以通过类名直接调用函数。\n语句分为两方面\n静态的，\n动态的，是由运行时候确定的查询和修改语句\n获得了resultset之后因为其中有很多条记录，所以必须要用循环。resultset自带了迭代器，iterator。一行一行，一个记录一个记录访问。\n//把当前指针指向的record赋予re,之后指针往下走。 while TypeConversion(rs,Type.VARCHAR,1 //and so on 把结果串加入过来。 } rs.close(); stmt.close(); conn.close(); // 记得关闭连接 一级一级一级往回退 交互界面(登陆界面) 早年窗口还叫Window，现在流行叫frame。\n使用html的指令去做\n使用JSTL做窗口，使用扩展模板库\n- web.xml - 配置struts.xml文件 - 建立Action类文件 - 建立Action执行后转向的jsp文件。 ## 例子 ${message} 直接将message类中的信息直接输出出来。 他把control端的数据在页面里输出出来。 那么如何把view端的数据在control中获得呢？ ### 实现原理 - 数据共享 data sharing - 配置文件 configuration struts2提供在一个类中，具有一定特征的函数就可以映射成actions。 ### result dispatcher分发包裹的方式，之前建立的页面缺省的是dispatcher。 web应用开发笔记 https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0.html 作者 CheaSim 发布于 2018-09-03 更新于 2018-12-08 许可协议 #[web](/tags/web/) ",
+  "wordCount" : "1388",
   "inLanguage": "zh-cn",
   "datePublished": "2018-09-03T00:00:00Z",
   "dateModified": "2018-09-03T00:00:00Z",
@@ -401,10 +401,7 @@ J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方
 <h3 id="ssh-spring-struts-hibernate">SSH Spring Struts Hibernate<a hidden class="anchor" aria-hidden="true" href="#ssh-spring-struts-hibernate">#</a></h3>
 <h2 id="jsp详解">JSP详解<a hidden class="anchor" aria-hidden="true" href="#jsp详解">#</a></h2>
 <h2 id="element-语素">element 语素<a hidden class="anchor" aria-hidden="true" href="#element-语素">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1
-</span></span><span style="display:flex;"><span>2
-</span></span><span style="display:flex;"><span>3
-</span></span></code></pre></div><h3 id="有三类语句">有三类语句<a hidden class="anchor" aria-hidden="true" href="#有三类语句">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"></code></pre></div><h3 id="有三类语句">有三类语句<a hidden class="anchor" aria-hidden="true" href="#有三类语句">#</a></h3>
 <ul>
 <li>
 <p>表达式</p>
@@ -433,8 +430,7 @@ J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方
 <p>driver name 随便取。</p>
 <p>Schema 是 database的超集。 datebase是table的超集。</p>
 <h3 id="数据库">数据库<a hidden class="anchor" aria-hidden="true" href="#数据库">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1
-</span></span><span style="display:flex;"><span>StringTypeConversion //把子段转化成串
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>StringTypeConversion //把子段转化成串
 </span></span></code></pre></div><p>connection transantion statement resultset</p>
 <p>先建立连接，使用JSP连接MySQL</p>
 <p>getConnection函数是静态类型，可以通过类名直接调用函数。</p>
@@ -448,23 +444,13 @@ J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方
 </li>
 </ul>
 <p>获得了resultset之后因为其中有很多条记录，所以必须要用循环。resultset自带了迭代器，iterator。一行一行，一个记录一个记录访问。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1
-</span></span><span style="display:flex;"><span>2
-</span></span><span style="display:flex;"><span>3
-</span></span><span style="display:flex;"><span>4
-</span></span><span style="display:flex;"><span>5
-</span></span><span style="display:flex;"><span>6
-</span></span><span style="display:flex;"><span>//把当前指针指向的record赋予re,之后指针往下走。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>//把当前指针指向的record赋予re,之后指针往下走。
 </span></span><span style="display:flex;"><span>while
 </span></span><span style="display:flex;"><span>TypeConversion(rs,Type.VARCHAR,1
 </span></span><span style="display:flex;"><span>//and so on 把结果串加入过来。
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1
-</span></span><span style="display:flex;"><span>2
-</span></span><span style="display:flex;"><span>3
-</span></span><span style="display:flex;"><span>4
-</span></span><span style="display:flex;"><span>rs.close();
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>rs.close();
 </span></span><span style="display:flex;"><span>stmt.close();
 </span></span><span style="display:flex;"><span>conn.close();
 </span></span><span style="display:flex;"><span>// 记得关闭连接 一级一级一级往回退
@@ -478,10 +464,7 @@ J2ee的三个方面 M 模型:负责数据方面的事情，数据分为两个方
 <p>使用JSTL做窗口，使用扩展模板库</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>1
-</span></span><span style="display:flex;"><span>2
-</span></span><span style="display:flex;"><span>3
-</span></span><span style="display:flex;"><span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>- web.xml
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>- 配置struts.xml文件

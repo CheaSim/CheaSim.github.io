@@ -138,8 +138,8 @@
   "keywords": [
     
   ],
-  "articleBody": "Stand in a line 题意 给定$n-1​$组关系，节点$a​$不能站在节点$b​$的前面，使得$n​$站成一行，问有多少种站法。\n题解 树形dp + 组合数学\n先建树，把没有父亲的节点都并入$0$节点，这样我们就有一颗完整的树了。\n寻找规律，假设$f[i]$为以$i$为根节点的方案数，那么当每增加一颗子树的时候，他的组合是相当于有一个有拓扑排序方案和另外一个拓扑排序方案相组合。\n我们可以这样想像，假设拓扑排序是不存在的，这些点的排序忽略，那么点可以看做是同样颜色的点，那么$x_1,x_2$个数的点排列的排列数为$(x_1+x_2)! /(x_1! * x_2!)$。而这些点其实是不一样的，他们有自身的拓扑排序顺序，于是答案就是$f(x_1) f(x_2) (x_1+x_2)!/(x1! * x_2!)$。\n于是乎，我们先处理好每个节点的子节点(包含他自身)，可以用拓扑排序直接做，不用递归，当然也可以递归，于是就是相当于从子树开始处理，把所有子树的节点数的阶乘除掉就可以了。 简单写一下从递推到通向。$c_i$表示是$root$的子节点，$s(i)$表示$i$节点的子节点数。\n$f(root) = f(c1)f(c2)…f(c_k)*((s(root)-1)!/s(c_1)!/s(c_2)!/…/s(c_k)!)$\n$f(c_1)=f(x_1)f(x_2)…f(x_z)*((s(c_1)-1)!/s(x_1)!/s(x_2)!/…/s(x_z)!)$\n$s(c_1)和s(c_1-1)$可以约掉。而且到叶子节点$f(x_1)$都变成$1$了$s(x_1)$也变成了0.\n$f(root)=(s(root)-1)!/s(1)/s(2)/…/s(n)$\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 #include using #define #define #define #define typedef typedef const //head const const int struct int }G[maxn\u003e=1 } return } int #ifdef freopen(\"2.in\" #endif scanf fac[0 rep(i,1 fac[i] = fac[i-1 } while scanf init(); rep(i,0 int add(u,v);vis[v] = 1 } rep(i,1 memset vis[0 int while int for int if pre[v] = u; vis[u] = 1 q[++r] = v; } } per(i,1 sz[q[i]]++; sz[pre[q[i]]] += sz[q[i]]; } sz[0 ll res = 0 ll cnt = fac[n]; rep(i,1 printf } return } Reference:https://blog.csdn.net/xiao_k666/article/details/78609562\n[UVA11174] Stand in a line\nhttps://www.cheasim.com/acm/2018/08/30/UVA11174-Stand-in-a-line.html\n作者 CheaSim\n发布于 2018-08-30\n更新于 2018-08-30\n许可协议\n#树形dp\n",
-  "wordCount" : "862",
+  "articleBody": "Stand in a line 题意 给定$n-1​$组关系，节点$a​$不能站在节点$b​$的前面，使得$n​$站成一行，问有多少种站法。\n题解 树形dp + 组合数学\n先建树，把没有父亲的节点都并入$0$节点，这样我们就有一颗完整的树了。\n寻找规律，假设$f[i]$为以$i$为根节点的方案数，那么当每增加一颗子树的时候，他的组合是相当于有一个有拓扑排序方案和另外一个拓扑排序方案相组合。\n我们可以这样想像，假设拓扑排序是不存在的，这些点的排序忽略，那么点可以看做是同样颜色的点，那么$x_1,x_2$个数的点排列的排列数为$(x_1+x_2)! /(x_1! * x_2!)$。而这些点其实是不一样的，他们有自身的拓扑排序顺序，于是答案就是$f(x_1) f(x_2) (x_1+x_2)!/(x1! * x_2!)$。\n于是乎，我们先处理好每个节点的子节点(包含他自身)，可以用拓扑排序直接做，不用递归，当然也可以递归，于是就是相当于从子树开始处理，把所有子树的节点数的阶乘除掉就可以了。 简单写一下从递推到通向。$c_i$表示是$root$的子节点，$s(i)$表示$i$节点的子节点数。\n$f(root) = f(c1)f(c2)…f(c_k)*((s(root)-1)!/s(c_1)!/s(c_2)!/…/s(c_k)!)$\n$f(c_1)=f(x_1)f(x_2)…f(x_z)*((s(c_1)-1)!/s(x_1)!/s(x_2)!/…/s(x_z)!)$\n$s(c_1)和s(c_1-1)$可以约掉。而且到叶子节点$f(x_1)$都变成$1$了$s(x_1)$也变成了0.\n$f(root)=(s(root)-1)!/s(1)/s(2)/…/s(n)$\n#include using #define #define #define #define typedef typedef const //head const const int struct int }G[maxn\u003e=1 } return } int #ifdef freopen(\"2.in\" #endif scanf fac[0 rep(i,1 fac[i] = fac[i-1 } while scanf init(); rep(i,0 int add(u,v);vis[v] = 1 } rep(i,1 memset vis[0 int while int for int if pre[v] = u; vis[u] = 1 q[++r] = v; } } per(i,1 sz[q[i]]++; sz[pre[q[i]]] += sz[q[i]]; } sz[0 ll res = 0 ll cnt = fac[n]; rep(i,1 printf } return } Reference:https://blog.csdn.net/xiao_k666/article/details/78609562\n[UVA11174] Stand in a line\nhttps://www.cheasim.com/acm/2018/08/30/UVA11174-Stand-in-a-line.html\n作者 CheaSim\n发布于 2018-08-30\n更新于 2018-08-30\n许可协议\n#树形dp\n",
+  "wordCount" : "778",
   "inLanguage": "zh-cn",
   "datePublished": "2018-08-30T00:00:00Z",
   "dateModified": "2018-08-30T00:00:00Z",
@@ -288,91 +288,7 @@
 <p>$f(c_1)=f(x_1)f(x_2)…f(x_z)*((s(c_1)-1)!/s(x_1)!/s(x_2)!/…/s(x_z)!)$</p>
 <p>$s(c_1)和s(c_1-1)$可以约掉。而且到叶子节点$f(x_1)$都变成$1$了$s(x_1)$也变成了0.</p>
 <p>$f(root)=(s(root)-1)!/s(1)/s(2)/…/s(n)$</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">35</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">36</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">37</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">38</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">39</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">40</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">41</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">42</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">43</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">44</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">45</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">46</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">47</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">49</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">50</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">51</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">52</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">53</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">54</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">55</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">56</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">57</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">58</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">59</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">60</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">61</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">62</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">63</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">65</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">66</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">67</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">68</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">69</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">70</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">71</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">72</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">73</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">74</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">75</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">76</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">77</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">78</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">79</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">80</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">81</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">82</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">83</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">84</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
 </span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#define
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define

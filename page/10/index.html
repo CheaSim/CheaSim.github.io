@@ -155,6 +155,23 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">[POJ3264]Balanced Lineup
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>[POJ3264]Balanced Lineup 题意 给一个数列，求数列中$l,r$范围内最大值和最小值的差。
+题解 st表模板题。求两次rmq即可。
+#include #include #include #include using #define #define #define #define typedef typedef const //head const int int int int int int rep(i,0 rep(j,0 st[i][j&#43;1 st2[i][j&#43;1 } } int int return } int int return } int #ifdef freopen(&#34;shui.in&#34; #endif while rep(i,0 ST(); while int l--,r--; printf } } return } [POJ3264]Balanced Lineup
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-24 00:00:00 +0000 UTC'>August 24, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to [POJ3264]Balanced Lineup" href="https://www.cheasim.com/2018/08/24/poj3264-balanced-lineup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">2018 Multi-University Training Contest 8 D.Parenth
     </h2>
   </header>
@@ -210,8 +227,13 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>求逆元 $O(n)$求逆元 1 2 3 4 ll inv[maxn]; inv[1 rep(i,2 inv[i] = inv[mod%i] * (mod-mod/i) % mod; $O(n)$求阶乘 1 2 3 4 ll f[maxn]; ll f[1 rep(i,2 f[i] = f[i-1 求$n\choose k$ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 ll cur,p[maxn],q[maxn],inv[maxn]; ll C return } ll c if if return } void p[0 for inv[i] = (mod-mod/i)*inv[mod%i]%mod; q[i] = q[i-1 p[i] = p[i-1 } } //在每次的时候就得cur初始化为1 求$A^k_n$ 1 2 3 int return } 求逆元和组合数模板
-...</p>
+    <p>求逆元 $O(n)$求逆元 ll inv[maxn]; inv[1 rep(i,2 inv[i] = inv[mod%i] * (mod-mod/i) % mod; $O(n)$求阶乘 ll f[maxn]; ll f[1 rep(i,2 f[i] = f[i-1 求$n\choose k$ ll cur,p[maxn],q[maxn],inv[maxn]; ll C return } ll c if if return } void p[0 for inv[i] = (mod-mod/i)*inv[mod%i]%mod; q[i] = q[i-1 p[i] = p[i-1 } } //在每次的时候就得cur初始化为1 求$A^k_n$ int return } 求逆元和组合数模板
+https://www.cheasim.com/acm%E6%A8%A1%E6%9D%BF/2018/08/24/%E6%B1%82%E9%80%86%E5%85%83%E5%92%8C%E7%BB%84%E5%90%88%E6%95%B0%E6%A8%A1%E6%9D%BF.html
+作者 CheaSim
+发布于 2018-08-24
+更新于 2018-08-24
+许可协议
+</p>
   </div>
   <footer class="entry-footer">
 
@@ -260,9 +282,9 @@
   </header>
   <div class="entry-content">
     <p>Age of Moyu 题解 标程的set&#43;bfs貌似有漏洞。
-1 2 3 4 5 6 7 5 1 2 3 4 1 1 这个数据就可以hack掉了。
+5 1 2 3 4 1 1 这个数据就可以hack掉了。
 所以我果断copy了dls队伍的代码。(用边做)
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 #include #include #include #include #include #include using inline return } inline char while ch = inputchar(); ret = ch - &#39;0&#39; ch = inputchar(); while { ret = ret * 10 ch = inputchar(); } } const int class { public int }e[MAXM * 2 int int deque void int // scanf(&#34;%d%d%d&#34;, &amp;u, &amp;v, &amp;c); inputnum(u); inputnum(v); inputnum(c); e[&#43;&#43;en].to = v; e[en].c = c; e[en].next = head[u]; head[u] = en; e[&#43;&#43;en].to = u; e[en].c = c; e[en].next = head[v]; head[v] = en; } bool if return memset en = 1 for insert(); memset for dis[i / 2 while { int q.pop_front(); for if { if dis[i / 2 } else { if dis[i / 2 } for if { if dis[i / 2 } else { if dis[i / 2 } } int for if ans = dis[i / 2 if ans = -1 printf return } int #ifdef freopen(&#34;a.in&#34; #endif while return } 时间卡的非常紧。优化了很多终于2.4s过了。
+#include #include #include #include #include #include using inline return } inline char while ch = inputchar(); ret = ch - &#39;0&#39; ch = inputchar(); while { ret = ret * 10 ch = inputchar(); } } const int class { public int }e[MAXM * 2 int int deque void int // scanf(&#34;%d%d%d&#34;, &amp;u, &amp;v, &amp;c); inputnum(u); inputnum(v); inputnum(c); e[&#43;&#43;en].to = v; e[en].c = c; e[en].next = head[u]; head[u] = en; e[&#43;&#43;en].to = u; e[en].c = c; e[en].next = head[v]; head[v] = en; } bool if return memset en = 1 for insert(); memset for dis[i / 2 while { int q.pop_front(); for if { if dis[i / 2 } else { if dis[i / 2 } for if { if dis[i / 2 } else { if dis[i / 2 } } int for if ans = dis[i / 2 if ans = -1 printf return } int #ifdef freopen(&#34;a.in&#34; #endif while return } 时间卡的非常紧。优化了很多终于2.4s过了。
 ...</p>
   </div>
   <footer class="entry-footer">
@@ -277,7 +299,7 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>求逆元模板 递推求逆元 1 2 3 4 5 int int rep(i,2 inv[i] = inv[mod%i]*(mod-mod/i)%mod; } 费马小定理求逆元 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ll extend_gcd if if x = 1 return } ll d = extend_gcd(b,a%b,y,x); y -= a/b*x; return } ll mod_reverse ll x,y; ll d = extend_gcd(a,n,x,y); if else } 逆元模板
+    <p>求逆元模板 递推求逆元 int int rep(i,2 inv[i] = inv[mod%i]*(mod-mod/i)%mod; } 费马小定理求逆元 ll extend_gcd if if x = 1 return } ll d = extend_gcd(b,a%b,y,x); y -= a/b*x; return } ll mod_reverse ll x,y; ll d = extend_gcd(a,n,x,y); if else } 逆元模板
 https://www.cheasim.com/acm%E6%A8%A1%E6%9D%BF/2018/08/19/%E9%80%86%E5%85%83%E6%A8%A1%E6%9D%BF.html
 作者 CheaSim
 发布于 2018-08-19

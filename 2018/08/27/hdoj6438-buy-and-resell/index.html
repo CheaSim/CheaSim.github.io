@@ -153,8 +153,8 @@
   "keywords": [
     
   ],
-  "articleBody": "[hdoj6438]Buy and Resell 题意 给定$n$个城市和无限制的初始金钱你可以在每个城市里\n以$a_i$的价格买个商品\n以$a_i$的价格卖出商品\n啥都不做\n问最多能赚多少钱？\n题解 贪心 + 数据结构\n假设每个城市都卖出商品。那么之前买入的最便宜的商品来卖。对于买卖次数就将假设买入的商品记录为两种\n$1$表示他是之前买入并且在这次卖出\n$2$表示他是没有买卖，直接抵消了。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 #include using #define #define #define #define typedef typedef const //head int ll ans = 0 int #ifdef freopen(\"3.in\" #endif scanf while priority_queue scanf rep(i,0 int pq.push(make_pair pq.push(make_pair ll temp = x + pq.top().fi; if ans += temp; pq.pop(); } printf } return } [hdoj6438]Buy and Resell\nhttps://www.cheasim.com/acm/2018/08/27/hdoj6438-Buy-and-Resell.html\n作者 CheaSim\n发布于 2018-08-27\n更新于 2018-08-27\n许可协议\n#贪心\n",
-  "wordCount" : "262",
+  "articleBody": "[hdoj6438]Buy and Resell 题意 给定$n$个城市和无限制的初始金钱你可以在每个城市里\n以$a_i$的价格买个商品\n以$a_i$的价格卖出商品\n啥都不做\n问最多能赚多少钱？\n题解 贪心 + 数据结构\n假设每个城市都卖出商品。那么之前买入的最便宜的商品来卖。对于买卖次数就将假设买入的商品记录为两种\n$1$表示他是之前买入并且在这次卖出\n$2$表示他是没有买卖，直接抵消了。\n#include using #define #define #define #define typedef typedef const //head int ll ans = 0 int #ifdef freopen(\"3.in\" #endif scanf while priority_queue scanf rep(i,0 int pq.push(make_pair pq.push(make_pair ll temp = x + pq.top().fi; if ans += temp; pq.pop(); } printf } return } [hdoj6438]Buy and Resell\nhttps://www.cheasim.com/acm/2018/08/27/hdoj6438-Buy-and-Resell.html\n作者 CheaSim\n发布于 2018-08-27\n更新于 2018-08-27\n许可协议\n#贪心\n",
+  "wordCount" : "228",
   "inLanguage": "zh-cn",
   "datePublished": "2018-08-27T00:00:00Z",
   "dateModified": "2018-08-27T00:00:00Z",
@@ -305,41 +305,7 @@
 <p>$2$表示他是没有买卖，直接抵消了。</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">13</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">16</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">23</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">26</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">28</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">29</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">31</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">33</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">34</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
 </span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#define
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define

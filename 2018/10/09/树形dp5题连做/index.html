@@ -140,8 +140,8 @@ A - Information Disturbing
   "keywords": [
     
   ],
-  "articleBody": "树形dp，3天搞定 A - Information Disturbing 题意 对于一棵树，切断一些边使得每一个叶节点都无法连接到根节点，有两个要求\n每条边带权重，切掉的边权重和不大于$m$\n切掉的每条边都不能大于一个$ans$\n问$ans$最小是多少？\n题解 二分+树形dp\n+1 ans初始化-1\n看别人代码发现了个好东西，链式前项星判断节点是否为叶节点可以这样判断\n1 2 3 4 if 该节点是叶节点 //在双向边的时候适用 if 该节点是叶节点 //在单向边的时候适用 ac代码 树形dp5题连做\nhttps://www.cheasim.com/acm/2018/10/09/%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A.html\n作者 CheaSim\n发布于 2018-10-09\n更新于 2018-10-09\n许可协议\n#树形dp专题\n",
-  "wordCount" : "228",
+  "articleBody": "树形dp，3天搞定 A - Information Disturbing 题意 对于一棵树，切断一些边使得每一个叶节点都无法连接到根节点，有两个要求\n每条边带权重，切掉的边权重和不大于$m$\n切掉的每条边都不能大于一个$ans$\n问$ans$最小是多少？\n题解 二分+树形dp\n+1 ans初始化-1\n看别人代码发现了个好东西，链式前项星判断节点是否为叶节点可以这样判断\nif 该节点是叶节点 //在双向边的时候适用 if 该节点是叶节点 //在单向边的时候适用 ac代码 树形dp5题连做\nhttps://www.cheasim.com/acm/2018/10/09/%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A.html\n作者 CheaSim\n发布于 2018-10-09\n更新于 2018-10-09\n许可协议\n#树形dp专题\n",
+  "wordCount" : "224",
   "inLanguage": "zh-cn",
   "datePublished": "2018-10-09T00:00:00Z",
   "dateModified": "2018-10-09T00:00:00Z",
@@ -290,11 +290,7 @@ A - Information Disturbing
 <p>二分+树形dp</p>
 <p>+1 ans初始化-1</p>
 <p>看别人代码发现了个好东西，链式前项星判断节点是否为叶节点可以这样判断</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
 </span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">该节点是叶节点</span> <span style="color:#75715e">//在双向边的时候适用
 </span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
 </span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">该节点是叶节点</span> <span style="color:#75715e">//在单向边的时候适用

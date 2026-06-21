@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>SGA-MCTS：把慢思考缓存成可检索经验 | CheaSim Blog</title>
+<meta name="keywords" content="LLM, Agent, MCTS, Retrieval, Planning">
+<meta name="description" content="最近看到一篇挺适合拿来做博客开张读物的论文：SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval。
+一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="SGA-MCTS：把慢思考缓存成可检索经验">
+  <meta property="og:description" content="最近看到一篇挺适合拿来做博客开张读物的论文：SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval。
+一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-21T16:40:00+00:00">
+    <meta property="article:modified_time" content="2026-06-21T16:40:00+00:00">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Agent">
+    <meta property="article:tag" content="MCTS">
+    <meta property="article:tag" content="Retrieval">
+    <meta property="article:tag" content="Planning">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SGA-MCTS：把慢思考缓存成可检索经验">
+  <meta name="twitter:description" content="最近看到一篇挺适合拿来做博客开张读物的论文：SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval。
+一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.cheasim.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "SGA-MCTS：把慢思考缓存成可检索经验",
+      "item": "https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SGA-MCTS：把慢思考缓存成可检索经验",
+  "name": "SGA-MCTS：把慢思考缓存成可检索经验",
+  "description": "最近看到一篇挺适合拿来做博客开张读物的论文：SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval。\n一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。\n",
+  "keywords": [
+    "LLM", "Agent", "MCTS", "Retrieval", "Planning"
+  ],
+  "articleBody": "最近看到一篇挺适合拿来做博客开张读物的论文：SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval。\n一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。\n这件事很像是给 Agent 做了一个经验库：慢思考可以提前发生，快执行只需要调经验。\n为什么值得看 现在做 LLM Agent，经常会遇到一个很尴尬的三角：\n只靠模型直接生成动作，速度快，但是复杂任务里容易短视； 推理时加搜索，比如 MCTS、Tree-of-Thought，效果可能更好，但是延迟和成本很难看； 用监督微调把规划能力灌进去，又会受限于数据覆盖和任务泛化。 SGA-MCTS 的切入点是：能不能把“搜索”从在线阶段拆出去？\n论文把规划看成一种非参数检索问题。离线阶段用 MCTS 探索解空间，把高质量轨迹拆成 State-Goal-Action，也就是 SGA atoms。在线阶段来了新任务，再通过符号加语义的混合检索，把相关 SGA 找出来，重新 grounding 到当前任务里，变成模型的行动提示。\nSGA atoms 是什么 SGA 可以粗略理解成：\nState: 当前处在什么状态 Goal: 接下来要达成什么子目标 Action: 在这个状态和目标下，应该采取什么动作 关键不只是存三元组，而是要把具体任务里的实体“去词汇化”。比如某次轨迹里出现的是具体网页、具体商品、具体表单字段，论文希望抽出来的是更抽象的因果逻辑，而不是死记硬背那个任务。\n这样一来，经验原子就更像“可迁移的操作模式”：\n当前信息不够时，先补充观察； 目标需要约束满足时，先拆成可检查条件； 搜索空间太大时，先用中间状态缩小候选； 行动失败时，回到上一个可验证状态重新计划。 这些东西如果每次在线都靠模型临场想，既慢又不稳定；如果提前沉淀成检索经验，就有机会把复杂推理摊销掉。\n它和普通 RAG 有什么区别 普通 RAG 更多是在检索“知识”：事实、文档、代码片段、历史记录。\nSGA-MCTS 更像是在检索“行动经验”：在某类状态下，为了某个目标，曾经有效的动作是什么。它检索的不是答案本身，而是可复用的规划片段。\n这个区别挺重要。因为 Agent 真正难的地方，往往不是缺一个事实，而是不知道下一步该怎么走。搜索方法能解决这个问题，但太贵；经验检索如果能接住一部分搜索结果，就可能变成一个工程上很划算的折中。\n一个直觉例子 假设有个网页任务：帮用户找到某个服务的退款政策，并判断当前订单是否满足退款条件。\n在线 MCTS 可能会探索很多路径：\n搜首页导航； 查帮助中心； 找订单详情； 对照退款条件； 如果缺少付款时间，再回订单页补信息。 SGA-MCTS 想做的是，把这些成功轨迹抽成类似这样的经验：\nState: 已找到政策页，但缺少用户订单中的关键字段 Goal: 判断订单是否满足政策约束 Action: 回到订单详情页提取缺失字段，再进行条件匹配 下次遇到另一个网站、另一个订单，具体实体都变了，但“缺字段就回源页面补证据”这个策略仍然可以复用。\n我比较喜欢的点 这篇论文最有意思的地方，是它没有急着说“再训练一个更强的 planner”。它把问题拆成两个阶段：\n离线：用重计算换高质量经验； 在线：用检索把经验注入当前决策。 这个思路很工程。很多系统里，真正贵的不是某一次推理，而是每次都重复做同一种探索。如果任务分布有重复结构，提前把搜索结果原子化、抽象化、索引化，是很自然的方向。\n论文摘要里还提到，SGA-MCTS 让 frozen open-weights model 在复杂 benchmark 上接近 SOTA 系统，同时不需要任务特定微调。这个 claim 当然要看实验细节，但方向本身值得追。\n我会重点关注什么 后面细读时，我准备重点看几个问题：\nSGA atoms 的抽象规则到底有多强，是否依赖人工设计； hybrid symbolic-semantic retrieval 怎么做，符号匹配和语义匹配各解决什么； 检索出来的经验如何重新 grounding，避免把旧任务动作硬套到新任务； 离线 MCTS 的成本有多大，经验库规模和在线收益之间怎么权衡； benchmark 是否真的覆盖了需要长期规划的任务，而不是只是在模板化任务上收益明显。 如果这些问题处理得好，SGA-MCTS 这类方法可能会成为 Agent 系统里一个很实用的中间层：不直接改模型参数，也不每次在线爆搜，而是在两者之间加一个“可复用规划经验”的缓存。\n先留个坑 这篇可以作为后续几篇文章的入口。下一步我想拆一下它的完整 pipeline：MCTS 怎么生成轨迹，轨迹怎么变成 SGA atoms，检索模块怎么把它们喂回 LLM。\nAgent 方向现在最有意思的地方，不是单纯让模型“想更久”，而是让系统知道哪些思考值得保留下来。SGA-MCTS 正好踩在这个点上。\n",
+  "wordCount" : "1788",
+  "inLanguage": "zh-cn",
+  "datePublished": "2026-06-21T16:40:00Z",
+  "dateModified": "2026-06-21T16:40:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "CheaSim"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CheaSim Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.cheasim.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      SGA-MCTS：把慢思考缓存成可检索经验
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-06-21 16:40:00 +0000 UTC'>June 21, 2026</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%80%bc%e5%be%97%e7%9c%8b" aria-label="为什么值得看">为什么值得看</a></li>
+            <li>
+                <a href="#sga-atoms-%e6%98%af%e4%bb%80%e4%b9%88" aria-label="SGA atoms 是什么">SGA atoms 是什么</a></li>
+            <li>
+                <a href="#%e5%ae%83%e5%92%8c%e6%99%ae%e9%80%9a-rag-%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab" aria-label="它和普通 RAG 有什么区别">它和普通 RAG 有什么区别</a></li>
+            <li>
+                <a href="#%e4%b8%80%e4%b8%aa%e7%9b%b4%e8%a7%89%e4%be%8b%e5%ad%90" aria-label="一个直觉例子">一个直觉例子</a></li>
+            <li>
+                <a href="#%e6%88%91%e6%af%94%e8%be%83%e5%96%9c%e6%ac%a2%e7%9a%84%e7%82%b9" aria-label="我比较喜欢的点">我比较喜欢的点</a></li>
+            <li>
+                <a href="#%e6%88%91%e4%bc%9a%e9%87%8d%e7%82%b9%e5%85%b3%e6%b3%a8%e4%bb%80%e4%b9%88" aria-label="我会重点关注什么">我会重点关注什么</a></li>
+            <li>
+                <a href="#%e5%85%88%e7%95%99%e4%b8%aa%e5%9d%91" aria-label="先留个坑">先留个坑</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><p>最近看到一篇挺适合拿来做博客开张读物的论文：<a href="https://arxiv.org/abs/2604.14712">SGA-MCTS: Decoupling Planning from Execution via Training-Free Atomic Experience Retrieval</a>。</p>
+<p>一句话概括：它想把 MCTS 这种“推理时很强但很慢”的搜索能力，提前离线跑完，压缩成一批可以检索的经验原子。真正在线执行任务时，模型不再每次从零开始搜索，而是先把相似的经验捞出来，当作软提示塞回当前上下文。</p>
+<p>这件事很像是给 Agent 做了一个经验库：慢思考可以提前发生，快执行只需要调经验。</p>
+<h2 id="为什么值得看">为什么值得看<a hidden class="anchor" aria-hidden="true" href="#为什么值得看">#</a></h2>
+<p>现在做 LLM Agent，经常会遇到一个很尴尬的三角：</p>
+<ul>
+<li>只靠模型直接生成动作，速度快，但是复杂任务里容易短视；</li>
+<li>推理时加搜索，比如 MCTS、Tree-of-Thought，效果可能更好，但是延迟和成本很难看；</li>
+<li>用监督微调把规划能力灌进去，又会受限于数据覆盖和任务泛化。</li>
+</ul>
+<p>SGA-MCTS 的切入点是：能不能把“搜索”从在线阶段拆出去？</p>
+<p>论文把规划看成一种非参数检索问题。离线阶段用 MCTS 探索解空间，把高质量轨迹拆成 State-Goal-Action，也就是 SGA atoms。在线阶段来了新任务，再通过符号加语义的混合检索，把相关 SGA 找出来，重新 grounding 到当前任务里，变成模型的行动提示。</p>
+<h2 id="sga-atoms-是什么">SGA atoms 是什么<a hidden class="anchor" aria-hidden="true" href="#sga-atoms-是什么">#</a></h2>
+<p>SGA 可以粗略理解成：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>State: 当前处在什么状态
+</span></span><span style="display:flex;"><span>Goal: 接下来要达成什么子目标
+</span></span><span style="display:flex;"><span>Action: 在这个状态和目标下，应该采取什么动作
+</span></span></code></pre></div><p>关键不只是存三元组，而是要把具体任务里的实体“去词汇化”。比如某次轨迹里出现的是具体网页、具体商品、具体表单字段，论文希望抽出来的是更抽象的因果逻辑，而不是死记硬背那个任务。</p>
+<p>这样一来，经验原子就更像“可迁移的操作模式”：</p>
+<ul>
+<li>当前信息不够时，先补充观察；</li>
+<li>目标需要约束满足时，先拆成可检查条件；</li>
+<li>搜索空间太大时，先用中间状态缩小候选；</li>
+<li>行动失败时，回到上一个可验证状态重新计划。</li>
+</ul>
+<p>这些东西如果每次在线都靠模型临场想，既慢又不稳定；如果提前沉淀成检索经验，就有机会把复杂推理摊销掉。</p>
+<h2 id="它和普通-rag-有什么区别">它和普通 RAG 有什么区别<a hidden class="anchor" aria-hidden="true" href="#它和普通-rag-有什么区别">#</a></h2>
+<p>普通 RAG 更多是在检索“知识”：事实、文档、代码片段、历史记录。</p>
+<p>SGA-MCTS 更像是在检索“行动经验”：在某类状态下，为了某个目标，曾经有效的动作是什么。它检索的不是答案本身，而是可复用的规划片段。</p>
+<p>这个区别挺重要。因为 Agent 真正难的地方，往往不是缺一个事实，而是不知道下一步该怎么走。搜索方法能解决这个问题，但太贵；经验检索如果能接住一部分搜索结果，就可能变成一个工程上很划算的折中。</p>
+<h2 id="一个直觉例子">一个直觉例子<a hidden class="anchor" aria-hidden="true" href="#一个直觉例子">#</a></h2>
+<p>假设有个网页任务：帮用户找到某个服务的退款政策，并判断当前订单是否满足退款条件。</p>
+<p>在线 MCTS 可能会探索很多路径：</p>
+<ol>
+<li>搜首页导航；</li>
+<li>查帮助中心；</li>
+<li>找订单详情；</li>
+<li>对照退款条件；</li>
+<li>如果缺少付款时间，再回订单页补信息。</li>
+</ol>
+<p>SGA-MCTS 想做的是，把这些成功轨迹抽成类似这样的经验：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>State: 已找到政策页，但缺少用户订单中的关键字段
+</span></span><span style="display:flex;"><span>Goal: 判断订单是否满足政策约束
+</span></span><span style="display:flex;"><span>Action: 回到订单详情页提取缺失字段，再进行条件匹配
+</span></span></code></pre></div><p>下次遇到另一个网站、另一个订单，具体实体都变了，但“缺字段就回源页面补证据”这个策略仍然可以复用。</p>
+<h2 id="我比较喜欢的点">我比较喜欢的点<a hidden class="anchor" aria-hidden="true" href="#我比较喜欢的点">#</a></h2>
+<p>这篇论文最有意思的地方，是它没有急着说“再训练一个更强的 planner”。它把问题拆成两个阶段：</p>
+<ul>
+<li>离线：用重计算换高质量经验；</li>
+<li>在线：用检索把经验注入当前决策。</li>
+</ul>
+<p>这个思路很工程。很多系统里，真正贵的不是某一次推理，而是每次都重复做同一种探索。如果任务分布有重复结构，提前把搜索结果原子化、抽象化、索引化，是很自然的方向。</p>
+<p>论文摘要里还提到，SGA-MCTS 让 frozen open-weights model 在复杂 benchmark 上接近 SOTA 系统，同时不需要任务特定微调。这个 claim 当然要看实验细节，但方向本身值得追。</p>
+<h2 id="我会重点关注什么">我会重点关注什么<a hidden class="anchor" aria-hidden="true" href="#我会重点关注什么">#</a></h2>
+<p>后面细读时，我准备重点看几个问题：</p>
+<ul>
+<li>SGA atoms 的抽象规则到底有多强，是否依赖人工设计；</li>
+<li>hybrid symbolic-semantic retrieval 怎么做，符号匹配和语义匹配各解决什么；</li>
+<li>检索出来的经验如何重新 grounding，避免把旧任务动作硬套到新任务；</li>
+<li>离线 MCTS 的成本有多大，经验库规模和在线收益之间怎么权衡；</li>
+<li>benchmark 是否真的覆盖了需要长期规划的任务，而不是只是在模板化任务上收益明显。</li>
+</ul>
+<p>如果这些问题处理得好，SGA-MCTS 这类方法可能会成为 Agent 系统里一个很实用的中间层：不直接改模型参数，也不每次在线爆搜，而是在两者之间加一个“可复用规划经验”的缓存。</p>
+<h2 id="先留个坑">先留个坑<a hidden class="anchor" aria-hidden="true" href="#先留个坑">#</a></h2>
+<p>这篇可以作为后续几篇文章的入口。下一步我想拆一下它的完整 pipeline：MCTS 怎么生成轨迹，轨迹怎么变成 SGA atoms，检索模块怎么把它们喂回 LLM。</p>
+<p>Agent 方向现在最有意思的地方，不是单纯让模型“想更久”，而是让系统知道哪些思考值得保留下来。SGA-MCTS 正好踩在这个点上。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.cheasim.com/tags/llm/">LLM</a></li>
+      <li><a href="https://www.cheasim.com/tags/agent/">Agent</a></li>
+      <li><a href="https://www.cheasim.com/tags/mcts/">MCTS</a></li>
+      <li><a href="https://www.cheasim.com/tags/retrieval/">Retrieval</a></li>
+      <li><a href="https://www.cheasim.com/tags/planning/">Planning</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://www.cheasim.com/2021/01/20/unifiedqa-crossing-format-boundaries-with-a-single-qa-system-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <span class="title"> »</span>
+    <span>UNIFIEDQA Crossing Format Boundaries with a Single QA System 读书笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
