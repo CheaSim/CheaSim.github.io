@@ -6,8 +6,16 @@
     <description>Recent content in 论文导读 on CheaSim Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 21 Jun 2026 16:40:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jun 2026 21:10:00 +0000</lastBuildDate>
     <atom:link href="https://www.cheasim.com/categories/%E8%AE%BA%E6%96%87%E5%AF%BC%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SkillX：给 Agent 预先造一个可复用技能库</title>
+      <link>https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/</link>
+      <pubDate>Mon, 22 Jun 2026 21:10:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/</guid>
+      <description>&lt;p&gt;昨天写了 &lt;a href=&#34;https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/&#34;&gt;SGA-MCTS&lt;/a&gt;，今天顺手接一篇很适合放在一起看的论文：&lt;a href=&#34;https://arxiv.org/abs/2604.04804&#34;&gt;SkillX: Automatically Constructing Skill Knowledge Bases for Agents&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;SGA-MCTS 更像是在说：Agent 的搜索经验能不能拆成可检索的规划原子。SkillX 则更进一步问：能不能自动把 Agent 的历史轨迹整理成一个 plug-and-play 的技能知识库，让别的 Agent 也能直接拿来用？&lt;/p&gt;</description>
+    </item>
     <item>
       <title>SGA-MCTS：把慢思考缓存成可检索经验</title>
       <link>https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/</link>

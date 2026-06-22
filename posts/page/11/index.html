@@ -183,178 +183,24 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">八数码问题
+    <h2 class="entry-hint-parent">codeforcesPoints
     </h2>
   </header>
   <div class="entry-content">
-    <p>八数码问题 前提知识 康拓展开 用途 相当于hash存储序列，使用更加小的空间来存储排列。
-公式 $X = a_n*(n-1)!&#43;a_{n-1}(n-2)&#43;…&#43;a_10!$，$a_i$表示当前未出现的数字是排在第几个元素。$0 \leq a_i 八数码问题
+    <p>codeforcesPoints 题意 给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。
+题解 线段树&#43;set应用
+对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。
 ...</p>
   </div>
   <footer class="entry-footer">
 
-<span title='2018-08-31 00:00:00 +0000 UTC'>August 31, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to 八数码问题" href="https://www.cheasim.com/2018/08/31/%E5%85%AB%E6%95%B0%E7%A0%81%E9%97%AE%E9%A2%98/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[hdoj1556]Color the ball
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Color the ball 题意 给定$n$次操作，吧$l,r$区间内&#43;1，最后问每个点是多少。
-题解 树状数组骚操作。
-既然我单点更新只能更新一个点，那么我就更新$l$点加上1，之后$r&#43;1$的点减1，那么我对于在区间中的点，求得就是他之前$l$出现的次数。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-30 00:00:00 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [hdoj1556]Color the ball" href="https://www.cheasim.com/2018/08/30/hdoj1556-color-the-ball/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[hdoj4661] Message Passing
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>HDOJ 4661: Message Passing 题意 每个人拥有一个信息，也可以传给另外一个人他拥有的所有信息。现在给定一个联络树，问至少多少次传递可以让所有人拥有所有信息。
-题解 可以看出至少要$(n-1)*2$次传递，因为每个人都至少传出一次，传入一次。而怎么可以最少传递呢？我们可以假设根为中心，先将所有信息传递给他，之后再从他传递回来。这里有一点很巧妙，传入和传出的可能种类是一样的，所以我们只需要计算一次传入，平方后便是该点为中心的方案数。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-30 00:00:00 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [hdoj4661] Message Passing" href="https://www.cheasim.com/2018/08/30/hdoj4661-message-passing/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[UVA11174] Stand in a line
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Stand in a line 题意 给定$n-1​$组关系，节点$a​$不能站在节点$b​$的前面，使得$n​$站成一行，问有多少种站法。
-题解 树形dp &#43; 组合数学
-先建树，把没有父亲的节点都并入$0$节点，这样我们就有一颗完整的树了。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-30 00:00:00 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [UVA11174] Stand in a line" href="https://www.cheasim.com/2018/08/30/uva11174-stand-in-a-line/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[nowcoder1] J.Different Integers
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>[nowcoder1]J. Different Integers 题意 给出一段序列$a_1,a_2,…,a_n$，和$l,r$，求区间$[1,l],[r,n]$中不同数字的个数。
-题解 树状数组&#43;倍增序列
-将查询的$l,r$转化为查询序列$[r,l&#43;n]$中不同中数字的个数。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-28 00:00:00 +0000 UTC'>August 28, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [nowcoder1] J.Different Integers" href="https://www.cheasim.com/2018/08/28/nowcoder1-j-different-integers/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[nowcoder2] 补题向
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>A.run 题意 白云可以跑$k$米或者走$1$米，但不能连续跑，问到达终点有多少种方案。
-题解 1步2步上楼梯的加强版。典型的dp题。
-$dp[i][0/1]$表示第$i$米最终是走还是跑的方案数 转移方程
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-28 00:00:00 +0000 UTC'>August 28, 2018</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [nowcoder2] 补题向" href="https://www.cheasim.com/2018/08/28/nowcoder2-%E8%A1%A5%E9%A2%98%E5%90%91/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">单调队列学习笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>单调队列 定义 单调队列，就是指队列中的元素是单调的。
-$a_1,a_2,a_3,…,a_n$满足$a1\leq a_2\leq a_3…\leq a_n$的序列便是单调序列。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-28 00:00:00 +0000 UTC'>August 28, 2018</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to 单调队列学习笔记" href="https://www.cheasim.com/2018/08/28/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[hdoj6438]Buy and Resell
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>[hdoj6438]Buy and Resell 题意 给定$n$个城市和无限制的初始金钱你可以在每个城市里
-以$a_i$的价格买个商品
-以$a_i$的价格卖出商品
-啥都不做
-问最多能赚多少钱？
-题解 贪心 &#43; 数据结构
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-27 00:00:00 +0000 UTC'>August 27, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [hdoj6438]Buy and Resell" href="https://www.cheasim.com/2018/08/27/hdoj6438-buy-and-resell/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">[hdoj6447] YJJ&#39;s Salesman
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>[hdoj6447] YJJ’s Salesman 题意 给定一个地图，只能向右或者向上走，地图上有很多点，有以下条件
-每个点有钱$val$
-你只能从该点的左下方进入点才可以拿钱。
-问最多能获得多少钱。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-27 00:00:00 +0000 UTC'>August 27, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to [hdoj6447] YJJ&#39;s Salesman" href="https://www.cheasim.com/2018/08/27/hdoj6447-yjj-s-salesman/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">51Nod-1593 公园晨跑
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>51Nod-1593 公园晨跑 题意 给定一个环，环上有$n$个点，每个点有一个权值$h$代表着如果从$i$到$j$的话，你必须加上$2h_i&#43;2h_j$。并且加上他们之间的距离$L$。并且在环上会有一个区间被占用导致只能从另外一个方向走。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2018-08-27 00:00:00 +0000 UTC'>August 27, 2018</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
-  <a class="entry-link" aria-label="post link to 51Nod-1593 公园晨跑" href="https://www.cheasim.com/2018/08/27/51nod-1593-%E5%85%AC%E5%9B%AD%E6%99%A8%E8%B7%91/"></a>
+<span title='2018-08-18 00:00:00 +0000 UTC'>August 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to codeforcesPoints" href="https://www.cheasim.com/2018/08/18/codeforcespoints/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="prev" href="https://www.cheasim.com/posts/page/8/">
+    <a class="prev" href="https://www.cheasim.com/posts/page/10/">
       «&nbsp;&nbsp;
-    </a>
-    <a class="next" href="https://www.cheasim.com/posts/page/10/">&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>

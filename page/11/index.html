@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head>
+	<meta name="generator" content="Hugo 0.163.3"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Tags | CheaSim Blog</title>
-<meta name="keywords" content="">
+<title>CheaSim Blog</title>
+
 <meta name="description" content="Code, notes, algorithms, systems, and things worth remembering.">
 <meta name="author" content="CheaSim">
-<link rel="canonical" href="https://www.cheasim.com/tags/">
+<link rel="canonical" href="https://www.cheasim.com/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.cheasim.com/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
@@ -18,8 +19,9 @@
 <link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/tags/index.xml" title="rss">
-<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/tags/">
+<link rel="alternate" type="application/rss+xml" href="https://www.cheasim.com/index.xml" title="rss">
+<link rel="alternate" type="application/json" href="https://www.cheasim.com/index.json" title="json">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/">
 <noscript>
     <style>
         #theme-toggle,
@@ -66,17 +68,30 @@
     }
 
 </script>
-<meta property="og:url" content="https://www.cheasim.com/tags/">
+<meta property="og:url" content="https://www.cheasim.com/">
   <meta property="og:site_name" content="CheaSim Blog">
-  <meta property="og:title" content="Tags">
+  <meta property="og:title" content="CheaSim Blog">
   <meta property="og:description" content="Code, notes, algorithms, systems, and things worth remembering.">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="website">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Tags">
+  <meta name="twitter:title" content="CheaSim Blog">
   <meta name="twitter:description" content="Code, notes, algorithms, systems, and things worth remembering.">
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CheaSim Blog",
+  "url": "https://www.cheasim.com/",
+  "description": "Code, notes, algorithms, systems, and things worth remembering.",
+  "logo": "https://www.cheasim.com/favicon.ico",
+  "sameAs": [
+      "https://github.com/CheaSim"
+  ]
+}
+</script>
 </head>
 <body class="list" id="top">
     <header class="header">
@@ -119,7 +134,7 @@
             </li>
             <li>
                 <a href="https://www.cheasim.com/tags/" title="Tags">
-                    <span class="active">Tags</span>
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
@@ -136,34 +151,31 @@
         </ul>
     </nav>
 </header>
-<main class="main">
-<header class="page-header">
-    <h1>Tags</h1>
-</header>
+<main class="main"> 
 
-<ul class="terms-tags">
-            <li>
-                <a href="https://www.cheasim.com/tags/agent/">Agent <sup><strong><sup>2</sup></strong></sup> </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/llm/">LLM <sup><strong><sup>2</sup></strong></sup> </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/mcts/">MCTS <sup><strong><sup>1</sup></strong></sup> </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/memory/">Memory <sup><strong><sup>1</sup></strong></sup> </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/planning/">Planning <sup><strong><sup>2</sup></strong></sup> </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/retrieval/">Retrieval <sup><strong><sup>1</sup></strong></sup> </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/skill/">Skill <sup><strong><sup>1</sup></strong></sup> </a>
-            </li>
-</ul>
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">codeforcesPoints
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>codeforcesPoints 题意 给出几个点，让你求出在某个点的右边和上面最接近他的点是哪一个点。
+题解 线段树&#43;set应用
+对$x$进行离散化处理，对于每一个$x$进行建一个set，用线段树维护$x$之间的$y$的最大值。对于给出点的右上点，我们可以用二分来set搜索，还有在线段树中优先搜索左边靠近给出点的点。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2018-08-18 00:00:00 +0000 UTC'>August 18, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span></footer>
+  <a class="entry-link" aria-label="post link to codeforcesPoints" href="https://www.cheasim.com/2018/08/18/codeforcespoints/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://www.cheasim.com/page/10/">
+      «&nbsp;&nbsp;
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">
