@@ -336,10 +336,12 @@ $H(n) = H(n-1)$中的每个元素$a_i$，那么每个元素就生成一个小子
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
+    <span class="busuanzi-site-stats">
+        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
+        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
+    </span> | 
 
-    
-    
     <span>
         Powered by
         <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
@@ -353,11 +355,12 @@ $H(n) = H(n-1)$中的每个元素$a_i$，那么每个元素就生成一个小子
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 <script>
     let menu = document.getElementById('menu');
     if (menu) {
-        
         const scrollPosition = localStorage.getItem("menu-scroll-position");
         if (scrollPosition) {
             menu.scrollLeft = parseInt(scrollPosition, 10);
@@ -398,20 +401,6 @@ $H(n) = H(n-1)$中的每个元素$a_i$，那么每个元素就生成一个小子
             toplink.classList.add("hidden");
         }
     };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        const html = document.querySelector("html");
-        if (html.dataset.theme === "dark") {
-            html.dataset.theme = 'light';
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            html.dataset.theme = 'dark';
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
 </script>
 </body>
 

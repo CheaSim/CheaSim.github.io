@@ -238,6 +238,11 @@ $S=1×1!&#43;2×2!&#43;⋯&#43;(n - 1) \times (n-1)!(n−1)×(n−1)!$问$Smodn$
     <div class="post-meta">
 
 <span title='2018-09-03 00:00:00 +0000 UTC'>September 3, 2018</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+&nbsp;·&nbsp;
+<span id="busuanzi_container_page_pv" class="busuanzi-page-pv">
+  阅读 <span id="busuanzi_value_page_pv">-</span> 次
+</span>
+
 
 </div>
   </header> <details class="toc" >
@@ -997,10 +1002,12 @@ $S=1×1!&#43;2×2!&#43;⋯&#43;(n - 1) \times (n-1)!(n−1)×(n−1)!$问$Smodn$
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
+    <span class="busuanzi-site-stats">
+        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
+        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
+    </span> | 
 
-    
-    
     <span>
         Powered by
         <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
@@ -1014,11 +1021,12 @@ $S=1×1!&#43;2×2!&#43;⋯&#43;(n - 1) \times (n-1)!(n−1)×(n−1)!$问$Smodn$
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 <script>
     let menu = document.getElementById('menu');
     if (menu) {
-        
         const scrollPosition = localStorage.getItem("menu-scroll-position");
         if (scrollPosition) {
             menu.scrollLeft = parseInt(scrollPosition, 10);
@@ -1059,67 +1067,6 @@ $S=1×1!&#43;2×2!&#43;⋯&#43;(n - 1) \times (n-1)!(n−1)×(n−1)!$问$Smodn$
             toplink.classList.add("hidden");
         }
     };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        const html = document.querySelector("html");
-        if (html.dataset.theme === "dark") {
-            html.dataset.theme = 'light';
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            html.dataset.theme = 'dark';
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
 </script>
 </body>
 
