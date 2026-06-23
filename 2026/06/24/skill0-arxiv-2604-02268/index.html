@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Skill0：训练时借技能，推理时把技能撤掉 | CheaSim Blog</title>
+<meta name="keywords" content="LLM, Agent, Skill, RL, Planning">
+<meta name="description" content="前两篇刚好写了 SGA-MCTS 和 SkillX，今天这篇 SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization 正好能把这条线补完整。
+如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？">
+<meta name="author" content="CheaSim">
+<link rel="canonical" href="https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.cheasim.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta property="og:url" content="https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/">
+  <meta property="og:site_name" content="CheaSim Blog">
+  <meta property="og:title" content="Skill0：训练时借技能，推理时把技能撤掉">
+  <meta property="og:description" content="前两篇刚好写了 SGA-MCTS 和 SkillX，今天这篇 SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization 正好能把这条线补完整。
+如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-24T21:30:00+00:00">
+    <meta property="article:modified_time" content="2026-06-24T21:30:00+00:00">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Agent">
+    <meta property="article:tag" content="Skill">
+    <meta property="article:tag" content="RL">
+    <meta property="article:tag" content="Planning">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Skill0：训练时借技能，推理时把技能撤掉">
+  <meta name="twitter:description" content="前两篇刚好写了 SGA-MCTS 和 SkillX，今天这篇 SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization 正好能把这条线补完整。
+如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.cheasim.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Skill0：训练时借技能，推理时把技能撤掉",
+      "item": "https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Skill0：训练时借技能，推理时把技能撤掉",
+  "name": "Skill0：训练时借技能，推理时把技能撤掉",
+  "description": "前两篇刚好写了 SGA-MCTS 和 SkillX，今天这篇 SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization 正好能把这条线补完整。\n如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？\n",
+  "keywords": [
+    "LLM", "Agent", "Skill", "RL", "Planning"
+  ],
+  "articleBody": "前两篇刚好写了 SGA-MCTS 和 SkillX，今天这篇 SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization 正好能把这条线补完整。\n如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？\n一句话概括：训练时给模型看技能，随着 RL 训练逐步把技能撤掉，逼模型从“照着技能做”变成“自己会做”。\n为什么要把技能撤掉 现在很多 Agent 系统会在推理时加载技能：先检索相关 skill file，再把技能内容塞进上下文，让模型照着做。\n这条路线很实用，但论文指出它有几个天然问题：\n检索会有噪声，可能捞到不相关甚至误导性的技能； 技能内容会占上下文，长任务里 token 开销很明显； 模型只是临时 follow skill，并没有真正学会这个技能； 一旦检索失败，Agent 的行为就容易退化。 所以 Skill0 的目标不是再做一个更好的 skill retriever，而是把 skill 当成训练时的脚手架。脚手架搭模型，最后脚手架要拆掉。\n这个思路我挺喜欢，因为它把“技能库”和“参数学习”连接起来了：技能库不是最终形态，而是训练模型的中间媒介。\nSkill0 的核心想法 Skill0 是一个 in-context agentic reinforcement learning 框架。它训练时不是一上来就让模型裸跑，而是给模型完整技能上下文，让它先在有提示的状态下学会工具调用、多轮交互和任务完成。\n然后关键来了：训练过程中逐步减少可用技能上下文。\n可以粗略理解成一个 curriculum：\nearly training: 给完整技能，模型先照着做 middle training: 只保留仍然有帮助的技能 late training: 技能预算继续下降 final policy: 不再加载技能，零样本执行 这种设计像是“先扶着走，再逐渐放手”。如果直接不给技能，RL 探索太难；如果一直给技能，模型永远只是依赖外部提示。Skill0 想在这两者之间找一条退火路径。\nDynamic Curriculum 论文里最关键的机制是 Dynamic Curriculum。它不是机械地每隔几步删掉一些技能，而是根据当前 policy 的 on-policy helpfulness 来决定哪些 skill file 还值得保留。\n也就是说，一个技能如果当前模型还明显受益，就暂时留着；如果模型已经不太需要它，或者它帮助不大，就可以从上下文预算里撤掉。\n同时，总技能预算会线性下降，最后逼近零。\n这个机制背后的直觉很清楚：不同技能被模型吸收的速度不一样。有些简单工具调用模式很快就会了，有些长程规划技巧需要保留更久。动态课程比固定删减更像真实教学。\n为什么叫 in-context RL Skill0 里技能仍然是通过上下文注入的，但它的目标不是长期依赖上下文，而是借助上下文提高 RL 采样质量。\n普通 RL baseline 里，模型需要自己探索出好行为。Agent 任务通常奖励稀疏、步骤长、工具调用容易错，探索成本很高。\nSkill0 则让模型在训练早期拥有更强的行为先验：\nskill context -\u003e better trajectories -\u003e better RL signal -\u003e policy internalization 这里的 in-context 更像训练时的辅助观测。它让模型更容易走到成功轨迹，再通过 RL 把这些行为模式压进参数里。\n和 SkillX 的关系 SkillX 是自动构建技能知识库，让弱 Agent 可以 plug-and-play 地消费强 Agent 的经验。\nSkill0 则像是下一步：既然有了技能库，能不能不在推理时每次都检索，而是在训练时把技能喂给模型，让模型最后自己会？\n所以可以把两篇放在一条链上看：\nSkillX: 经验 -\u003e 技能库 Skill0: 技能库 -\u003e 参数化能力 这条链很有想象力。因为真实系统里，外部技能库和模型参数不是非此即彼。技能库可以用来冷启动、训练、纠错、更新；参数化能力则负责低延迟、低 token 成本、稳定执行。\n实验结果怎么读 论文在 ALFWorld、Search-QA、WebShop 这类 Agent benchmark 上做实验，报告相对标准 RL baseline 有明显提升：\nALFWorld：约 +9.7% Search-QA：约 +6.6% WebShop：约 +10.1% 同时，它每步上下文控制在 0.5k tokens 以下。这个点很关键，因为如果一个方法靠堆很长的 skill context 获得提升，线上成本会很难看。Skill0 的卖点正好相反：训练时用技能，最后尽量把 runtime 负担降下来。\n当然，这些数字还要看 benchmark 细节和 baseline 设置。但方向本身很清晰：技能上下文可以成为 RL 的辅助训练信号，而不一定是推理阶段永久依赖项。\n一个直觉例子 假设一个 WebShop Agent 要学会买商品。外部技能可能会告诉它：\n先解析用户需求 再搜索候选商品 过滤价格、颜色、尺寸等约束 最后打开详情页确认再购买 如果推理时每次都把这段技能塞进去，模型可以照做，但会有 token 成本，也可能检索到不合适的购买策略。\nSkill0 的路线是：训练早期把这段技能给模型，让它更容易跑出成功购买轨迹。训练中后期逐渐减少提示，让模型自己学会“先检索、再过滤、再验证”的流程。最终上线时，不再需要把这段技能塞进 prompt。\n这个思路非常像工程里的知识蒸馏，只是蒸馏对象不是 logits，而是 Agent 行为策略。\n我比较喜欢的点 Skill0 的价值不只是“又一个 RL trick”，而是它提出了一种很实用的 Agent 能力迁移方式：\n外部技能库负责提供结构化先验； RL 负责把先验转成可执行策略； curriculum 负责逐步减少依赖； 最终模型负责低开销执行。 它也回答了一个很现实的问题：如果我们真的维护了很多 skill file，难道每次推理都要检索、拼 prompt、赌模型 follow 对吗？\nSkill0 给出的答案是：不一定。技能可以是训练材料，不一定永远是运行时依赖。\n还需要追的问题 这类方法后面我会继续关注几个点：\n技能内化后，模型是否真的学会了可迁移策略，还是只记住了 benchmark 模式； 训练时撤掉技能的节奏对最终效果有多敏感； 如果技能库里有错误技能，RL 会不会把错误行为也内化进去； 新工具、新环境出现时，已经内化的技能如何更新； 参数化技能和外部技能库应该怎么协同，而不是互相替代。 最后一点尤其重要。外部技能库的优点是可编辑、可审计、更新快；参数化技能的优点是低延迟、低 token、行为稳定。真实 Agent 系统大概率需要两者都要。\n小结 SGA-MCTS、SkillX、Skill0 这三篇放在一起看，会形成一条很自然的路线：\n先把搜索经验变成可检索原子 再把轨迹经验变成技能知识库 最后把技能逐步内化进模型参数 这也许是 Agent 系统接下来很重要的一条工程路线：不是只靠更大的模型，也不是只靠更长的 prompt，而是让经验在外部系统和模型参数之间流动起来。\n我觉得这个方向值得继续追。Agent 真正变强，可能不只是因为它“想得更久”，而是因为它开始有办法把过去想过、做过、错过的东西沉淀下来。\n",
+  "wordCount" : "2411",
+  "inLanguage": "zh-cn",
+  "datePublished": "2026-06-24T21:30:00Z",
+  "dateModified": "2026-06-24T21:30:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "CheaSim"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CheaSim Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.cheasim.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.cheasim.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cheasim.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/CheaSim" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      Skill0：训练时借技能，推理时把技能撤掉
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-06-24 21:30:00 +0000 UTC'>June 24, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e6%8a%8a%e6%8a%80%e8%83%bd%e6%92%a4%e6%8e%89" aria-label="为什么要把技能撤掉">为什么要把技能撤掉</a></li>
+            <li>
+                <a href="#skill0-%e7%9a%84%e6%a0%b8%e5%bf%83%e6%83%b3%e6%b3%95" aria-label="Skill0 的核心想法">Skill0 的核心想法</a></li>
+            <li>
+                <a href="#dynamic-curriculum" aria-label="Dynamic Curriculum">Dynamic Curriculum</a></li>
+            <li>
+                <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%ab-in-context-rl" aria-label="为什么叫 in-context RL">为什么叫 in-context RL</a></li>
+            <li>
+                <a href="#%e5%92%8c-skillx-%e7%9a%84%e5%85%b3%e7%b3%bb" aria-label="和 SkillX 的关系">和 SkillX 的关系</a></li>
+            <li>
+                <a href="#%e5%ae%9e%e9%aa%8c%e7%bb%93%e6%9e%9c%e6%80%8e%e4%b9%88%e8%af%bb" aria-label="实验结果怎么读">实验结果怎么读</a></li>
+            <li>
+                <a href="#%e4%b8%80%e4%b8%aa%e7%9b%b4%e8%a7%89%e4%be%8b%e5%ad%90" aria-label="一个直觉例子">一个直觉例子</a></li>
+            <li>
+                <a href="#%e6%88%91%e6%af%94%e8%be%83%e5%96%9c%e6%ac%a2%e7%9a%84%e7%82%b9" aria-label="我比较喜欢的点">我比较喜欢的点</a></li>
+            <li>
+                <a href="#%e8%bf%98%e9%9c%80%e8%a6%81%e8%bf%bd%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="还需要追的问题">还需要追的问题</a></li>
+            <li>
+                <a href="#%e5%b0%8f%e7%bb%93" aria-label="小结">小结</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><p>前两篇刚好写了 <a href="https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/">SGA-MCTS</a> 和 <a href="https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/">SkillX</a>，今天这篇 <a href="https://arxiv.org/abs/2604.02268">SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization</a> 正好能把这条线补完整。</p>
+<p>如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？</p>
+<p>一句话概括：训练时给模型看技能，随着 RL 训练逐步把技能撤掉，逼模型从“照着技能做”变成“自己会做”。</p>
+<h2 id="为什么要把技能撤掉">为什么要把技能撤掉<a hidden class="anchor" aria-hidden="true" href="#为什么要把技能撤掉">#</a></h2>
+<p>现在很多 Agent 系统会在推理时加载技能：先检索相关 skill file，再把技能内容塞进上下文，让模型照着做。</p>
+<p>这条路线很实用，但论文指出它有几个天然问题：</p>
+<ul>
+<li>检索会有噪声，可能捞到不相关甚至误导性的技能；</li>
+<li>技能内容会占上下文，长任务里 token 开销很明显；</li>
+<li>模型只是临时 follow skill，并没有真正学会这个技能；</li>
+<li>一旦检索失败，Agent 的行为就容易退化。</li>
+</ul>
+<p>所以 Skill0 的目标不是再做一个更好的 skill retriever，而是把 skill 当成训练时的脚手架。脚手架搭模型，最后脚手架要拆掉。</p>
+<p>这个思路我挺喜欢，因为它把“技能库”和“参数学习”连接起来了：技能库不是最终形态，而是训练模型的中间媒介。</p>
+<h2 id="skill0-的核心想法">Skill0 的核心想法<a hidden class="anchor" aria-hidden="true" href="#skill0-的核心想法">#</a></h2>
+<p>Skill0 是一个 in-context agentic reinforcement learning 框架。它训练时不是一上来就让模型裸跑，而是给模型完整技能上下文，让它先在有提示的状态下学会工具调用、多轮交互和任务完成。</p>
+<p>然后关键来了：训练过程中逐步减少可用技能上下文。</p>
+<p>可以粗略理解成一个 curriculum：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>early training: 给完整技能，模型先照着做
+</span></span><span style="display:flex;"><span>middle training: 只保留仍然有帮助的技能
+</span></span><span style="display:flex;"><span>late training: 技能预算继续下降
+</span></span><span style="display:flex;"><span>final policy: 不再加载技能，零样本执行
+</span></span></code></pre></div><p>这种设计像是“先扶着走，再逐渐放手”。如果直接不给技能，RL 探索太难；如果一直给技能，模型永远只是依赖外部提示。Skill0 想在这两者之间找一条退火路径。</p>
+<h2 id="dynamic-curriculum">Dynamic Curriculum<a hidden class="anchor" aria-hidden="true" href="#dynamic-curriculum">#</a></h2>
+<p>论文里最关键的机制是 Dynamic Curriculum。它不是机械地每隔几步删掉一些技能，而是根据当前 policy 的 on-policy helpfulness 来决定哪些 skill file 还值得保留。</p>
+<p>也就是说，一个技能如果当前模型还明显受益，就暂时留着；如果模型已经不太需要它，或者它帮助不大，就可以从上下文预算里撤掉。</p>
+<p>同时，总技能预算会线性下降，最后逼近零。</p>
+<p>这个机制背后的直觉很清楚：不同技能被模型吸收的速度不一样。有些简单工具调用模式很快就会了，有些长程规划技巧需要保留更久。动态课程比固定删减更像真实教学。</p>
+<h2 id="为什么叫-in-context-rl">为什么叫 in-context RL<a hidden class="anchor" aria-hidden="true" href="#为什么叫-in-context-rl">#</a></h2>
+<p>Skill0 里技能仍然是通过上下文注入的，但它的目标不是长期依赖上下文，而是借助上下文提高 RL 采样质量。</p>
+<p>普通 RL baseline 里，模型需要自己探索出好行为。Agent 任务通常奖励稀疏、步骤长、工具调用容易错，探索成本很高。</p>
+<p>Skill0 则让模型在训练早期拥有更强的行为先验：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>skill context -&gt; better trajectories -&gt; better RL signal -&gt; policy internalization
+</span></span></code></pre></div><p>这里的 in-context 更像训练时的辅助观测。它让模型更容易走到成功轨迹，再通过 RL 把这些行为模式压进参数里。</p>
+<h2 id="和-skillx-的关系">和 SkillX 的关系<a hidden class="anchor" aria-hidden="true" href="#和-skillx-的关系">#</a></h2>
+<p>SkillX 是自动构建技能知识库，让弱 Agent 可以 plug-and-play 地消费强 Agent 的经验。</p>
+<p>Skill0 则像是下一步：既然有了技能库，能不能不在推理时每次都检索，而是在训练时把技能喂给模型，让模型最后自己会？</p>
+<p>所以可以把两篇放在一条链上看：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>SkillX: 经验 -&gt; 技能库
+</span></span><span style="display:flex;"><span>Skill0: 技能库 -&gt; 参数化能力
+</span></span></code></pre></div><p>这条链很有想象力。因为真实系统里，外部技能库和模型参数不是非此即彼。技能库可以用来冷启动、训练、纠错、更新；参数化能力则负责低延迟、低 token 成本、稳定执行。</p>
+<h2 id="实验结果怎么读">实验结果怎么读<a hidden class="anchor" aria-hidden="true" href="#实验结果怎么读">#</a></h2>
+<p>论文在 ALFWorld、Search-QA、WebShop 这类 Agent benchmark 上做实验，报告相对标准 RL baseline 有明显提升：</p>
+<ul>
+<li>ALFWorld：约 +9.7%</li>
+<li>Search-QA：约 +6.6%</li>
+<li>WebShop：约 +10.1%</li>
+</ul>
+<p>同时，它每步上下文控制在 0.5k tokens 以下。这个点很关键，因为如果一个方法靠堆很长的 skill context 获得提升，线上成本会很难看。Skill0 的卖点正好相反：训练时用技能，最后尽量把 runtime 负担降下来。</p>
+<p>当然，这些数字还要看 benchmark 细节和 baseline 设置。但方向本身很清晰：技能上下文可以成为 RL 的辅助训练信号，而不一定是推理阶段永久依赖项。</p>
+<h2 id="一个直觉例子">一个直觉例子<a hidden class="anchor" aria-hidden="true" href="#一个直觉例子">#</a></h2>
+<p>假设一个 WebShop Agent 要学会买商品。外部技能可能会告诉它：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>先解析用户需求
+</span></span><span style="display:flex;"><span>再搜索候选商品
+</span></span><span style="display:flex;"><span>过滤价格、颜色、尺寸等约束
+</span></span><span style="display:flex;"><span>最后打开详情页确认再购买
+</span></span></code></pre></div><p>如果推理时每次都把这段技能塞进去，模型可以照做，但会有 token 成本，也可能检索到不合适的购买策略。</p>
+<p>Skill0 的路线是：训练早期把这段技能给模型，让它更容易跑出成功购买轨迹。训练中后期逐渐减少提示，让模型自己学会“先检索、再过滤、再验证”的流程。最终上线时，不再需要把这段技能塞进 prompt。</p>
+<p>这个思路非常像工程里的知识蒸馏，只是蒸馏对象不是 logits，而是 Agent 行为策略。</p>
+<h2 id="我比较喜欢的点">我比较喜欢的点<a hidden class="anchor" aria-hidden="true" href="#我比较喜欢的点">#</a></h2>
+<p>Skill0 的价值不只是“又一个 RL trick”，而是它提出了一种很实用的 Agent 能力迁移方式：</p>
+<ul>
+<li>外部技能库负责提供结构化先验；</li>
+<li>RL 负责把先验转成可执行策略；</li>
+<li>curriculum 负责逐步减少依赖；</li>
+<li>最终模型负责低开销执行。</li>
+</ul>
+<p>它也回答了一个很现实的问题：如果我们真的维护了很多 skill file，难道每次推理都要检索、拼 prompt、赌模型 follow 对吗？</p>
+<p>Skill0 给出的答案是：不一定。技能可以是训练材料，不一定永远是运行时依赖。</p>
+<h2 id="还需要追的问题">还需要追的问题<a hidden class="anchor" aria-hidden="true" href="#还需要追的问题">#</a></h2>
+<p>这类方法后面我会继续关注几个点：</p>
+<ul>
+<li>技能内化后，模型是否真的学会了可迁移策略，还是只记住了 benchmark 模式；</li>
+<li>训练时撤掉技能的节奏对最终效果有多敏感；</li>
+<li>如果技能库里有错误技能，RL 会不会把错误行为也内化进去；</li>
+<li>新工具、新环境出现时，已经内化的技能如何更新；</li>
+<li>参数化技能和外部技能库应该怎么协同，而不是互相替代。</li>
+</ul>
+<p>最后一点尤其重要。外部技能库的优点是可编辑、可审计、更新快；参数化技能的优点是低延迟、低 token、行为稳定。真实 Agent 系统大概率需要两者都要。</p>
+<h2 id="小结">小结<a hidden class="anchor" aria-hidden="true" href="#小结">#</a></h2>
+<p>SGA-MCTS、SkillX、Skill0 这三篇放在一起看，会形成一条很自然的路线：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>先把搜索经验变成可检索原子
+</span></span><span style="display:flex;"><span>再把轨迹经验变成技能知识库
+</span></span><span style="display:flex;"><span>最后把技能逐步内化进模型参数
+</span></span></code></pre></div><p>这也许是 Agent 系统接下来很重要的一条工程路线：不是只靠更大的模型，也不是只靠更长的 prompt，而是让经验在外部系统和模型参数之间流动起来。</p>
+<p>我觉得这个方向值得继续追。Agent 真正变强，可能不只是因为它“想得更久”，而是因为它开始有办法把过去想过、做过、错过的东西沉淀下来。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.cheasim.com/tags/llm/">LLM</a></li>
+      <li><a href="https://www.cheasim.com/tags/agent/">Agent</a></li>
+      <li><a href="https://www.cheasim.com/tags/skill/">Skill</a></li>
+      <li><a href="https://www.cheasim.com/tags/rl/">RL</a></li>
+      <li><a href="https://www.cheasim.com/tags/planning/">Planning</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/">
+    <span class="title"> »</span>
+    <span>SkillX：给 Agent 预先造一个可复用技能库</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

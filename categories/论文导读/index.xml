@@ -6,8 +6,16 @@
     <description>Recent content in 论文导读 on CheaSim Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 22 Jun 2026 21:10:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 21:30:00 +0000</lastBuildDate>
     <atom:link href="https://www.cheasim.com/categories/%E8%AE%BA%E6%96%87%E5%AF%BC%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Skill0：训练时借技能，推理时把技能撤掉</title>
+      <link>https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/</link>
+      <pubDate>Wed, 24 Jun 2026 21:30:00 +0000</pubDate>
+      <guid>https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/</guid>
+      <description>&lt;p&gt;前两篇刚好写了 &lt;a href=&#34;https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/&#34;&gt;SGA-MCTS&lt;/a&gt; 和 &lt;a href=&#34;https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/&#34;&gt;SkillX&lt;/a&gt;，今天这篇 &lt;a href=&#34;https://arxiv.org/abs/2604.02268&#34;&gt;SKILL0: In-Context Agentic Reinforcement Learning for Skill Internalization&lt;/a&gt; 正好能把这条线补完整。&lt;/p&gt;
+&lt;p&gt;如果说 SGA-MCTS 和 SkillX 都是在讨论“怎么把 Agent 经验放到外部系统里”，那 Skill0 问的是另一个更狠的问题：外部技能库能不能只在训练时用，最后把技能内化到模型参数里，让 Agent 测试时不再依赖 runtime skill retrieval？&lt;/p&gt;</description>
+    </item>
     <item>
       <title>SkillX：给 Agent 预先造一个可复用技能库</title>
       <link>https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/</link>
