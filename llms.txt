@@ -1,0 +1,138 @@
+# CheaSim Blog
+
+> 谢辛（Xin Xie / CheaSim）的中文技术博客，记录 LLM Agent 与技能学习、知识图谱、NLP、论文阅读、算法和工程实践。
+
+本站以博客内容为主。文章是作者的个人笔记、解读或实践记录，不等同于所讨论论文的原文；原论文、代码和参考文献以各篇文章中的链接为准。引用博客时请使用文章标题、署名、发布日期和 HTML 原文地址，涉及研究结论时请同时核对原论文。署名相同或写过论文导读不代表作者参与了该论文。
+
+所有下列 Markdown 页面与 HTML 正文同源，保留代码、数学公式、图片链接和参考文献。请优先按需读取单篇文章；全文合集供确实需要全站上下文时使用。本文档是阅读导航，不改变 robots.txt 的抓取规则或内容使用权利。
+
+## 阅读入口
+
+- [博主资料与代表作](https://www.cheasim.com/about/index.md): 姓名、研究经历、联系地址和精选论文，以此页核对作者身份。
+- [博客首页](https://www.cheasim.com/): 按时间倒序浏览文章。
+- [归档](https://www.cheasim.com/archives/): 按年份查找历史文章。
+- [标签](https://www.cheasim.com/tags/): 按主题浏览。
+- [RSS](https://www.cheasim.com/index.xml): 发现最新文章。
+- [站点地图](https://www.cheasim.com/sitemap.xml): HTML 页面索引。
+
+
+## 2026 年文章
+
+- [Skill0：训练时借技能，推理时把技能撤掉](https://www.cheasim.com/2026/06/24/skill0-arxiv-2604-02268/index.md): 2026-06-24 · 外部技能库能否只在训练时使用？从 Skill0 看 Agent 如何把经验内化到模型参数中。
+- [SkillX：给 Agent 预先造一个可复用技能库](https://www.cheasim.com/2026/06/22/skillx-arxiv-2604-04804/index.md): 2026-06-22 · 从历史轨迹中提炼多层技能，梳理 SkillX 自动构建、修订与扩展 Agent 技能知识库的方法。
+- [SGA-MCTS：把慢思考缓存成可检索经验](https://www.cheasim.com/2026/06/21/sga-mcts-arxiv-2604-14712/index.md): 2026-06-21 · 拆解 SGA-MCTS 如何把搜索经验整理为可检索的规划原子，并用于后续 Agent 的规划与搜索。
+
+## 2021 年文章
+
+- [UNIFIEDQA Crossing Format Boundaries with a Single QA System 读书笔记](https://www.cheasim.com/2021/01/20/unifiedqa-crossing-format-boundaries-with-a-single-qa-system-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.md): 2021-01-20
+- [基于BERT的知识库问答系统](https://www.cheasim.com/2021/01/14/%E5%9F%BA%E4%BA%8Ebert%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F/index.md): 2021-01-14 · 把知识库问答拆成实体识别与属性映射，记录 BERT、CRF 与领域问答的实现思路。
+- [NLP基础](https://www.cheasim.com/2021/01/12/nlp%E5%9F%BA%E7%A1%80/index.md): 2021-01-12
+- [如何在colab用pytorch_lightning白嫖TPU](https://www.cheasim.com/2021/01/07/%E5%A6%82%E4%BD%95%E5%9C%A8colab%E7%94%A8pytorch-lightning%E7%99%BD%E5%AB%96tpu/index.md): 2021-01-07
+
+## 2020 年文章
+
+- [HuggingFace PretrainTokenizer学习笔记](https://www.cheasim.com/2020/12/11/huggingface-pretraintokenizer%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2020-12-11
+- [pytorch cheat_list](https://www.cheasim.com/2020/12/07/pytorch-cheat-list/index.md): 2020-12-07
+- [dgl 实例学习](https://www.cheasim.com/2020/12/04/dgl-%E5%AE%9E%E4%BE%8B%E5%AD%A6%E4%B9%A0/index.md): 2020-12-04 · DGL 开源项目的学习条目，保留项目与模型流程提纲，尚无完整展开。
+- [Dialogue Relation Extraction with Document-level Heterogeneous Graph Attention Networks 论文解读](https://www.cheasim.com/2020/12/03/dialogue-relation-extraction-with-document-level-heterogeneous-graph-attention-networks-%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/index.md): 2020-12-03
+- [ALBERT 更小但是更慢？](https://www.cheasim.com/2020/11/18/albert-%E6%9B%B4%E5%B0%8F%E4%BD%86%E6%98%AF%E6%9B%B4%E6%85%A2/index.md): 2020-11-18
+
+## 2019 年文章
+
+- [考研随想](https://www.cheasim.com/2019/12/25/%E8%80%83%E7%A0%94%E9%9A%8F%E6%83%B3/index.md): 2019-12-25
+- [9.9-9.15计划](https://www.cheasim.com/2019/09/12/9-9-9-15%E8%AE%A1%E5%88%92/index.md): 2019-09-12
+- [\[pat1139\]First Contact 前导零](https://www.cheasim.com/2019/08/28/pat1139-first-contact-%E5%89%8D%E5%AF%BC%E9%9B%B6/index.md): 2019-08-28
+- [\[pat1003\]Emergency](https://www.cheasim.com/2019/07/23/pat1003-emergency/index.md): 2019-07-23
+- [上海科技大学信息学院夏令营随笔](https://www.cheasim.com/2019/07/11/%E4%B8%8A%E6%B5%B7%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E4%BF%A1%E6%81%AF%E5%AD%A6%E9%99%A2%E5%A4%8F%E4%BB%A4%E8%90%A5%E9%9A%8F%E7%AC%94/index.md): 2019-07-11
+- [前端修炼手册](https://www.cheasim.com/2019/05/09/%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%82%BC%E6%89%8B%E5%86%8C/index.md): 2019-05-09
+- [echarts+ajax+struts2 实现数据图表动态加载并显示](https://www.cheasim.com/2019/05/07/echarts-ajax-struts2-%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%9B%BE%E8%A1%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%B9%B6%E6%98%BE%E7%A4%BA/index.md): 2019-05-07
+- [\[dp+graph\] CodeForces - 721C](https://www.cheasim.com/2019/05/04/dp-graph-codeforces-721c/index.md): 2019-05-04
+- [DNA Sequence](https://www.cheasim.com/2019/05/04/dna-sequence/index.md): 2019-05-04
+- [PAT练习](https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/index.md): 2019-05-04
+- [TCP,UDP,Socket学习笔记](https://www.cheasim.com/2019/04/23/tcp-udp-socket%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2019-04-23
+- [我是Makefile](https://www.cheasim.com/2019/04/11/%E6%88%91%E6%98%AFmakefile/index.md): 2019-04-11
+- [4月计划](https://www.cheasim.com/2019/04/10/4%E6%9C%88%E8%AE%A1%E5%88%92/index.md): 2019-04-10
+- [codeforces 1600-2200 题目刷](https://www.cheasim.com/2019/04/10/codeforces-1600-2200-%E9%A2%98%E7%9B%AE%E5%88%B7/index.md): 2019-04-10
+- [Linux学习笔记](https://www.cheasim.com/2019/04/09/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2019-04-09
+- [\[cf548\]Edgy Trees](https://www.cheasim.com/2019/03/29/cf548-edgy-trees/index.md): 2019-03-29
+- [第十届蓝桥杯题解](https://www.cheasim.com/2019/03/29/%E7%AC%AC%E5%8D%81%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E9%A2%98%E8%A7%A3/index.md): 2019-03-29
+- [\[Codeforces Round #546 (Div. 2)题解\]](https://www.cheasim.com/2019/03/18/codeforces-round-546-div-2-%E9%A2%98%E8%A7%A3/index.md): 2019-03-18
+- [蓝桥杯历届题目](https://www.cheasim.com/2019/03/18/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%8E%86%E5%B1%8A%E9%A2%98%E7%9B%AE/index.md): 2019-03-18
+- [三月计划](https://www.cheasim.com/2019/03/11/%E4%B8%89%E6%9C%88%E8%AE%A1%E5%88%92/index.md): 2019-03-11
+- [\[acm\]hash学习笔记](https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2019-03-09
+- [\[cf545\]A-D题解](https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/index.md): 2019-03-09
+- [\[hdoj2260\]Difficulty control(dfs)](https://www.cheasim.com/2019/03/06/hdoj2260-difficulty-control-dfs/index.md): 2019-03-06
+- [\[cf541D\]Gourmet choice (缩点+dfs)](https://www.cheasim.com/2019/03/05/cf541d-gourmet-choice-%E7%BC%A9%E7%82%B9-dfs/index.md): 2019-03-05
+- [hash专题练习](https://www.cheasim.com/2019/03/05/hash%E4%B8%93%E9%A2%98%E7%BB%83%E4%B9%A0/index.md): 2019-03-05 · 早期 hash 专题练习条目；当前迁移正文仅保留标题与原文入口。
+- [\[cf706C\]Hard Problem](https://www.cheasim.com/2019/03/03/cf706c-hard-problem/index.md): 2019-03-03
+- [Codeforces Round #542](https://www.cheasim.com/2019/03/02/codeforces-round-542/index.md): 2019-03-02
+
+## 2018 年文章
+
+- [jsp第七次作业](https://www.cheasim.com/2018/11/28/jsp%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A/index.md): 2018-11-28
+- [\[hdoj5559\]Frog and String](https://www.cheasim.com/2018/11/21/hdoj5559-frog-and-string/index.md): 2018-11-21
+- [html5学习笔记](https://www.cheasim.com/2018/11/19/html5%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-11-19 · 早期 HTML5 学习笔记条目；当前迁移正文内容较少，保留原文入口。
+- [iBatis框架 粗略学习](https://www.cheasim.com/2018/11/19/ibatis%E6%A1%86%E6%9E%B6-%E7%B2%97%E7%95%A5%E5%AD%A6%E4%B9%A0/index.md): 2018-11-19
+- [\[hdoj5881\]Tea](https://www.cheasim.com/2018/11/18/hdoj5881-tea/index.md): 2018-11-18
+- [\[hdoj6387\]AraBellaC](https://www.cheasim.com/2018/11/18/hdoj6387-arabellac/index.md): 2018-11-18
+- [\[cf-767b\]The Queue](https://www.cheasim.com/2018/11/17/cf-767b-the-queue/index.md): 2018-11-17
+- [\[cf-767D\]Cartons of milk](https://www.cheasim.com/2018/11/17/cf-767d-cartons-of-milk/index.md): 2018-11-17
+- [\[uva10479\]The Hendrie Sqquence](https://www.cheasim.com/2018/11/17/uva10479-the-hendrie-sqquence/index.md): 2018-11-17
+- [\[hdoj5505\]GT and numbers](https://www.cheasim.com/2018/11/16/hdoj5505-gt-and-numbers/index.md): 2018-11-16
+- [\[77c Beavermuncher-0xFF树形dp+贪心](https://www.cheasim.com/2018/11/11/77c-beavermuncher-0xff%E6%A0%91%E5%BD%A2dp-%E8%B4%AA%E5%BF%83/index.md): 2018-11-11
+- [JavaBean和Hibernate](https://www.cheasim.com/2018/11/11/javabean%E5%92%8Chibernate/index.md): 2018-11-11
+- [jsp作业](https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/index.md): 2018-11-11
+- [SSH中的SH配置](https://www.cheasim.com/2018/11/08/ssh%E4%B8%AD%E7%9A%84sh%E9%85%8D%E7%BD%AE/index.md): 2018-11-08
+- [\[hdoj4622\]Reincarnation 字符串hash+dp](https://www.cheasim.com/2018/10/22/hdoj4622-reincarnation-%E5%AD%97%E7%AC%A6%E4%B8%B2hash-dp/index.md): 2018-10-22
+- [\[hdoj6406\]Taotao Picks Apple](https://www.cheasim.com/2018/10/13/hdoj6406-taotao-picks-apple/index.md): 2018-10-13
+- [\[hdoj6376\]度度熊剪纸条](https://www.cheasim.com/2018/10/12/hdoj6376-%E5%BA%A6%E5%BA%A6%E7%86%8A%E5%89%AA%E7%BA%B8%E6%9D%A1/index.md): 2018-10-12
+- [\[hdoj4628\]Pieces](https://www.cheasim.com/2018/10/11/hdoj4628-pieces/index.md): 2018-10-11
+- [树形dp5题连做](https://www.cheasim.com/2018/10/09/%E6%A0%91%E5%BD%A2dp5%E9%A2%98%E8%BF%9E%E5%81%9A/index.md): 2018-10-09
+- [模板](https://www.cheasim.com/2018/09/30/%E6%A8%A1%E6%9D%BF/index.md): 2018-09-30
+- [树链剖分学习笔记](https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-09-29
+- [LCA专项练习](https://www.cheasim.com/2018/09/28/lca%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0/index.md): 2018-09-28
+- [LCA学习笔记](https://www.cheasim.com/2018/09/25/lca%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-09-25
+- [Codeforces 833B - The Bakery](https://www.cheasim.com/2018/09/21/codeforces-833b-the-bakery/index.md): 2018-09-21
+- [IDEA 配置struts2+tomcat](https://www.cheasim.com/2018/09/20/idea-%E9%85%8D%E7%BD%AEstruts2-tomcat/index.md): 2018-09-20
+- [\[HDOJ5592\] ZYB's Premutation](https://www.cheasim.com/2018/09/18/hdoj5592-zyb-s-premutation/index.md): 2018-09-18
+- [The 2018 ACM-ICPC Asia Qingdao Regional Contest, Online](https://www.cheasim.com/2018/09/17/the-2018-acm-icpc-asia-qingdao-regional-contest-online/index.md): 2018-09-17
+- [ACM-ICPC 2018 徐州赛区网络预赛](https://www.cheasim.com/2018/09/10/acm-icpc-2018-%E5%BE%90%E5%B7%9E%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E9%A2%84%E8%B5%9B/index.md): 2018-09-10
+- [概率dp入门](https://www.cheasim.com/2018/09/10/%E6%A6%82%E7%8E%87dp%E5%85%A5%E9%97%A8/index.md): 2018-09-10
+- [快读模板](https://www.cheasim.com/2018/09/10/%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF/index.md): 2018-09-10 · 整理竞赛中用于快速输入、输出的 C++ 代码模板。
+- [\[hdoj1540\]Tunnel Warfare](https://www.cheasim.com/2018/09/07/hdoj1540-tunnel-warfare/index.md): 2018-09-07
+- [\[hdoj4614\]Vases and Flowers](https://www.cheasim.com/2018/09/07/hdoj4614-vases-and-flowers/index.md): 2018-09-07
+- [\[hdoj5521\]Meeting](https://www.cheasim.com/2018/09/06/hdoj5521-meeting/index.md): 2018-09-06
+- [\[kuangbin带你飞13\]基础计算几何](https://www.cheasim.com/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E13-%E5%9F%BA%E7%A1%80%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/index.md): 2018-09-06
+- [\[kuangbin带你飞7\]线段树](https://www.cheasim.com/2018/09/06/kuangbin%E5%B8%A6%E4%BD%A0%E9%A3%9E7-%E7%BA%BF%E6%AE%B5%E6%A0%91/index.md): 2018-09-06
+- [\[nowcoder3\]补题向](https://www.cheasim.com/2018/09/05/nowcoder3-%E8%A1%A5%E9%A2%98%E5%90%91/index.md): 2018-09-05
+- [计算几何模板](https://www.cheasim.com/2018/09/05/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E6%A8%A1%E6%9D%BF/index.md): 2018-09-05 · 计算几何题目 Distance to work 的简短记录与参考代码模板。
+- [2018 ICPC南京赛区网络赛](https://www.cheasim.com/2018/09/03/2018-icpc%E5%8D%97%E4%BA%AC%E8%B5%9B%E5%8C%BA%E7%BD%91%E7%BB%9C%E8%B5%9B/index.md): 2018-09-03
+- [web应用开发笔记](https://www.cheasim.com/2018/09/03/web%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/index.md): 2018-09-03
+- [回文树学习笔记](https://www.cheasim.com/2018/09/03/%E5%9B%9E%E6%96%87%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-09-03
+- [Codeforces Round #499 (Div. 2)](https://www.cheasim.com/2018/09/02/codeforces-round-499-div-2/index.md): 2018-09-02
+- [\[hdoj4616\] Game](https://www.cheasim.com/2018/08/31/hdoj4616-game/index.md): 2018-08-31
+- [八数码问题](https://www.cheasim.com/2018/08/31/%E5%85%AB%E6%95%B0%E7%A0%81%E9%97%AE%E9%A2%98/index.md): 2018-08-31
+- [\[hdoj1556\]Color the ball](https://www.cheasim.com/2018/08/30/hdoj1556-color-the-ball/index.md): 2018-08-30
+- [\[hdoj4661\] Message Passing](https://www.cheasim.com/2018/08/30/hdoj4661-message-passing/index.md): 2018-08-30
+- [\[UVA11174\] Stand in a line](https://www.cheasim.com/2018/08/30/uva11174-stand-in-a-line/index.md): 2018-08-30
+- [\[nowcoder1\] J.Different Integers](https://www.cheasim.com/2018/08/28/nowcoder1-j-different-integers/index.md): 2018-08-28
+- [\[nowcoder2\] 补题向](https://www.cheasim.com/2018/08/28/nowcoder2-%E8%A1%A5%E9%A2%98%E5%90%91/index.md): 2018-08-28
+- [单调队列学习笔记](https://www.cheasim.com/2018/08/28/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-08-28
+- [\[hdoj6438\]Buy and Resell](https://www.cheasim.com/2018/08/27/hdoj6438-buy-and-resell/index.md): 2018-08-27
+- [\[hdoj6447\] YJJ's Salesman](https://www.cheasim.com/2018/08/27/hdoj6447-yjj-s-salesman/index.md): 2018-08-27
+- [51Nod-1593 公园晨跑](https://www.cheasim.com/2018/08/27/51nod-1593-%E5%85%AC%E5%9B%AD%E6%99%A8%E8%B7%91/index.md): 2018-08-27
+- [最大子段和学习笔记](https://www.cheasim.com/2018/08/27/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-08-27
+- [\[POJ3264\]Balanced Lineup](https://www.cheasim.com/2018/08/24/poj3264-balanced-lineup/index.md): 2018-08-24
+- [2018 Multi-University Training Contest 8 D.Parenth](https://www.cheasim.com/2018/08/24/2018-multi-university-training-contest-8-d-parenth/index.md): 2018-08-24
+- [A. Rikka with Nash Equilibrium](https://www.cheasim.com/2018/08/24/a-rikka-with-nash-equilibrium/index.md): 2018-08-24
+- [nowcoder6 C.Generation I](https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/index.md): 2018-08-24
+- [求逆元和组合数模板](https://www.cheasim.com/2018/08/24/%E6%B1%82%E9%80%86%E5%85%83%E5%92%8C%E7%BB%84%E5%90%88%E6%95%B0%E6%A8%A1%E6%9D%BF/index.md): 2018-08-24 · 整理递推求逆元、阶乘与组合数的竞赛代码模板。
+- [Appleman_and_Tree](https://www.cheasim.com/2018/08/19/appleman-and-tree/index.md): 2018-08-19
+- [ST表学习笔记](https://www.cheasim.com/2018/08/19/st%E8%A1%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md): 2018-08-19
+- [杭电多校Age_of_Moyu](https://www.cheasim.com/2018/08/19/%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A1age-of-moyu/index.md): 2018-08-19
+- [逆元模板](https://www.cheasim.com/2018/08/19/%E9%80%86%E5%85%83%E6%A8%A1%E6%9D%BF/index.md): 2018-08-19 · 收录递推、费马小定理及扩展欧几里得相关的逆元代码模板。
+- [codeforcesPoints](https://www.cheasim.com/2018/08/18/codeforcespoints/index.md): 2018-08-18
+
+## Optional
+
+- [全文合集](https://www.cheasim.com/llms-full.txt): 博主资料和所有已发布博客的完整 Markdown，体积较大；通常先读单篇即可。
