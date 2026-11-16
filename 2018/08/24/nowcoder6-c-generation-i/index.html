@@ -1,418 +1,120 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="auto" data-theme="auto">
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>nowcoder6 C.Generation I | CheaSim Blog</title><meta name=keywords content><meta name=description content="Generation I#
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>nowcoder6 C.Generation I | CheaSim Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="Generation I
-题解
-首先放$k$种数字的情况，有$A_n^k$中可能。
-由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\choose k$。">
-<meta name="author" content="CheaSim">
-<link rel="canonical" href="https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://www.cheasim.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+题解#
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<meta property="og:url" content="https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/">
-  <meta property="og:site_name" content="CheaSim Blog">
-  <meta property="og:title" content="nowcoder6 C.Generation I">
-  <meta property="og:description" content="Generation I 题解 首先放$k$种数字的情况，有$A_n^k$中可能。
-由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\choose k$。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2018-08-24T00:00:00+00:00">
-    <meta property="article:modified_time" content="2018-08-24T00:00:00+00:00">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="nowcoder6 C.Generation I">
-  <meta name="twitter:description" content="Generation I 题解 首先放$k$种数字的情况，有$A_n^k$中可能。
-由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\choose k$。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://www.cheasim.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "nowcoder6 C.Generation I",
-      "item": "https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "nowcoder6 C.Generation I",
-  "name": "nowcoder6 C.Generation I",
-  "description": "Generation I 题解 首先放$k$种数字的情况，有$A_n^k$中可能。\n由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\\choose k$。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "Generation I 题解 首先放$k$种数字的情况，有$A_n^k$中可能。\n由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\\choose k$。\n#include using #define #define #define #define typedef typedef const //head const int const ll cur,p[maxn],q[maxn],inv[maxn]; ll n,m; ll C return } ll c if if return } void p[0 for inv[i] = (mod-mod/i)*inv[mod%i]%mod; q[i] = q[i-1 p[i] = p[i-1 } } int #ifdef freopen(\"j.in\" #endif init(); scanf rep(test_case,1 scanf ll len = min(n,m); ll ans = 0 cur = 1 for ans = (ans + (c(m,i)*p[i]%mod)*c(n-1 } printf } return } nowcoder6 C.Generation I\nhttps://www.cheasim.com/acm/2018/08/24/nowcoder6-C-Generation-I.html\n作者 CheaSim\n发布于 2018-08-24\n更新于 2018-08-24\n许可协议\n#组合数学\n",
-  "wordCount" : "199",
-  "inLanguage": "zh-cn",
-  "datePublished": "2018-08-24T00:00:00Z",
-  "dateModified": "2018-08-24T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "CheaSim"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CheaSim Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.cheasim.com/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body id="top">
-    <header class="header">
-    <nav class="header-nav">
-        <div class="logo">
-            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu" class="menu">
-            <li>
-                <a href="https://www.cheasim.com/about/" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/archives/" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/CheaSim" title="GitHub">
-                    <span>GitHub</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-
-<article class="post-single">
-  <header class="post-header">
-    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-            <a href="/posts/">Posts</a>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-        <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-</nav>
-    <h1 class="post-title entry-hint-parent">
-      nowcoder6 C.Generation I
-    </h1>
-    <div class="post-meta">
-
-<span title='2018-08-24 00:00:00 +0000 UTC'>August 24, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+首先放$k$种数字的情况，有$A_n^k$中可能。"><meta name=author content="CheaSim"><link rel=canonical href=https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://www.cheasim.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://www.cheasim.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://www.cheasim.com/favicon-32x32.png><link rel=apple-touch-icon href=https://www.cheasim.com/apple-touch-icon.png><link rel=mask-icon href=https://www.cheasim.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><link rel=stylesheet href=/vendor/katex/katex.min.css><script defer src=/vendor/katex/katex.min.js></script><script defer src=/vendor/katex/auto-render.min.js></script><script>document.addEventListener("DOMContentLoaded",()=>{if(!window.renderMathInElement)return;const e=document.querySelector(".post-content");e&&renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1,trust:!1})})</script><meta property="og:url" content="https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/"><meta property="og:site_name" content="CheaSim Blog"><meta property="og:title" content="nowcoder6 C.Generation I"><meta property="og:description" content="Generation I# 题解# 首先放$k$种数字的情况，有$A_n^k$中可能。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2018-08-24T00:00:00+00:00"><meta property="article:modified_time" content="2018-08-24T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="nowcoder6 C.Generation I"><meta name=twitter:description content="Generation I# 题解# 首先放$k$种数字的情况，有$A_n^k$中可能。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://www.cheasim.com/posts/"},{"@type":"ListItem","position":2,"name":"nowcoder6 C.Generation I","item":"https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"nowcoder6 C.Generation I","name":"nowcoder6 C.Generation I","description":"Generation I# 题解# 首先放$k$种数字的情况，有$A_n^k$中可能。\n","keywords":[],"articleBody":"Generation I# 题解# 首先放$k$种数字的情况，有$A_n^k$中可能。\n由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\\choose k$。\ncpp复制 1#include 2using 3#define 4#define 5#define 6#define 7typedef 8typedef 9const 10//head 11const 12int 13const 14ll cur,p[maxn],q[maxn],inv[maxn]; 15ll n,m; 16ll C 17return 18} 19ll c 20if 21if 22return 23} 24void 25p[0 26for 27inv[i] = (mod-mod/i)*inv[mod%i]%mod; 28q[i] = q[i-1 29p[i] = p[i-1 30} 31} 32int 33#ifdef 34freopen(\"j.in\" 35#endif 36init(); 37scanf 38rep(test_case,1 39scanf 40ll len = min(n,m); 41ll ans = 0 42cur = 1 43for 44ans = (ans + (c(m,i)*p[i]%mod)*c(n-1 45} 46printf 47} 48return 49} #include using #define #define #define #define typedef typedef const //head const int const ll cur,p[maxn],q[maxn],inv[maxn]; ll n,m; ll C return } ll c if if return } void p[0 for inv[i] = (mod-mod/i)*inv[mod%i]%mod; q[i] = q[i-1 p[i] = p[i-1 } } int #ifdef freopen(\"j.in\" #endif init(); scanf rep(test_case,1 scanf ll len = min(n,m); ll ans = 0 cur = 1 for ans = (ans + (c(m,i)*p[i]%mod)*c(n-1 } printf } return } nowcoder6 C.Generation I\nhttps://www.cheasim.com/acm/2018/08/24/nowcoder6-C-Generation-I.html\r作者 CheaSim\n发布于 2018-08-24\n更新于 2018-08-24\n许可协议\n#组合数学\r","wordCount":"276","inLanguage":"zh-cn","datePublished":"2018-08-24T00:00:00Z","dateModified":"2018-08-24T00:00:00Z","author":{"@type":"Person","name":"CheaSim"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cheasim.com/2018/08/24/nowcoder6-c-generation-i/"},"publisher":{"@type":"Organization","name":"CheaSim Blog","logo":{"@type":"ImageObject","url":"https://www.cheasim.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://www.cheasim.com/ accesskey=h title="CheaSim Blog (Alt + H)">CheaSim Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://www.cheasim.com/about/ title=关于><span>关于</span></a></li><li><a href=https://www.cheasim.com/archives/ title=归档><span>归档</span></a></li><li><a href=https://www.cheasim.com/tags/ title=标签><span>标签</span></a></li><li><a href=https://www.cheasim.com/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li></ul></nav></header><main class=main><article class="post-single paper-article"><div class=reading-progress aria-hidden=true><span></span></div><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/posts/>Posts</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">nowcoder6 C.Generation I</h1><div class=post-meta><span class=paper-byline>谢辛 / CheaSim · <time datetime=2018-08-24>2018-08-24</time> · 更新 2018-08-24 · 约 1 分钟</span>
 &nbsp;·&nbsp;
-<span id="busuanzi_container_page_pv" class="busuanzi-page-pv">
-  阅读 <span id="busuanzi_value_page_pv">-</span> 次
-</span>
-
-
-</div>
-  </header> <details class="toc" >
-    <summary accesskey="c" title="(Alt + C)">
-        <span class="title">Table of Contents</span>
-    </summary>
-
-    <div class="inner"><ul>
-            <li>
-                <a href="#generation-i" aria-label="Generation I">Generation I</a><ul>
-                    
-            <li>
-                <a href="#%e9%a2%98%e8%a7%a3" aria-label="题解">题解</a>
-            </li>
-        </ul>
-        </li>
-        </ul>
-    </div>
-</details>
-
-  <div class="post-content md-content"><h1 id="generation-i">Generation I<a hidden class="anchor" aria-hidden="true" href="#generation-i">#</a></h1>
-<h2 id="题解">题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h2>
-<p>首先放$k$种数字的情况，有$A_n^k$中可能。</p>
-<p>由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\choose k$。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span>ll cur,p[maxn],q[maxn],inv[maxn];
-</span></span><span style="display:flex;"><span>ll n,m;
-</span></span><span style="display:flex;"><span>ll C
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>ll c
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span>p[<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
-</span></span><span style="display:flex;"><span>inv[i] <span style="color:#f92672">=</span> (mod<span style="color:#f92672">-</span>mod<span style="color:#f92672">/</span>i)<span style="color:#f92672">*</span>inv[mod<span style="color:#f92672">%</span>i]<span style="color:#f92672">%</span>mod;
-</span></span><span style="display:flex;"><span>q[i] <span style="color:#f92672">=</span> q[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>p[i] <span style="color:#f92672">=</span> p[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
-</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;j.in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
-</span></span></span><span style="display:flex;"><span>init();
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rep</span>(test_case,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span>ll len <span style="color:#f92672">=</span> min(n,m);
-</span></span><span style="display:flex;"><span>ll ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>cur <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
-</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> (ans <span style="color:#f92672">+</span> (c(m,i)<span style="color:#f92672">*</span>p[i]<span style="color:#f92672">%</span>mod)<span style="color:#f92672">*</span>c(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>printf
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>nowcoder6 C.Generation I</p>
-<p><a href="https://www.cheasim.com/acm/2018/08/24/nowcoder6-C-Generation-I.html">https://www.cheasim.com/acm/2018/08/24/nowcoder6-C-Generation-I.html</a></p>
-<p>作者
-CheaSim</p>
-<p>发布于
-2018-08-24</p>
-<p>更新于
-2018-08-24</p>
-<p>许可协议</p>
-<p>#<a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">组合数学</a></p>
-
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://www.cheasim.com/2018/08/24/a-rikka-with-nash-equilibrium/">
-    <span class="title">« </span>
-    <span>A. Rikka with Nash Equilibrium</span>
-  </a>
-  <a class="next" href="https://www.cheasim.com/2018/08/24/%E6%B1%82%E9%80%86%E5%85%83%E5%92%8C%E7%BB%84%E5%90%88%E6%95%B0%E6%A8%A1%E6%9D%BF/">
-    <span class="title"> »</span>
-    <span>求逆元和组合数模板</span>
-  </a>
-</nav>
-
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
-    <span class="busuanzi-site-stats">
-        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
-        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
-    </span> | 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
-        <polyline points="17 11 12 6 7 11"></polyline>
-        <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-</a>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
-        }
-    };
-</script>
-</body>
-
-</html>
+<span id=busuanzi_container_page_pv class=busuanzi-page-pv>阅读 <span id=busuanzi_value_page_pv>-</span> 次</span></div></header><section class=paper-abstract aria-label=摘要><h2>Abstract / 摘要</h2><p>Generation I# 题解# 首先放$k$种数字的情况，有$A_n^k$中可能。</p></section><details class="toc reading-toc" open><summary><span>本篇目录</span><span class=toc-current aria-hidden=true></span></summary><div class=toc-scroll tabindex=0 aria-label=文章目录><nav id=TableOfContents><ul><li><a href=#题解>题解</a></li></ul></nav></div></details><div class="post-content md-content"><h1 id=generation-i class=reading-heading>Generation I<a class=heading-anchor href=#generation-i aria-label="链接到：Generation I">#</a></h1><h2 id=题解 class=reading-heading>题解<a class=heading-anchor href=#%e9%a2%98%e8%a7%a3 aria-label=链接到：题解>#</a></h2><p>首先放$k$种数字的情况，有$A_n^k$中可能。</p><p>由于操作后，前面的球就无法放置,就可以第一个放置该数字的点来确定该结果的区别。相当于将$k$种放在$n$个格子里面。使用隔板法$n\choose k$。</p><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=n>ll</span> <span class=n>cur</span><span class=p>,</span><span class=n>p</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>q</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>inv</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=n>ll</span> <span class=n>n</span><span class=p>,</span><span class=n>m</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>16</span><span class=cl><span class=n>ll</span> <span class=n>C</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>18</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=n>ll</span> <span class=n>c</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>22</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>25</span><span class=cl><span class=n>p</span><span class=p>[</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=k>for</span>
+</span></span><span class=line><span class=ln>27</span><span class=cl><span class=n>inv</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=p>(</span><span class=n>mod</span><span class=o>-</span><span class=n>mod</span><span class=o>/</span><span class=n>i</span><span class=p>)</span><span class=o>*</span><span class=n>inv</span><span class=p>[</span><span class=n>mod</span><span class=o>%</span><span class=n>i</span><span class=p>]</span><span class=o>%</span><span class=n>mod</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>29</span><span class=cl><span class=n>p</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>p</span><span class=p>[</span><span class=n>i</span><span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>32</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=cp>#ifdef
+</span></span></span><span class=line><span class=ln>34</span><span class=cl><span class=n>freopen</span><span class=p>(</span><span class=s>&#34;j.in&#34;</span>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=ln>36</span><span class=cl><span class=n>init</span><span class=p>();</span>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=nf>rep</span><span class=p>(</span><span class=n>test_case</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=n>ll</span> <span class=n>len</span> <span class=o>=</span> <span class=n>min</span><span class=p>(</span><span class=n>n</span><span class=p>,</span><span class=n>m</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=n>ll</span> <span class=n>ans</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl><span class=n>cur</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=k>for</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=n>ans</span> <span class=o>=</span> <span class=p>(</span><span class=n>ans</span> <span class=o>+</span> <span class=p>(</span><span class=n>c</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>i</span><span class=p>)</span><span class=o>*</span><span class=n>p</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>%</span><span class=n>mod</span><span class=p>)</span><span class=o>*</span><span class=n>c</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=n>printf</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>48</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>49</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+const
+int
+const
+ll cur,p[maxn],q[maxn],inv[maxn];
+ll n,m;
+ll C
+return
+}
+ll c
+if
+if
+return
+}
+void
+p[0
+for
+inv[i] = (mod-mod/i)*inv[mod%i]%mod;
+q[i] = q[i-1
+p[i] = p[i-1
+}
+}
+int
+#ifdef
+freopen("j.in"
+#endif
+init();
+scanf
+rep(test_case,1
+scanf
+ll len = min(n,m);
+ll ans = 0
+cur = 1
+for
+ans = (ans + (c(m,i)*p[i]%mod)*c(n-1
+}
+printf
+}
+return
+}</template></figure><p>nowcoder6 C.Generation I</p><p><a href=https://www.cheasim.com/acm/2018/08/24/nowcoder6-C-Generation-I.html>https://www.cheasim.com/acm/2018/08/24/nowcoder6-C-Generation-I.html</a></p><p>作者
+CheaSim</p><p>发布于
+2018-08-24</p><p>更新于
+2018-08-24</p><p>许可协议</p><p>#<a href=/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/>组合数学</a></p></div><div class=paper-endmatter></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://www.cheasim.com/2018/08/24/a-rikka-with-nash-equilibrium/><span class=title>« </span><span>A. Rikka with Nash Equilibrium</span>
+</a><a class=next href=https://www.cheasim.com/2018/08/24/%E6%B1%82%E9%80%86%E5%85%83%E5%92%8C%E7%BB%84%E5%90%88%E6%95%B0%E6%A8%A1%E6%9D%BF/><span class=title>»</span>
+<span>求逆元和组合数模板</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://www.cheasim.com/>CheaSim Blog</a></span> |
+<span class=busuanzi-site-stats><span id=busuanzi_container_site_pv>总访问 <span id=busuanzi_value_site_pv>-</span></span>
+<span id=busuanzi_container_site_uv>&nbsp;|&nbsp;访客 <span id=busuanzi_value_site_uv>-</span></span>
+</span>|
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script>document.getElementById("theme-toggle")?.addEventListener("click",()=>{const e=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=e,localStorage.setItem("pref-theme",e)})</script><script defer src=/js/paper.min.50a0fd241083bb2bf79dcca11adad2c86bea665e72218fee18efe8c9d1f07e99.js integrity="sha256-UKD9JBCDuyv3ncyhGtrSyGvqZl5yIY/uGO/oydHwfpk="></script><script defer src=/js/reading.min.9525e96cbb0864aa93300b6f7eeb49ab75e631c372e3995e6a8aceb4acb8d40b.js integrity="sha256-lSXpbLsIZKqTMAtvfutJq3XmMcNy45leaorOtKy41As="></script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{if(e.closest(".reading-toc"))return;e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script></body></html>

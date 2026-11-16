@@ -1,659 +1,445 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="auto" data-theme="auto">
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>PAT练习 | CheaSim Blog</title><meta name=keywords content><meta name=description content="PAT练习#
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>PAT练习 | CheaSim Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="PAT练习
 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。
 点我连接
-Rational Sum
-题意
-求一百个分数的和。
-题解
-大整数秒了。
-其实我想用python，现在acm区域赛都让用python了">
-<meta name="author" content="CheaSim">
-<link rel="canonical" href="https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://www.cheasim.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+Rational Sum#
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
+题意#
 
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<meta property="og:url" content="https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/">
-  <meta property="og:site_name" content="CheaSim Blog">
-  <meta property="og:title" content="PAT练习">
-  <meta property="og:description" content="PAT练习 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。
+求一百个分数的和。"><meta name=author content="CheaSim"><link rel=canonical href=https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://www.cheasim.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://www.cheasim.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://www.cheasim.com/favicon-32x32.png><link rel=apple-touch-icon href=https://www.cheasim.com/apple-touch-icon.png><link rel=mask-icon href=https://www.cheasim.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><link rel=stylesheet href=/vendor/katex/katex.min.css><script defer src=/vendor/katex/katex.min.js></script><script defer src=/vendor/katex/auto-render.min.js></script><script>document.addEventListener("DOMContentLoaded",()=>{if(!window.renderMathInElement)return;const e=document.querySelector(".post-content");e&&renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1,trust:!1})})</script><meta property="og:url" content="https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/"><meta property="og:site_name" content="CheaSim Blog"><meta property="og:title" content="PAT练习"><meta property="og:description" content="PAT练习# 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。
 点我连接
-Rational Sum 题意 求一百个分数的和。
-题解 大整数秒了。
-其实我想用python，现在acm区域赛都让用python了">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2019-05-04T00:00:00+00:00">
-    <meta property="article:modified_time" content="2019-05-04T00:00:00+00:00">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="PAT练习">
-  <meta name="twitter:description" content="PAT练习 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。
+Rational Sum# 题意# 求一百个分数的和。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-05-04T00:00:00+00:00"><meta property="article:modified_time" content="2019-05-04T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="PAT练习"><meta name=twitter:description content="PAT练习# 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。
 点我连接
-Rational Sum 题意 求一百个分数的和。
-题解 大整数秒了。
-其实我想用python，现在acm区域赛都让用python了">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://www.cheasim.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "PAT练习",
-      "item": "https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "PAT练习",
-  "name": "PAT练习",
-  "description": "PAT练习 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。\n点我连接\nRational Sum 题意 求一百个分数的和。\n题解 大整数秒了。\n其实我想用python，现在acm区域赛都让用python了\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "PAT练习 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。\n点我连接\nRational Sum 题意 求一百个分数的和。\n题解 大整数秒了。\n其实我想用python，现在acm区域赛都让用python了\nac代码 ##Read Number in Chinese\n题意 给定一个数字，用中文拼音输出他。\n题解 模拟。\n如果是负数，输出”Fu”\n每四位分隔一下，都是一样的。\nac代码 #include using #define #define #define #define typedef typedef const //head char string ll n; int #ifdef freopen(\"1.in\" #endif scanf int int if per(i,t,sz) s[i+10 rep(i,t,10 vector if bool int rep(i,1 idx = i; break } rep(i,1 if ans.push_back(chinese[s[1 ans.push_back(\"Yi\" } if ans.push_back(chinese[s[2 ans.push_back(\"Qian\" }else if } if flag = true ans.push_back(chinese[s[3 ans.push_back(\"Bai\" }else if } if flag = true ans.push_back(chinese[s[4 ans.push_back(\"Shi\" }else if } if ans.push_back(chinese[s[5 }else if // gewei flag = true if ans.push_back(chinese[s[6 ans.push_back(\"Qian\" }else if } if ans.push_back(chinese[s[7 ans.push_back(\"Bai\" }else if } if ans.push_back(chinese[s[8 ans.push_back(\"Shi\" }else if } if if bool rep(i,0 if continue } if else cout if else } return } List Grades (25) 题意 给定最多100个人，给他们排序，输出指定成绩区间内的人名和ID。\n题解 模拟，sort\nac代码 #include using #define #define #define #define typedef typedef const //head struct string string int bool return } node(){} node(string name = a; id = b; grade = g; } }; int #ifdef freopen(\"1.in\" #endif vector int rep(i,0 string cin ve.push_back(node(a,b,g)); } sort(ve.begin(),ve.end()); int scanf bool rep(i,0 int while while cout cnt++; } if return } Tree Traversals Again (25) 题意 用栈表示一个树的先根遍历，求这颗二叉树的后跟遍历。\n题解 dfs模拟一下即可。\nac代码 #include using #define #define #define #define typedef typedef const //head char struct int node *left = NULL }; void if root-\u003eleft = new root-\u003eleft-\u003eid = n; }else root-\u003eright = new root-\u003eright-\u003eid = n; } } void int // left if cin addnode(u,n,1 dfs(u-\u003eleft); } scanf if cin addnode(u,n,0 dfs(u-\u003eright); }else return } } void if post_order(rt-\u003eleft); } if post_order(rt-\u003eright); } printf } int #ifdef freopen(\"1.in\" #endif node * root = new int scanf root-\u003eid = n; dfs(root); post_order(root); return } PAT练习\nhttps://www.cheasim.com/pat/2019/05/04/PAT%E7%BB%83%E4%B9%A0.html\n作者 CheaSim\n发布于 2019-05-04\n更新于 2019-05-05\n许可协议\n#pat\n",
-  "wordCount" : "509",
-  "inLanguage": "zh-cn",
-  "datePublished": "2019-05-04T00:00:00Z",
-  "dateModified": "2019-05-04T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "CheaSim"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CheaSim Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.cheasim.com/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body id="top">
-    <header class="header">
-    <nav class="header-nav">
-        <div class="logo">
-            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu" class="menu">
-            <li>
-                <a href="https://www.cheasim.com/about/" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/archives/" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/CheaSim" title="GitHub">
-                    <span>GitHub</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-
-<article class="post-single">
-  <header class="post-header">
-    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-            <a href="/posts/">Posts</a>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-        <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-</nav>
-    <h1 class="post-title entry-hint-parent">
-      PAT练习
-    </h1>
-    <div class="post-meta">
-
-<span title='2019-05-04 00:00:00 +0000 UTC'>May 4, 2019</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+Rational Sum# 题意# 求一百个分数的和。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://www.cheasim.com/posts/"},{"@type":"ListItem","position":2,"name":"PAT练习","item":"https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"PAT练习","name":"PAT练习","description":"PAT练习# 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。\n点我连接\nRational Sum# 题意# 求一百个分数的和。\n","keywords":[],"articleBody":"PAT练习# 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。\n点我连接\nRational Sum# 题意# 求一百个分数的和。\n题解# 大整数秒了。\n其实我想用python，现在acm区域赛都让用python了\nac代码# ##Read Number in Chinese\n题意# 给定一个数字，用中文拼音输出他。\n题解# 模拟。\n如果是负数，输出”Fu”\n每四位分隔一下，都是一样的。\nac代码# cpp复制 1#include 2using 3#define 4#define 5#define 6#define 7typedef 8typedef 9const 10//head 11char 12string 13ll n; 14int 15#ifdef 16freopen(\"1.in\" 17#endif 18scanf 19int 20int 21 22if 23per(i,t,sz) s[i+10 24rep(i,t,10 25vector 26if 27bool 28int 29rep(i,1 30idx = i; 31break 32} 33rep(i,1 34if 35ans.push_back(chinese[s[1 36ans.push_back(\"Yi\" 37} 38if 39ans.push_back(chinese[s[2 40ans.push_back(\"Qian\" 41}else 42if 43} 44if 45flag = true 46ans.push_back(chinese[s[3 47ans.push_back(\"Bai\" 48}else 49if 50} 51if 52flag = true 53ans.push_back(chinese[s[4 54ans.push_back(\"Shi\" 55}else 56if 57} 58if 59ans.push_back(chinese[s[5 60}else 61if 62 63// gewei 64flag = true 65 66if 67ans.push_back(chinese[s[6 68ans.push_back(\"Qian\" 69}else 70if 71} 72if 73ans.push_back(chinese[s[7 74ans.push_back(\"Bai\" 75}else 76if 77} 78if 79ans.push_back(chinese[s[8 80ans.push_back(\"Shi\" 81}else 82if 83} 84if 85if 86bool 87rep(i,0 88if 89continue 90} 91if 92else 93cout 94if 95else 96} 97return 98} #include using #define #define #define #define typedef typedef const //head char string ll n; int #ifdef freopen(\"1.in\" #endif scanf int int if per(i,t,sz) s[i+10 rep(i,t,10 vector if bool int rep(i,1 idx = i; break } rep(i,1 if ans.push_back(chinese[s[1 ans.push_back(\"Yi\" } if ans.push_back(chinese[s[2 ans.push_back(\"Qian\" }else if } if flag = true ans.push_back(chinese[s[3 ans.push_back(\"Bai\" }else if } if flag = true ans.push_back(chinese[s[4 ans.push_back(\"Shi\" }else if } if ans.push_back(chinese[s[5 }else if // gewei flag = true if ans.push_back(chinese[s[6 ans.push_back(\"Qian\" }else if } if ans.push_back(chinese[s[7 ans.push_back(\"Bai\" }else if } if ans.push_back(chinese[s[8 ans.push_back(\"Shi\" }else if } if if bool rep(i,0 if continue } if else cout if else } return } List Grades (25)# 题意# 给定最多100个人，给他们排序，输出指定成绩区间内的人名和ID。\n题解# 模拟，sort\nac代码# cpp复制 1#include 2using 3#define 4#define 5#define 6#define 7typedef 8typedef 9const 10//head 11struct 12string 13string 14int 15bool 16return 17} 18node(){} 19node(string 20name = a; 21id = b; 22grade = g; 23} 24}; 25int 26#ifdef 27freopen(\"1.in\" 28#endif 29vector 30int 31rep(i,0 32string 33cin 34ve.push_back(node(a,b,g)); 35} 36sort(ve.begin(),ve.end()); 37int 38scanf 39bool 40rep(i,0 41int 42while 43while 44cout 45cnt++; 46} 47if 48 49return 50} #include using #define #define #define #define typedef typedef const //head struct string string int bool return } node(){} node(string name = a; id = b; grade = g; } }; int #ifdef freopen(\"1.in\" #endif vector int rep(i,0 string cin ve.push_back(node(a,b,g)); } sort(ve.begin(),ve.end()); int scanf bool rep(i,0 int while while cout cnt++; } if return } Tree Traversals Again (25)# 题意# 用栈表示一个树的先根遍历，求这颗二叉树的后跟遍历。\n题解# dfs模拟一下即可。\nac代码# cpp复制 1#include 2using 3#define 4#define 5#define 6#define 7typedef 8typedef 9const 10//head 11 12char 13struct 14int 15node *left = NULL 16}; 17void 18if 19root-\u003eleft = new 20root-\u003eleft-\u003eid = n; 21}else 22root-\u003eright = new 23root-\u003eright-\u003eid = n; 24} 25} 26void 27int 28// left 29if 30cin 31addnode(u,n,1 32dfs(u-\u003eleft); 33} 34scanf 35if 36cin 37addnode(u,n,0 38dfs(u-\u003eright); 39}else 40return 41} 42} 43void 44if 45post_order(rt-\u003eleft); 46} 47if 48post_order(rt-\u003eright); 49} 50printf 51} 52int 53#ifdef 54freopen(\"1.in\" 55#endif 56node * root = new 57int 58scanf 59root-\u003eid = n; 60dfs(root); 61post_order(root); 62return 63} #include using #define #define #define #define typedef typedef const //head char struct int node *left = NULL }; void if root-\u003eleft = new root-\u003eleft-\u003eid = n; }else root-\u003eright = new root-\u003eright-\u003eid = n; } } void int // left if cin addnode(u,n,1 dfs(u-\u003eleft); } scanf if cin addnode(u,n,0 dfs(u-\u003eright); }else return } } void if post_order(rt-\u003eleft); } if post_order(rt-\u003eright); } printf } int #ifdef freopen(\"1.in\" #endif node * root = new int scanf root-\u003eid = n; dfs(root); post_order(root); return } PAT练习\nhttps://www.cheasim.com/pat/2019/05/04/PAT%E7%BB%83%E4%B9%A0.html\r作者 CheaSim\n发布于 2019-05-04\n更新于 2019-05-05\n许可协议\n#pat\r","wordCount":"783","inLanguage":"zh-cn","datePublished":"2019-05-04T00:00:00Z","dateModified":"2019-05-04T00:00:00Z","author":{"@type":"Person","name":"CheaSim"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cheasim.com/2019/05/04/pat%E7%BB%83%E4%B9%A0/"},"publisher":{"@type":"Organization","name":"CheaSim Blog","logo":{"@type":"ImageObject","url":"https://www.cheasim.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://www.cheasim.com/ accesskey=h title="CheaSim Blog (Alt + H)">CheaSim Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://www.cheasim.com/about/ title=关于><span>关于</span></a></li><li><a href=https://www.cheasim.com/archives/ title=归档><span>归档</span></a></li><li><a href=https://www.cheasim.com/tags/ title=标签><span>标签</span></a></li><li><a href=https://www.cheasim.com/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li></ul></nav></header><main class=main><article class="post-single paper-article"><div class=reading-progress aria-hidden=true><span></span></div><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/posts/>Posts</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">PAT练习</h1><div class=post-meta><span class=paper-byline>谢辛 / CheaSim · <time datetime=2019-05-04>2019-05-04</time> · 更新 2019-05-04 · 约 2 分钟</span>
 &nbsp;·&nbsp;
-<span id="busuanzi_container_page_pv" class="busuanzi-page-pv">
-  阅读 <span id="busuanzi_value_page_pv">-</span> 次
-</span>
-
-
-</div>
-  </header> <details class="toc" >
-    <summary accesskey="c" title="(Alt + C)">
-        <span class="title">Table of Contents</span>
-    </summary>
-
-    <div class="inner"><ul>
-            <li>
-                <a href="#pat%e7%bb%83%e4%b9%a0" aria-label="PAT练习">PAT练习</a><ul>
-                    
-            <li>
-                <a href="#rational-sum" aria-label="Rational Sum">Rational Sum</a><ul>
-                    
-            <li>
-                <a href="#%e9%a2%98%e6%84%8f" aria-label="题意">题意</a></li>
-            <li>
-                <a href="#%e9%a2%98%e8%a7%a3" aria-label="题解">题解</a></li>
-            <li>
-                <a href="#ac%e4%bb%a3%e7%a0%81" aria-label="ac代码">ac代码</a></li>
-            <li>
-                <a href="#%e9%a2%98%e6%84%8f-1" aria-label="题意">题意</a></li>
-            <li>
-                <a href="#%e9%a2%98%e8%a7%a3-1" aria-label="题解">题解</a></li>
-            <li>
-                <a href="#ac%e4%bb%a3%e7%a0%81-1" aria-label="ac代码">ac代码</a></li></ul>
-            </li>
-            <li>
-                <a href="#list-grades-25" aria-label="List Grades (25)">List Grades (25)</a><ul>
-                    
-            <li>
-                <a href="#%e9%a2%98%e6%84%8f-2" aria-label="题意">题意</a></li>
-            <li>
-                <a href="#%e9%a2%98%e8%a7%a3-2" aria-label="题解">题解</a></li>
-            <li>
-                <a href="#ac%e4%bb%a3%e7%a0%81-2" aria-label="ac代码">ac代码</a></li></ul>
-            </li>
-            <li>
-                <a href="#tree-traversals-again-25" aria-label="Tree Traversals Again (25)">Tree Traversals Again (25)</a><ul>
-                    
-            <li>
-                <a href="#%e9%a2%98%e6%84%8f-3" aria-label="题意">题意</a></li>
-            <li>
-                <a href="#%e9%a2%98%e8%a7%a3-3" aria-label="题解">题解</a></li>
-            <li>
-                <a href="#ac%e4%bb%a3%e7%a0%81-3" aria-label="ac代码">ac代码</a>
-            </li>
-        </ul>
-        </li>
-        </ul>
-        </li>
-        </ul>
-    </div>
-</details>
-
-  <div class="post-content md-content"><h1 id="pat练习">PAT练习<a hidden class="anchor" aria-hidden="true" href="#pat练习">#</a></h1>
-<p>为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。</p>
-<p>点我连接</p>
-<h2 id="rational-sum">Rational Sum<a hidden class="anchor" aria-hidden="true" href="#rational-sum">#</a></h2>
-<h3 id="题意">题意<a hidden class="anchor" aria-hidden="true" href="#题意">#</a></h3>
-<p>求一百个分数的和。</p>
-<h3 id="题解">题解<a hidden class="anchor" aria-hidden="true" href="#题解">#</a></h3>
-<p>大整数秒了。</p>
-<p>其实我想用python，现在acm区域赛都让用python了</p>
-<h3 id="ac代码">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码">#</a></h3>
-<p>##Read Number in Chinese</p>
-<h3 id="题意-1">题意<a hidden class="anchor" aria-hidden="true" href="#题意-1">#</a></h3>
-<p>给定一个数字，用中文拼音输出他。</p>
-<h3 id="题解-1">题解<a hidden class="anchor" aria-hidden="true" href="#题解-1">#</a></h3>
-<p>模拟。</p>
-<ul>
-<li>
-<p>如果是负数，输出”Fu”</p>
-</li>
-<li>
-<p>每四位分隔一下，都是一样的。</p>
-</li>
-<li></li>
-</ul>
-<h3 id="ac代码-1">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码-1">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span>
-</span></span><span style="display:flex;"><span>string
-</span></span><span style="display:flex;"><span>ll n;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
-</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
-</span></span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>per(i,t,sz) s[i<span style="color:#f92672">+</span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>rep(i,t,<span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>vector
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>idx <span style="color:#f92672">=</span> i;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Yi&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Qian&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> true
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Bai&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> true
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Shi&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// gewei
-</span></span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> true
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Qian&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Bai&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans.push_back(chinese[s[<span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span>ans.push_back(<span style="color:#e6db74">&#34;Shi&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>cout
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="list-grades-25">List Grades (25)<a hidden class="anchor" aria-hidden="true" href="#list-grades-25">#</a></h2>
-<h3 id="题意-2">题意<a hidden class="anchor" aria-hidden="true" href="#题意-2">#</a></h3>
-<p>给定最多100个人，给他们排序，输出指定成绩区间内的人名和ID。</p>
-<h3 id="题解-2">题解<a hidden class="anchor" aria-hidden="true" href="#题解-2">#</a></h3>
-<p>模拟，sort</p>
-<h3 id="ac代码-2">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码-2">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>string
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>node(){}
-</span></span><span style="display:flex;"><span>node(string
-</span></span><span style="display:flex;"><span>name <span style="color:#f92672">=</span> a;
-</span></span><span style="display:flex;"><span>id <span style="color:#f92672">=</span> b;
-</span></span><span style="display:flex;"><span>grade <span style="color:#f92672">=</span> g;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
-</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
-</span></span></span><span style="display:flex;"><span>vector
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>string
-</span></span><span style="display:flex;"><span>cin
-</span></span><span style="display:flex;"><span>ve.push_back(node(a,b,g));
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>sort(ve.begin(),ve.end());
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
-</span></span><span style="display:flex;"><span>cout
-</span></span><span style="display:flex;"><span>cnt<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="tree-traversals-again-25">Tree Traversals Again (25)<a hidden class="anchor" aria-hidden="true" href="#tree-traversals-again-25">#</a></h2>
-<h3 id="题意-3">题意<a hidden class="anchor" aria-hidden="true" href="#题意-3">#</a></h3>
-<p>用栈表示一个树的先根遍历，求这颗二叉树的后跟遍历。</p>
-<h3 id="题解-3">题解<a hidden class="anchor" aria-hidden="true" href="#题解-3">#</a></h3>
-<p>dfs模拟一下即可。</p>
-<h3 id="ac代码-3">ac代码<a hidden class="anchor" aria-hidden="true" href="#ac代码-3">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">int</span>
-</span></span><span style="display:flex;"><span>node <span style="color:#f92672">*</span>left <span style="color:#f92672">=</span> NULL
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>root<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span>
-</span></span><span style="display:flex;"><span>root<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>id <span style="color:#f92672">=</span> n;
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>root<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span>
-</span></span><span style="display:flex;"><span>root<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>id <span style="color:#f92672">=</span> n;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// left
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>cin
-</span></span><span style="display:flex;"><span>addnode(u,n,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>dfs(u<span style="color:#f92672">-&gt;</span>left);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>cin
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">addnode</span>(u,n,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>dfs(u<span style="color:#f92672">-&gt;</span>right);
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">post_order</span>(rt<span style="color:#f92672">-&gt;</span>left);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">post_order</span>(rt<span style="color:#f92672">-&gt;</span>right);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>printf
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
-</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
-</span></span></span><span style="display:flex;"><span>node <span style="color:#f92672">*</span> root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span>root<span style="color:#f92672">-&gt;</span>id <span style="color:#f92672">=</span> n;
-</span></span><span style="display:flex;"><span>dfs(root);
-</span></span><span style="display:flex;"><span>post_order(root);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>PAT练习</p>
-<p><a href="https://www.cheasim.com/pat/2019/05/04/PAT%E7%BB%83%E4%B9%A0.html">https://www.cheasim.com/pat/2019/05/04/PAT%E7%BB%83%E4%B9%A0.html</a></p>
-<p>作者
-CheaSim</p>
-<p>发布于
-2019-05-04</p>
-<p>更新于
-2019-05-05</p>
-<p>许可协议</p>
-<p>#<a href="/tags/pat/">pat</a></p>
-
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://www.cheasim.com/2019/05/04/dna-sequence/">
-    <span class="title">« </span>
-    <span>DNA Sequence</span>
-  </a>
-  <a class="next" href="https://www.cheasim.com/2019/04/23/tcp-udp-socket%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-    <span class="title"> »</span>
-    <span>TCP,UDP,Socket学习笔记</span>
-  </a>
-</nav>
-
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
-    <span class="busuanzi-site-stats">
-        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
-        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
-    </span> | 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
-        <polyline points="17 11 12 6 7 11"></polyline>
-        <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-</a>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
-        }
-    };
-</script>
-</body>
-
-</html>
+<span id=busuanzi_container_page_pv class=busuanzi-page-pv>阅读 <span id=busuanzi_value_page_pv>-</span> 次</span></div></header><section class=paper-abstract aria-label=摘要><h2>Abstract / 摘要</h2><p>PAT练习# 为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。
+点我连接
+Rational Sum# 题意# 求一百个分数的和。</p></section><details class="toc reading-toc" open><summary><span>本篇目录</span><span class=toc-current aria-hidden=true></span></summary><div class=toc-scroll tabindex=0 aria-label=文章目录><nav id=TableOfContents><ul><li><a href=#rational-sum>Rational Sum</a><ul><li><a href=#题意>题意</a></li><li><a href=#题解>题解</a></li><li><a href=#ac代码>ac代码</a></li><li><a href=#题意-1>题意</a></li><li><a href=#题解-1>题解</a></li><li><a href=#ac代码-1>ac代码</a></li></ul></li><li><a href=#list-grades-25>List Grades (25)</a><ul><li><a href=#题意-2>题意</a></li><li><a href=#题解-2>题解</a></li><li><a href=#ac代码-2>ac代码</a></li></ul></li><li><a href=#tree-traversals-again-25>Tree Traversals Again (25)</a><ul><li><a href=#题意-3>题意</a></li><li><a href=#题解-3>题解</a></li><li><a href=#ac代码-3>ac代码</a></li></ul></li></ul></nav></div></details><div class="post-content md-content"><h1 id=pat练习 class=reading-heading>PAT练习<a class=heading-anchor href=#pat%e7%bb%83%e4%b9%a0 aria-label=链接到：PAT练习>#</a></h1><p>为了拿PAT的50元代金券，刷一刷牛客网上的PAT真题。</p><p>点我连接</p><h2 id=rational-sum class=reading-heading>Rational Sum<a class=heading-anchor href=#rational-sum aria-label="链接到：Rational Sum">#</a></h2><h3 id=题意 class=reading-heading>题意<a class=heading-anchor href=#%e9%a2%98%e6%84%8f aria-label=链接到：题意>#</a></h3><p>求一百个分数的和。</p><h3 id=题解 class=reading-heading>题解<a class=heading-anchor href=#%e9%a2%98%e8%a7%a3 aria-label=链接到：题解>#</a></h3><p>大整数秒了。</p><p>其实我想用python，现在acm区域赛都让用python了</p><h3 id=ac代码 class=reading-heading>ac代码<a class=heading-anchor href=#ac%e4%bb%a3%e7%a0%81 aria-label=链接到：ac代码>#</a></h3><p>##Read Number in Chinese</p><h3 id=题意-1 class=reading-heading>题意<a class=heading-anchor href=#%e9%a2%98%e6%84%8f-1 aria-label=链接到：题意>#</a></h3><p>给定一个数字，用中文拼音输出他。</p><h3 id=题解-1 class=reading-heading>题解<a class=heading-anchor href=#%e9%a2%98%e8%a7%a3-1 aria-label=链接到：题解>#</a></h3><p>模拟。</p><ul><li><p>如果是负数，输出”Fu”</p></li><li><p>每四位分隔一下，都是一样的。</p></li><li></li></ul><h3 id=ac代码-1 class=reading-heading>ac代码<a class=heading-anchor href=#ac%e4%bb%a3%e7%a0%81-1 aria-label=链接到：ac代码>#</a></h3><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=kt>char</span>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=n>string</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=n>ll</span> <span class=n>n</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=cp>#ifdef
+</span></span></span><span class=line><span class=ln>16</span><span class=cl><span class=n>freopen</span><span class=p>(</span><span class=s>&#34;1.in&#34;</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=ln>18</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl>
+</span></span><span class=line><span class=ln>22</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=n>per</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>t</span><span class=p>,</span><span class=n>sz</span><span class=p>)</span> <span class=n>s</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>10</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>t</span><span class=p>,</span><span class=mi>10</span>
+</span></span><span class=line><span class=ln>25</span><span class=cl><span class=n>vector</span>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>27</span><span class=cl><span class=kt>bool</span>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>29</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=n>idx</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=k>break</span>
+</span></span><span class=line><span class=ln>32</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>34</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>36</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Yi&#34;</span>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>2</span>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Qian&#34;</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>3</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Bai&#34;</span>
+</span></span><span class=line><span class=ln>48</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>49</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>50</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>51</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>52</span><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=ln>53</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>4</span>
+</span></span><span class=line><span class=ln>54</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Shi&#34;</span>
+</span></span><span class=line><span class=ln>55</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>56</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>57</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>58</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>59</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>5</span>
+</span></span><span class=line><span class=ln>60</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>61</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>62</span><span class=cl>
+</span></span><span class=line><span class=ln>63</span><span class=cl><span class=c1>// gewei
+</span></span></span><span class=line><span class=ln>64</span><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=ln>65</span><span class=cl>
+</span></span><span class=line><span class=ln>66</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>67</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>6</span>
+</span></span><span class=line><span class=ln>68</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Qian&#34;</span>
+</span></span><span class=line><span class=ln>69</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>70</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>71</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>72</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>73</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>7</span>
+</span></span><span class=line><span class=ln>74</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Bai&#34;</span>
+</span></span><span class=line><span class=ln>75</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>76</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>77</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>78</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>79</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>chinese</span><span class=p>[</span><span class=n>s</span><span class=p>[</span><span class=mi>8</span>
+</span></span><span class=line><span class=ln>80</span><span class=cl><span class=n>ans</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=s>&#34;Shi&#34;</span>
+</span></span><span class=line><span class=ln>81</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>82</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>83</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>84</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>85</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>86</span><span class=cl><span class=kt>bool</span>
+</span></span><span class=line><span class=ln>87</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>88</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>89</span><span class=cl><span class=k>continue</span>
+</span></span><span class=line><span class=ln>90</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>91</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>92</span><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=ln>93</span><span class=cl><span class=n>cout</span>
+</span></span><span class=line><span class=ln>94</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>95</span><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=ln>96</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>97</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>98</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+char
+string
+ll n;
+int
+#ifdef
+freopen("1.in"
+#endif
+scanf
+int
+int
+if
+per(i,t,sz) s[i+10
+rep(i,t,10
+vector
+if
+bool
+int
+rep(i,1
+idx = i;
+break
+}
+rep(i,1
+if
+ans.push_back(chinese[s[1
+ans.push_back("Yi"
+}
+if
+ans.push_back(chinese[s[2
+ans.push_back("Qian"
+}else
+if
+}
+if
+flag = true
+ans.push_back(chinese[s[3
+ans.push_back("Bai"
+}else
+if
+}
+if
+flag = true
+ans.push_back(chinese[s[4
+ans.push_back("Shi"
+}else
+if
+}
+if
+ans.push_back(chinese[s[5
+}else
+if
+// gewei
+flag = true
+if
+ans.push_back(chinese[s[6
+ans.push_back("Qian"
+}else
+if
+}
+if
+ans.push_back(chinese[s[7
+ans.push_back("Bai"
+}else
+if
+}
+if
+ans.push_back(chinese[s[8
+ans.push_back("Shi"
+}else
+if
+}
+if
+if
+bool
+rep(i,0
+if
+continue
+}
+if
+else
+cout
+if
+else
+}
+return
+}</template></figure><h2 id=list-grades-25 class=reading-heading>List Grades (25)<a class=heading-anchor href=#list-grades-25 aria-label="链接到：List Grades (25)">#</a></h2><h3 id=题意-2 class=reading-heading>题意<a class=heading-anchor href=#%e9%a2%98%e6%84%8f-2 aria-label=链接到：题意>#</a></h3><p>给定最多100个人，给他们排序，输出指定成绩区间内的人名和ID。</p><h3 id=题解-2 class=reading-heading>题解<a class=heading-anchor href=#%e9%a2%98%e8%a7%a3-2 aria-label=链接到：题解>#</a></h3><p>模拟，sort</p><h3 id=ac代码-2 class=reading-heading>ac代码<a class=heading-anchor href=#ac%e4%bb%a3%e7%a0%81-2 aria-label=链接到：ac代码>#</a></h3><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=k>struct</span>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=nc>string</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=n>string</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=kt>bool</span>
+</span></span><span class=line><span class=ln>16</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>18</span><span class=cl><span class=n>node</span><span class=p>(){}</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=n>node</span><span class=p>(</span><span class=n>string</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=n>name</span> <span class=o>=</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl><span class=n>id</span> <span class=o>=</span> <span class=n>b</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>22</span><span class=cl><span class=n>grade</span> <span class=o>=</span> <span class=n>g</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=ln>25</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=cp>#ifdef
+</span></span></span><span class=line><span class=ln>27</span><span class=cl><span class=n>freopen</span><span class=p>(</span><span class=s>&#34;1.in&#34;</span>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=ln>29</span><span class=cl><span class=n>vector</span>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>32</span><span class=cl><span class=n>string</span>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=n>cin</span>
+</span></span><span class=line><span class=ln>34</span><span class=cl><span class=n>ve</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>node</span><span class=p>(</span><span class=n>a</span><span class=p>,</span><span class=n>b</span><span class=p>,</span><span class=n>g</span><span class=p>));</span>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>36</span><span class=cl><span class=n>sort</span><span class=p>(</span><span class=n>ve</span><span class=p>.</span><span class=n>begin</span><span class=p>(),</span><span class=n>ve</span><span class=p>.</span><span class=n>end</span><span class=p>());</span>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl><span class=kt>bool</span>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl><span class=k>while</span>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=k>while</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=n>cout</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl><span class=n>cnt</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>48</span><span class=cl>
+</span></span><span class=line><span class=ln>49</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>50</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+struct
+string
+string
+int
+bool
+return
+}
+node(){}
+node(string
+name = a;
+id = b;
+grade = g;
+}
+};
+int
+#ifdef
+freopen("1.in"
+#endif
+vector
+int
+rep(i,0
+string
+cin
+ve.push_back(node(a,b,g));
+}
+sort(ve.begin(),ve.end());
+int
+scanf
+bool
+rep(i,0
+int
+while
+while
+cout
+cnt++;
+}
+if
+return
+}</template></figure><h2 id=tree-traversals-again-25 class=reading-heading>Tree Traversals Again (25)<a class=heading-anchor href=#tree-traversals-again-25 aria-label="链接到：Tree Traversals Again (25)">#</a></h2><h3 id=题意-3 class=reading-heading>题意<a class=heading-anchor href=#%e9%a2%98%e6%84%8f-3 aria-label=链接到：题意>#</a></h3><p>用栈表示一个树的先根遍历，求这颗二叉树的后跟遍历。</p><h3 id=题解-3 class=reading-heading>题解<a class=heading-anchor href=#%e9%a2%98%e8%a7%a3-3 aria-label=链接到：题解>#</a></h3><p>dfs模拟一下即可。</p><h3 id=ac代码-3 class=reading-heading>ac代码<a class=heading-anchor href=#ac%e4%bb%a3%e7%a0%81-3 aria-label=链接到：ac代码>#</a></h3><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>11</span><span class=cl>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=kt>char</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=k>struct</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=nc>int</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=n>node</span> <span class=o>*</span><span class=n>left</span> <span class=o>=</span> <span class=nb>NULL</span>
+</span></span><span class=line><span class=ln>16</span><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>18</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=n>root</span><span class=o>-&gt;</span><span class=n>left</span> <span class=o>=</span> <span class=k>new</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=n>root</span><span class=o>-&gt;</span><span class=n>left</span><span class=o>-&gt;</span><span class=n>id</span> <span class=o>=</span> <span class=n>n</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>22</span><span class=cl><span class=n>root</span><span class=o>-&gt;</span><span class=n>right</span> <span class=o>=</span> <span class=k>new</span>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=n>root</span><span class=o>-&gt;</span><span class=n>right</span><span class=o>-&gt;</span><span class=n>id</span> <span class=o>=</span> <span class=n>n</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>25</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>27</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=c1>// left
+</span></span></span><span class=line><span class=ln>29</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=n>cin</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=n>addnode</span><span class=p>(</span><span class=n>u</span><span class=p>,</span><span class=n>n</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>32</span><span class=cl><span class=n>dfs</span><span class=p>(</span><span class=n>u</span><span class=o>-&gt;</span><span class=n>left</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>34</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>36</span><span class=cl><span class=n>cin</span>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=nf>addnode</span><span class=p>(</span><span class=n>u</span><span class=p>,</span><span class=n>n</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=n>dfs</span><span class=p>(</span><span class=n>u</span><span class=o>-&gt;</span><span class=n>right</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl><span class=nf>post_order</span><span class=p>(</span><span class=n>rt</span><span class=o>-&gt;</span><span class=n>left</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>48</span><span class=cl><span class=nf>post_order</span><span class=p>(</span><span class=n>rt</span><span class=o>-&gt;</span><span class=n>right</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>49</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>50</span><span class=cl><span class=n>printf</span>
+</span></span><span class=line><span class=ln>51</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>52</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>53</span><span class=cl><span class=cp>#ifdef
+</span></span></span><span class=line><span class=ln>54</span><span class=cl><span class=n>freopen</span><span class=p>(</span><span class=s>&#34;1.in&#34;</span>
+</span></span><span class=line><span class=ln>55</span><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=ln>56</span><span class=cl><span class=n>node</span> <span class=o>*</span> <span class=n>root</span> <span class=o>=</span> <span class=k>new</span>
+</span></span><span class=line><span class=ln>57</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>58</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>59</span><span class=cl><span class=n>root</span><span class=o>-&gt;</span><span class=n>id</span> <span class=o>=</span> <span class=n>n</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>60</span><span class=cl><span class=n>dfs</span><span class=p>(</span><span class=n>root</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>61</span><span class=cl><span class=n>post_order</span><span class=p>(</span><span class=n>root</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>62</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>63</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+char
+struct
+int
+node *left = NULL
+};
+void
+if
+root->left = new
+root->left->id = n;
+}else
+root->right = new
+root->right->id = n;
+}
+}
+void
+int
+// left
+if
+cin
+addnode(u,n,1
+dfs(u->left);
+}
+scanf
+if
+cin
+addnode(u,n,0
+dfs(u->right);
+}else
+return
+}
+}
+void
+if
+post_order(rt->left);
+}
+if
+post_order(rt->right);
+}
+printf
+}
+int
+#ifdef
+freopen("1.in"
+#endif
+node * root = new
+int
+scanf
+root->id = n;
+dfs(root);
+post_order(root);
+return
+}</template></figure><p>PAT练习</p><p><a href=https://www.cheasim.com/pat/2019/05/04/PAT%E7%BB%83%E4%B9%A0.html>https://www.cheasim.com/pat/2019/05/04/PAT%E7%BB%83%E4%B9%A0.html</a></p><p>作者
+CheaSim</p><p>发布于
+2019-05-04</p><p>更新于
+2019-05-05</p><p>许可协议</p><p>#<a href=/tags/pat/>pat</a></p></div><div class=paper-endmatter></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://www.cheasim.com/2019/05/04/dna-sequence/><span class=title>« </span><span>DNA Sequence</span>
+</a><a class=next href=https://www.cheasim.com/2019/04/23/tcp-udp-socket%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><span class=title>»</span>
+<span>TCP,UDP,Socket学习笔记</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://www.cheasim.com/>CheaSim Blog</a></span> |
+<span class=busuanzi-site-stats><span id=busuanzi_container_site_pv>总访问 <span id=busuanzi_value_site_pv>-</span></span>
+<span id=busuanzi_container_site_uv>&nbsp;|&nbsp;访客 <span id=busuanzi_value_site_uv>-</span></span>
+</span>|
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script>document.getElementById("theme-toggle")?.addEventListener("click",()=>{const e=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=e,localStorage.setItem("pref-theme",e)})</script><script defer src=/js/paper.min.50a0fd241083bb2bf79dcca11adad2c86bea665e72218fee18efe8c9d1f07e99.js integrity="sha256-UKD9JBCDuyv3ncyhGtrSyGvqZl5yIY/uGO/oydHwfpk="></script><script defer src=/js/reading.min.9525e96cbb0864aa93300b6f7eeb49ab75e631c372e3995e6a8aceb4acb8d40b.js integrity="sha256-lSXpbLsIZKqTMAtvfutJq3XmMcNy45leaorOtKy41As="></script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{if(e.closest(".reading-toc"))return;e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script></body></html>

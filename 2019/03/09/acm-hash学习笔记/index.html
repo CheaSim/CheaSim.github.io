@@ -1,537 +1,299 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="auto" data-theme="auto">
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>[acm]hash学习笔记 | CheaSim Blog</title><meta name=keywords content><meta name=description content="hash学习#
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>[acm]hash学习笔记 | CheaSim Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="hash学习
-hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。">
-<meta name="author" content="CheaSim">
-<link rel="canonical" href="https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://www.cheasim.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<meta property="og:url" content="https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-  <meta property="og:site_name" content="CheaSim Blog">
-  <meta property="og:title" content="[acm]hash学习笔记">
-  <meta property="og:description" content="hash学习 hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2019-03-09T00:00:00+00:00">
-    <meta property="article:modified_time" content="2019-03-09T00:00:00+00:00">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="[acm]hash学习笔记">
-  <meta name="twitter:description" content="hash学习 hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://www.cheasim.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "[acm]hash学习笔记",
-      "item": "https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "[acm]hash学习笔记",
-  "name": "[acm]hash学习笔记",
-  "description": "hash学习 hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "hash学习 hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。\nhash主要的方法就是把不同的字符串对应到不同的数字，之后通过数组来确定字符串是否出现过，从而减少检索字符串的时间。\n常见的hash方法\ntypedef ull base[maxn],has[maxn]; void base[0 rep(i,1 scanf int has[len] = 0 per(i,0 } ull get_hash return } 练习 hdoj4821 String 题目大意就是求$S$子串中，\n长为$M*L$\n其中每一段连续的$L$长度的子串都各不相同。\n就是使用hash来做。但是我TLE了。因为暴力了每一段的hash值。\n其实由于如果$S$的长度很长的话。其中很多段子段的hash值是被反复求的。所以我们在求完一段$M$个的字符串之后，就可以按照这个把第一段去除。之后选择后一段。这样重复下去。\nWa1:等于号想清楚了在判定。\n#include using #define #define #define #define typedef typedef const //head typedef const ull xp[maxn],Hash[maxn]; void xp[0 rep(i,1 } ull get_Hash return } int char int #ifdef freopen(\"1.in\" #endif init(); // m = length of L while scanf int Hash[len] = 0 per(i,0 Hash[i] = Hash[i+1 } int for map for ull temp = get_Hash(j,m); mx[temp] ++; } if for ull temp = get_Hash(j-n*m,m); mx[temp]--; if temp = get_Hash(j,m); mx[temp]++; if } } printf } return } hdoj4080 Stammering Aliens 题目大意是找到字符串$S$中，出现次数大于$m$次并且最长的字符串。\n我是用hash做的，不过时间是4800ms，差点超时。用别人后缀数组＋二分，200ms可以过。。\n就酱吧。\n#include using #define #define #define #define typedef typedef typedef const //head const ull base[maxn],has[maxn]; void base[0 rep(i,1 } ull get_hash return } int char int map int rep(i,0 ull temp = get_hash(i,len); mx[temp] ++; if ans = i; } } return } int int void int while mid = l+r\u003e\u003e1 int if l = mid + 1 res = mid; right_most = temp; }else r = mid - 1 } } } int #ifdef freopen(\"2.in\" #endif init(); while scanf n = strlen has[n] = 0 per(i,0 right_most = 0 solve(1 if puts }else printf } } return } reference:\nhttps://blog.csdn.net/u012965373/article/details/38929637 https://blog.csdn.net/ck_boss/article/details/47066727\n[acm]hash学习笔记\nhttps://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html\n作者 CheaSim\n发布于 2019-03-09\n更新于 2019-03-11\n许可协议\n#acmhash\n",
-  "wordCount" : "646",
-  "inLanguage": "zh-cn",
-  "datePublished": "2019-03-09T00:00:00Z",
-  "dateModified": "2019-03-09T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "CheaSim"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CheaSim Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.cheasim.com/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body id="top">
-    <header class="header">
-    <nav class="header-nav">
-        <div class="logo">
-            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu" class="menu">
-            <li>
-                <a href="https://www.cheasim.com/about/" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/archives/" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/CheaSim" title="GitHub">
-                    <span>GitHub</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-
-<article class="post-single">
-  <header class="post-header">
-    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-            <a href="/posts/">Posts</a>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-        <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-</nav>
-    <h1 class="post-title entry-hint-parent">
-      [acm]hash学习笔记
-    </h1>
-    <div class="post-meta">
-
-<span title='2019-03-09 00:00:00 +0000 UTC'>March 9, 2019</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。"><meta name=author content="CheaSim"><link rel=canonical href=https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://www.cheasim.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://www.cheasim.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://www.cheasim.com/favicon-32x32.png><link rel=apple-touch-icon href=https://www.cheasim.com/apple-touch-icon.png><link rel=mask-icon href=https://www.cheasim.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><link rel=stylesheet href=/vendor/katex/katex.min.css><script defer src=/vendor/katex/katex.min.js></script><script defer src=/vendor/katex/auto-render.min.js></script><script>document.addEventListener("DOMContentLoaded",()=>{if(!window.renderMathInElement)return;const e=document.querySelector(".post-content");e&&renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1,trust:!1})})</script><meta property="og:url" content="https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="CheaSim Blog"><meta property="og:title" content="[acm]hash学习笔记"><meta property="og:description" content="hash学习# hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-03-09T00:00:00+00:00"><meta property="article:modified_time" content="2019-03-09T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="[acm]hash学习笔记"><meta name=twitter:description content="hash学习# hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://www.cheasim.com/posts/"},{"@type":"ListItem","position":2,"name":"[acm]hash学习笔记","item":"https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[acm]hash学习笔记","name":"[acm]hash学习笔记","description":"hash学习# hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。\n","keywords":[],"articleBody":"hash学习# hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。\nhash主要的方法就是把不同的字符串对应到不同的数字，之后通过数组来确定字符串是否出现过，从而减少检索字符串的时间。\n常见的hash方法\ncpp复制 1typedef 2ull base[maxn],has[maxn]; 3void 4base[0 5rep(i,1 6scanf 7int 8has[len] = 0 9per(i,0 10} 11ull get_hash 12return 13} typedef ull base[maxn],has[maxn]; void base[0 rep(i,1 scanf int has[len] = 0 per(i,0 } ull get_hash return } 练习# hdoj4821 String# 题目大意就是求$S$子串中，\n长为$M*L$\n其中每一段连续的$L$长度的子串都各不相同。\n就是使用hash来做。但是我TLE了。因为暴力了每一段的hash值。\n其实由于如果$S$的长度很长的话。其中很多段子段的hash值是被反复求的。所以我们在求完一段$M$个的字符串之后，就可以按照这个把第一段去除。之后选择后一段。这样重复下去。\nWa1:等于号想清楚了在判定。\ncpp复制 1#include 2using 3#define 4#define 5#define 6#define 7typedef 8typedef 9const 10//head 11typedef 12const 13ull xp[maxn],Hash[maxn]; 14void 15xp[0 16rep(i,1 17} 18ull get_Hash 19return 20} 21int 22char 23int 24#ifdef 25freopen(\"1.in\" 26#endif 27init(); 28// m = length of L 29while 30scanf 31int 32Hash[len] = 0 33per(i,0 34Hash[i] = Hash[i+1 35} 36int 37for 38map 39for 40ull temp = get_Hash(j,m); 41mx[temp] ++; 42} 43if 44for 45ull temp = get_Hash(j-n*m,m); 46mx[temp]--; 47if 48temp = get_Hash(j,m); 49mx[temp]++; 50if 51} 52} 53printf 54} 55return 56} #include using #define #define #define #define typedef typedef const //head typedef const ull xp[maxn],Hash[maxn]; void xp[0 rep(i,1 } ull get_Hash return } int char int #ifdef freopen(\"1.in\" #endif init(); // m = length of L while scanf int Hash[len] = 0 per(i,0 Hash[i] = Hash[i+1 } int for map for ull temp = get_Hash(j,m); mx[temp] ++; } if for ull temp = get_Hash(j-n*m,m); mx[temp]--; if temp = get_Hash(j,m); mx[temp]++; if } } printf } return } hdoj4080 Stammering Aliens# 题目大意是找到字符串$S$中，出现次数大于$m$次并且最长的字符串。\n我是用hash做的，不过时间是4800ms，差点超时。用别人后缀数组＋二分，200ms可以过。。\n就酱吧。\ncpp复制 1#include 2using 3#define 4#define 5#define 6#define 7typedef 8typedef 9typedef 10const 11//head 12 13const 14ull base[maxn],has[maxn]; 15void 16base[0 17rep(i,1 18} 19ull get_hash 20return 21} 22 23int 24char 25int 26map 27int 28rep(i,0 29ull temp = get_hash(i,len); 30mx[temp] ++; 31if 32ans = i; 33} 34} 35return 36} 37int 38int 39void 40int 41while 42mid = l+r\u003e\u003e1 43int 44if 45l = mid + 1 46res = mid; 47right_most = temp; 48}else 49r = mid - 1 50} 51} 52} 53int 54#ifdef 55freopen(\"2.in\" 56#endif 57init(); 58while 59scanf 60n = strlen 61has[n] = 0 62per(i,0 63right_most = 0 64solve(1 65if 66puts 67}else 68printf 69} 70} 71 72return 73} #include using #define #define #define #define typedef typedef typedef const //head const ull base[maxn],has[maxn]; void base[0 rep(i,1 } ull get_hash return } int char int map int rep(i,0 ull temp = get_hash(i,len); mx[temp] ++; if ans = i; } } return } int int void int while mid = l+r\u003e\u003e1 int if l = mid + 1 res = mid; right_most = temp; }else r = mid - 1 } } } int #ifdef freopen(\"2.in\" #endif init(); while scanf n = strlen has[n] = 0 per(i,0 right_most = 0 solve(1 if puts }else printf } } return } reference:\nhttps://blog.csdn.net/u012965373/article/details/38929637\rhttps://blog.csdn.net/ck_boss/article/details/47066727\r[acm]hash学习笔记\nhttps://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html\r作者 CheaSim\n发布于 2019-03-09\n更新于 2019-03-11\n许可协议\n#acm\rhash\r","wordCount":"858","inLanguage":"zh-cn","datePublished":"2019-03-09T00:00:00Z","dateModified":"2019-03-09T00:00:00Z","author":{"@type":"Person","name":"CheaSim"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cheasim.com/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"CheaSim Blog","logo":{"@type":"ImageObject","url":"https://www.cheasim.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://www.cheasim.com/ accesskey=h title="CheaSim Blog (Alt + H)">CheaSim Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://www.cheasim.com/about/ title=关于><span>关于</span></a></li><li><a href=https://www.cheasim.com/archives/ title=归档><span>归档</span></a></li><li><a href=https://www.cheasim.com/tags/ title=标签><span>标签</span></a></li><li><a href=https://www.cheasim.com/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li></ul></nav></header><main class=main><article class="post-single paper-article"><div class=reading-progress aria-hidden=true><span></span></div><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/posts/>Posts</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">[acm]hash学习笔记</h1><div class=post-meta><span class=paper-byline>谢辛 / CheaSim · <time datetime=2019-03-09>2019-03-09</time> · 更新 2019-03-09 · 约 2 分钟</span>
 &nbsp;·&nbsp;
-<span id="busuanzi_container_page_pv" class="busuanzi-page-pv">
-  阅读 <span id="busuanzi_value_page_pv">-</span> 次
-</span>
-
-
-</div>
-  </header> <details class="toc" >
-    <summary accesskey="c" title="(Alt + C)">
-        <span class="title">Table of Contents</span>
-    </summary>
-
-    <div class="inner"><ul>
-            <li>
-                <a href="#hash%e5%ad%a6%e4%b9%a0" aria-label="hash学习">hash学习</a><ul>
-                    
-            <li>
-                <a href="#%e7%bb%83%e4%b9%a0" aria-label="练习">练习</a><ul>
-                    
-            <li>
-                <a href="#hdoj4821-string" aria-label="hdoj4821 String">hdoj4821 String</a></li>
-            <li>
-                <a href="#hdoj4080-stammering-aliens" aria-label="hdoj4080 Stammering Aliens">hdoj4080 Stammering Aliens</a>
-            </li>
-        </ul>
-        </li>
-        </ul>
-        </li>
-        </ul>
-    </div>
-</details>
-
-  <div class="post-content md-content"><h1 id="hash学习">hash学习<a hidden class="anchor" aria-hidden="true" href="#hash学习">#</a></h1>
-<p>hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。</p>
-<p>hash主要的方法就是把不同的字符串对应到不同的数字，之后通过数组来确定字符串是否出现过，从而减少检索字符串的时间。</p>
-<p>常见的hash方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span>ull base[maxn],has[maxn];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span>base[<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>has[len] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>per(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>ull get_hash
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="练习">练习<a hidden class="anchor" aria-hidden="true" href="#练习">#</a></h2>
-<h3 id="hdoj4821-string">hdoj4821 String<a hidden class="anchor" aria-hidden="true" href="#hdoj4821-string">#</a></h3>
-<p>题目大意就是求$S$子串中，</p>
-<ul>
-<li>
-<p>长为$M*L$</p>
-</li>
-<li>
-<p>其中每一段连续的$L$长度的子串都各不相同。</p>
-</li>
-</ul>
-<p>就是使用hash来做。但是我TLE了。因为暴力了每一段的hash值。</p>
-<p>其实由于如果$S$的长度很长的话。其中很多段子段的hash值是被反复求的。所以我们在求完一段$M$个的字符串之后，就可以按照这个把第一段去除。之后选择后一段。这样重复下去。</p>
-<p>Wa1:等于号想清楚了在判定。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span>ull xp[maxn],Hash[maxn];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span>xp[<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>ull get_Hash
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
-</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;1.in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
-</span></span></span><span style="display:flex;"><span>init();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// m = length of L
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>Hash[len] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>per(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>Hash[i] <span style="color:#f92672">=</span> Hash[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
-</span></span><span style="display:flex;"><span>map
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
-</span></span><span style="display:flex;"><span>ull temp <span style="color:#f92672">=</span> get_Hash(j,m);
-</span></span><span style="display:flex;"><span>mx[temp] <span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>
-</span></span><span style="display:flex;"><span>ull temp <span style="color:#f92672">=</span> get_Hash(j<span style="color:#f92672">-</span>n<span style="color:#f92672">*</span>m,m);
-</span></span><span style="display:flex;"><span>mx[temp]<span style="color:#f92672">--</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> get_Hash(j,m);
-</span></span><span style="display:flex;"><span>mx[temp]<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>printf
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="hdoj4080-stammering-aliens">hdoj4080 Stammering Aliens<a hidden class="anchor" aria-hidden="true" href="#hdoj4080-stammering-aliens">#</a></h3>
-<p>题目大意是找到字符串$S$中，出现次数大于$m$次并且最长的字符串。</p>
-<p>我是用hash做的，不过时间是4800ms，差点超时。用别人后缀数组＋二分，200ms可以过。。</p>
-<p>就酱吧。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span>ull base[maxn],has[maxn];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span>base[<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>rep(i,<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>ull get_hash
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>map
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rep</span>(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>ull temp <span style="color:#f92672">=</span> get_hash(i,len);
-</span></span><span style="display:flex;"><span>mx[temp] <span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> i;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
-</span></span><span style="display:flex;"><span>mid <span style="color:#f92672">=</span> l<span style="color:#f92672">+</span>r<span style="color:#f92672">&gt;&gt;</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> mid;
-</span></span><span style="display:flex;"><span>right_most <span style="color:#f92672">=</span> temp;
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef
-</span></span></span><span style="display:flex;"><span>freopen(<span style="color:#e6db74">&#34;2.in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
-</span></span></span><span style="display:flex;"><span>init();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>
-</span></span><span style="display:flex;"><span>scanf
-</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> strlen
-</span></span><span style="display:flex;"><span>has[n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>per(i,<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>right_most <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>solve(<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>puts
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>printf
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>reference:</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/u012965373/article/details/38929637">https://blog.csdn.net/u012965373/article/details/38929637</a>
-<a href="https://blog.csdn.net/ck_boss/article/details/47066727">https://blog.csdn.net/ck_boss/article/details/47066727</a></p>
-</blockquote>
-<p>[acm]hash学习笔记</p>
-<p><a href="https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</a></p>
-<p>作者
-CheaSim</p>
-<p>发布于
-2019-03-09</p>
-<p>更新于
-2019-03-11</p>
-<p>许可协议</p>
-<p>#<a href="/tags/acm/">acm</a><a href="/tags/hash/">hash</a></p>
-
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://www.cheasim.com/2019/03/11/%E4%B8%89%E6%9C%88%E8%AE%A1%E5%88%92/">
-    <span class="title">« </span>
-    <span>三月计划</span>
-  </a>
-  <a class="next" href="https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/">
-    <span class="title"> »</span>
-    <span>[cf545]A-D题解</span>
-  </a>
-</nav>
-
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
-    <span class="busuanzi-site-stats">
-        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
-        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
-    </span> | 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
-        <polyline points="17 11 12 6 7 11"></polyline>
-        <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-</a>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
-        }
-    };
-</script>
-</body>
-
-</html>
+<span id=busuanzi_container_page_pv class=busuanzi-page-pv>阅读 <span id=busuanzi_value_page_pv>-</span> 次</span></div></header><section class=paper-abstract aria-label=摘要><h2>Abstract / 摘要</h2><p>hash学习# hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。</p></section><details class="toc reading-toc" open><summary><span>本篇目录</span><span class=toc-current aria-hidden=true></span></summary><div class=toc-scroll tabindex=0 aria-label=文章目录><nav id=TableOfContents><ul><li><a href=#练习>练习</a><ul><li><a href=#hdoj4821-string>hdoj4821 String</a></li><li><a href=#hdoj4080-stammering-aliens>hdoj4080 Stammering Aliens</a></li></ul></li></ul></nav></div></details><div class="post-content md-content"><h1 id=hash学习 class=reading-heading>hash学习<a class=heading-anchor href=#hash%e5%ad%a6%e4%b9%a0 aria-label=链接到：hash学习>#</a></h1><p>hash是一种比较常见的处理字符串的手法。在acm题目中，经常使用hash来处理字符串。比如判断一个子串在一个字符串中出现过几次。就可以使用hash来处理。</p><p>hash主要的方法就是把不同的字符串对应到不同的数字，之后通过数组来确定字符串是否出现过，从而减少检索字符串的时间。</p><p>常见的hash方法</p><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 2</span><span class=cl><span class=n>ull</span> <span class=n>base</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>has</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln> 4</span><span class=cl><span class=n>base</span><span class=p>[</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln> 5</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln> 6</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln> 7</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=n>has</span><span class=p>[</span><span class=n>len</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=n>per</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>11</span><span class=cl><span class=n>ull</span> <span class=n>get_hash</span>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>typedef
+ull base[maxn],has[maxn];
+void
+base[0
+rep(i,1
+scanf
+int
+has[len] = 0
+per(i,0
+}
+ull get_hash
+return
+}</template></figure><h2 id=练习 class=reading-heading>练习<a class=heading-anchor href=#%e7%bb%83%e4%b9%a0 aria-label=链接到：练习>#</a></h2><h3 id=hdoj4821-string class=reading-heading>hdoj4821 String<a class=heading-anchor href=#hdoj4821-string aria-label="链接到：hdoj4821 String">#</a></h3><p>题目大意就是求$S$子串中，</p><ul><li><p>长为$M*L$</p></li><li><p>其中每一段连续的$L$长度的子串都各不相同。</p></li></ul><p>就是使用hash来做。但是我TLE了。因为暴力了每一段的hash值。</p><p>其实由于如果$S$的长度很长的话。其中很多段子段的hash值是被反复求的。所以我们在求完一段$M$个的字符串之后，就可以按照这个把第一段去除。之后选择后一段。这样重复下去。</p><p>Wa1:等于号想清楚了在判定。</p><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=n>ull</span> <span class=n>xp</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>Hash</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=n>xp</span><span class=p>[</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>16</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>18</span><span class=cl><span class=n>ull</span> <span class=n>get_Hash</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>22</span><span class=cl><span class=kt>char</span>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=cp>#ifdef
+</span></span></span><span class=line><span class=ln>25</span><span class=cl><span class=n>freopen</span><span class=p>(</span><span class=s>&#34;1.in&#34;</span>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=ln>27</span><span class=cl><span class=n>init</span><span class=p>();</span>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=c1>// m = length of L
+</span></span></span><span class=line><span class=ln>29</span><span class=cl><span class=k>while</span>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>32</span><span class=cl><span class=n>Hash</span><span class=p>[</span><span class=n>len</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=n>per</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>34</span><span class=cl><span class=n>Hash</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>Hash</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>36</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=k>for</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=n>map</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl><span class=k>for</span>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=n>ull</span> <span class=n>temp</span> <span class=o>=</span> <span class=n>get_Hash</span><span class=p>(</span><span class=n>j</span><span class=p>,</span><span class=n>m</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=n>mx</span><span class=p>[</span><span class=n>temp</span><span class=p>]</span> <span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=k>for</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl><span class=n>ull</span> <span class=n>temp</span> <span class=o>=</span> <span class=n>get_Hash</span><span class=p>(</span><span class=n>j</span><span class=o>-</span><span class=n>n</span><span class=o>*</span><span class=n>m</span><span class=p>,</span><span class=n>m</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=n>mx</span><span class=p>[</span><span class=n>temp</span><span class=p>]</span><span class=o>--</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>48</span><span class=cl><span class=n>temp</span> <span class=o>=</span> <span class=n>get_Hash</span><span class=p>(</span><span class=n>j</span><span class=p>,</span><span class=n>m</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>49</span><span class=cl><span class=n>mx</span><span class=p>[</span><span class=n>temp</span><span class=p>]</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>50</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>51</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>52</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>53</span><span class=cl><span class=n>printf</span>
+</span></span><span class=line><span class=ln>54</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>55</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>56</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+const
+//head
+typedef
+const
+ull xp[maxn],Hash[maxn];
+void
+xp[0
+rep(i,1
+}
+ull get_Hash
+return
+}
+int
+char
+int
+#ifdef
+freopen("1.in"
+#endif
+init();
+// m = length of L
+while
+scanf
+int
+Hash[len] = 0
+per(i,0
+Hash[i] = Hash[i+1
+}
+int
+for
+map
+for
+ull temp = get_Hash(j,m);
+mx[temp] ++;
+}
+if
+for
+ull temp = get_Hash(j-n*m,m);
+mx[temp]--;
+if
+temp = get_Hash(j,m);
+mx[temp]++;
+if
+}
+}
+printf
+}
+return
+}</template></figure><h3 id=hdoj4080-stammering-aliens class=reading-heading>hdoj4080 Stammering Aliens<a class=heading-anchor href=#hdoj4080-stammering-aliens aria-label="链接到：hdoj4080 Stammering Aliens">#</a></h3><p>题目大意是找到字符串$S$中，出现次数大于$m$次并且最长的字符串。</p><p>我是用hash做的，不过时间是4800ms，差点超时。用别人后缀数组＋二分，200ms可以过。。</p><p>就酱吧。</p><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 8</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln> 9</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>11</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>12</span><span class=cl>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=n>ull</span> <span class=n>base</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>has</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>16</span><span class=cl><span class=n>base</span><span class=p>[</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=n>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>18</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=n>ull</span> <span class=n>get_hash</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>22</span><span class=cl>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=kt>char</span>
+</span></span><span class=line><span class=ln>25</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=n>map</span>
+</span></span><span class=line><span class=ln>27</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=nf>rep</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>29</span><span class=cl><span class=n>ull</span> <span class=n>temp</span> <span class=o>=</span> <span class=n>get_hash</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>len</span><span class=p>);</span>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=n>mx</span><span class=p>[</span><span class=n>temp</span><span class=p>]</span> <span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>32</span><span class=cl><span class=n>ans</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>34</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>36</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=k>while</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl><span class=n>mid</span> <span class=o>=</span> <span class=n>l</span><span class=o>+</span><span class=n>r</span><span class=o>&gt;&gt;</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl><span class=n>l</span> <span class=o>=</span> <span class=n>mid</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=n>res</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl><span class=n>right_most</span> <span class=o>=</span> <span class=n>temp</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>48</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>49</span><span class=cl><span class=n>r</span> <span class=o>=</span> <span class=n>mid</span> <span class=o>-</span> <span class=mi>1</span>
+</span></span><span class=line><span class=ln>50</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>51</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>52</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>53</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>54</span><span class=cl><span class=cp>#ifdef
+</span></span></span><span class=line><span class=ln>55</span><span class=cl><span class=n>freopen</span><span class=p>(</span><span class=s>&#34;2.in&#34;</span>
+</span></span><span class=line><span class=ln>56</span><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=ln>57</span><span class=cl><span class=n>init</span><span class=p>();</span>
+</span></span><span class=line><span class=ln>58</span><span class=cl><span class=k>while</span>
+</span></span><span class=line><span class=ln>59</span><span class=cl><span class=n>scanf</span>
+</span></span><span class=line><span class=ln>60</span><span class=cl><span class=n>n</span> <span class=o>=</span> <span class=n>strlen</span>
+</span></span><span class=line><span class=ln>61</span><span class=cl><span class=n>has</span><span class=p>[</span><span class=n>n</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=ln>62</span><span class=cl><span class=n>per</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=mi>0</span>
+</span></span><span class=line><span class=ln>63</span><span class=cl><span class=n>right_most</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=ln>64</span><span class=cl><span class=n>solve</span><span class=p>(</span><span class=mi>1</span>
+</span></span><span class=line><span class=ln>65</span><span class=cl><span class=k>if</span>
+</span></span><span class=line><span class=ln>66</span><span class=cl><span class=n>puts</span>
+</span></span><span class=line><span class=ln>67</span><span class=cl><span class=p>}</span><span class=k>else</span>
+</span></span><span class=line><span class=ln>68</span><span class=cl><span class=n>printf</span>
+</span></span><span class=line><span class=ln>69</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>70</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>71</span><span class=cl>
+</span></span><span class=line><span class=ln>72</span><span class=cl><span class=k>return</span>
+</span></span><span class=line><span class=ln>73</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+typedef
+typedef
+typedef
+const
+//head
+const
+ull base[maxn],has[maxn];
+void
+base[0
+rep(i,1
+}
+ull get_hash
+return
+}
+int
+char
+int
+map
+int
+rep(i,0
+ull temp = get_hash(i,len);
+mx[temp] ++;
+if
+ans = i;
+}
+}
+return
+}
+int
+int
+void
+int
+while
+mid = l+r>>1
+int
+if
+l = mid + 1
+res = mid;
+right_most = temp;
+}else
+r = mid - 1
+}
+}
+}
+int
+#ifdef
+freopen("2.in"
+#endif
+init();
+while
+scanf
+n = strlen
+has[n] = 0
+per(i,0
+right_most = 0
+solve(1
+if
+puts
+}else
+printf
+}
+}
+return
+}</template></figure><p>reference:</p><blockquote><p><a href=https://blog.csdn.net/u012965373/article/details/38929637 class=external-link rel="noopener noreferrer">https://blog.csdn.net/u012965373/article/details/38929637</a>
+<a href=https://blog.csdn.net/ck_boss/article/details/47066727 class=external-link rel="noopener noreferrer">https://blog.csdn.net/ck_boss/article/details/47066727</a></p></blockquote><p>[acm]hash学习笔记</p><p><a href=https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html>https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2019/03/09/acm-hash%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</a></p><p>作者
+CheaSim</p><p>发布于
+2019-03-09</p><p>更新于
+2019-03-11</p><p>许可协议</p><p>#<a href=/tags/acm/>acm</a>
+<a href=/tags/hash/>hash</a></p></div><div class=paper-endmatter></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://www.cheasim.com/2019/03/11/%E4%B8%89%E6%9C%88%E8%AE%A1%E5%88%92/><span class=title>« </span><span>三月计划</span>
+</a><a class=next href=https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/><span class=title>»</span>
+<span>[cf545]A-D题解</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://www.cheasim.com/>CheaSim Blog</a></span> |
+<span class=busuanzi-site-stats><span id=busuanzi_container_site_pv>总访问 <span id=busuanzi_value_site_pv>-</span></span>
+<span id=busuanzi_container_site_uv>&nbsp;|&nbsp;访客 <span id=busuanzi_value_site_uv>-</span></span>
+</span>|
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script>document.getElementById("theme-toggle")?.addEventListener("click",()=>{const e=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=e,localStorage.setItem("pref-theme",e)})</script><script defer src=/js/paper.min.50a0fd241083bb2bf79dcca11adad2c86bea665e72218fee18efe8c9d1f07e99.js integrity="sha256-UKD9JBCDuyv3ncyhGtrSyGvqZl5yIY/uGO/oydHwfpk="></script><script defer src=/js/reading.min.9525e96cbb0864aa93300b6f7eeb49ab75e631c372e3995e6a8aceb4acb8d40b.js integrity="sha256-lSXpbLsIZKqTMAtvfutJq3XmMcNy45leaorOtKy41As="></script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{if(e.closest(".reading-toc"))return;e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script></body></html>

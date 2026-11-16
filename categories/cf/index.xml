@@ -1,115 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Cf on CheaSim Blog</title>
-    <link>https://www.cheasim.com/categories/cf/</link>
-    <description>Recent content in Cf on CheaSim Blog</description>
-    <generator>Hugo</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sat, 04 May 2019 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.cheasim.com/categories/cf/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>[dp&#43;graph] CodeForces - 721C</title>
-      <link>https://www.cheasim.com/2019/05/04/dp-graph-codeforces-721c/</link>
-      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.cheasim.com/2019/05/04/dp-graph-codeforces-721c/</guid>
-      <description>&lt;h1 id=&#34;dpgraph-codeforces---721c&#34;&gt;[dp+graph] CodeForces - 721C&lt;/h1&gt;
-&lt;h2 id=&#34;题意&#34;&gt;题意&lt;/h2&gt;
-&lt;p&gt;给定一个有向无环图DAG，之后问从点$1$走到点$n$中，在一定的费用要求下，最多能经过多少个点。并给出经过的点。&lt;/p&gt;
-&lt;h2 id=&#34;题解&#34;&gt;题解&lt;/h2&gt;
-&lt;p&gt;$n \leq 5000$&lt;/p&gt;
-&lt;p&gt;我们可以考虑一下二维dp，定义一个dp数组&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>[cf548]Edgy Trees</title>
-      <link>https://www.cheasim.com/2019/03/29/cf548-edgy-trees/</link>
-      <pubDate>Fri, 29 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.cheasim.com/2019/03/29/cf548-edgy-trees/</guid>
-      <description>&lt;h1 id=&#34;codeforces-round-548-div-2&#34;&gt;Codeforces Round #548 (Div. 2)&lt;/h1&gt;
-&lt;h2 id=&#34;cedgy-trees&#34;&gt;C.Edgy Trees&lt;/h2&gt;
-&lt;h3 id=&#34;题意&#34;&gt;题意&lt;/h3&gt;
-&lt;p&gt;给一个树，树上的边分为黑色或者红色，现在我们定义一个序列[𝑎1,𝑎2,…,𝑎𝑘]&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;我们按照次序经过序列中的每一个点(最短路径)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果进过至少一条黑边，那这个序列就是好的。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>[Codeforces Round #546 (Div. 2)题解]</title>
-      <link>https://www.cheasim.com/2019/03/18/codeforces-round-546-div-2-%E9%A2%98%E8%A7%A3/</link>
-      <pubDate>Mon, 18 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.cheasim.com/2019/03/18/codeforces-round-546-div-2-%E9%A2%98%E8%A7%A3/</guid>
-      <description>&lt;h1 id=&#34;codeforces-round-546-div-2&#34;&gt;Codeforces Round #546 (Div. 2)&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Cf on CheaSim Blog</title><link>https://www.cheasim.com/categories/cf/</link><description>Recent content in Cf on CheaSim Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 04 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://www.cheasim.com/categories/cf/index.xml" rel="self" type="application/rss+xml"/><item><title>[dp+graph] CodeForces - 721C</title><link>https://www.cheasim.com/2019/05/04/dp-graph-codeforces-721c/</link><pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate><guid>https://www.cheasim.com/2019/05/04/dp-graph-codeforces-721c/</guid><description>&lt;h1 id="dpgraph-codeforces---721c" class="reading-heading"&gt;[dp+graph] CodeForces - 721C&lt;a class="heading-anchor" href="#dpgraph-codeforces---721c" aria-label="链接到：[dp&amp;#43;graph] CodeForces - 721C"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="题意" class="reading-heading"&gt;题意&lt;a class="heading-anchor" href="#%e9%a2%98%e6%84%8f" aria-label="链接到：题意"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个有向无环图DAG，之后问从点$1$走到点$n$中，在一定的费用要求下，最多能经过多少个点。并给出经过的点。&lt;/p&gt;</description></item><item><title>[cf548]Edgy Trees</title><link>https://www.cheasim.com/2019/03/29/cf548-edgy-trees/</link><pubDate>Fri, 29 Mar 2019 00:00:00 +0000</pubDate><guid>https://www.cheasim.com/2019/03/29/cf548-edgy-trees/</guid><description>&lt;h1 id="codeforces-round-548-div-2" class="reading-heading"&gt;Codeforces Round #548 (Div. 2)&lt;a class="heading-anchor" href="#codeforces-round-548-div-2" aria-label="链接到：Codeforces Round #548 (Div. 2)"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="cedgy-trees" class="reading-heading"&gt;C.Edgy Trees&lt;a class="heading-anchor" href="#cedgy-trees" aria-label="链接到：C.Edgy Trees"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="题意" class="reading-heading"&gt;题意&lt;a class="heading-anchor" href="#%e9%a2%98%e6%84%8f" aria-label="链接到：题意"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;给一个树，树上的边分为黑色或者红色，现在我们定义一个序列[𝑎1,𝑎2,…,𝑎𝑘]&lt;/p&gt;</description></item><item><title>[Codeforces Round #546 (Div. 2)题解]</title><link>https://www.cheasim.com/2019/03/18/codeforces-round-546-div-2-%E9%A2%98%E8%A7%A3/</link><pubDate>Mon, 18 Mar 2019 00:00:00 +0000</pubDate><guid>https://www.cheasim.com/2019/03/18/codeforces-round-546-div-2-%E9%A2%98%E8%A7%A3/</guid><description>&lt;h1 id="codeforces-round-546-div-2" class="reading-heading"&gt;Codeforces Round #546 (Div. 2)&lt;a class="heading-anchor" href="#codeforces-round-546-div-2" aria-label="链接到：Codeforces Round #546 (Div. 2)"&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;D题题目读错把爷给整自闭了，此篇题解除了D都只有代码了&lt;/p&gt;
-&lt;h2 id=&#34;a-nastya-is-reading-a-book&#34;&gt;A. Nastya Is Reading a Book&lt;/h2&gt;
-&lt;h3 id=&#34;做法&#34;&gt;做法&lt;/h3&gt;
-&lt;p&gt;暴力&lt;/p&gt;
-&lt;h3 id=&#34;ac代码&#34;&gt;ac代码&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;typedef&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;typedef&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//head
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vector
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#ifdef
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;freopen(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.in&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;scanf
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rep(i,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ve.push_back(r);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;printf
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;b-nastya-is-playing-computer-games&#34;&gt;B. Nastya Is Playing Computer Games&lt;/h2&gt;
-&lt;h3 id=&#34;题解&#34;&gt;题解&lt;/h3&gt;
-&lt;p&gt;找规律。 两个一组要六次。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>[cf545]A-D题解</title>
-      <link>https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/</guid>
-      <description>&lt;h1 id=&#34;codeforces-round-545-div-2&#34;&gt;Codeforces Round #545 (Div. 2)&lt;/h1&gt;
+&lt;h2 id="a-nastya-is-reading-a-book" class="reading-heading"&gt;A. Nastya Is Reading a Book&lt;a class="heading-anchor" href="#a-nastya-is-reading-a-book" aria-label="链接到：A. Nastya Is Reading a Book"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="做法" class="reading-heading"&gt;做法&lt;a class="heading-anchor" href="#%e5%81%9a%e6%b3%95" aria-label="链接到：做法"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;暴力&lt;/p&gt;</description></item><item><title>[cf545]A-D题解</title><link>https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/</link><pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate><guid>https://www.cheasim.com/2019/03/09/cf545-a-d%E9%A2%98%E8%A7%A3/</guid><description>&lt;h1 id="codeforces-round-545-div-2" class="reading-heading"&gt;Codeforces Round #545 (Div. 2)&lt;a class="heading-anchor" href="#codeforces-round-545-div-2" aria-label="链接到：Codeforces Round #545 (Div. 2)"&gt;#&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;ps 小生不才，比赛时只做出3道。后面补了一道。&lt;/p&gt;
-&lt;h2 id=&#34;sushi-for-two&#34;&gt;Sushi for Two&lt;/h2&gt;
-&lt;h3 id=&#34;题意&#34;&gt;题意&lt;/h3&gt;
-&lt;p&gt;给定一个只含有1或者2的数组，让你找出一个子数组，子数组要求是$n个1 和 m个2$并要求$min(n,m)$最大。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>[cf541D]Gourmet choice (缩点&#43;dfs)</title>
-      <link>https://www.cheasim.com/2019/03/05/cf541d-gourmet-choice-%E7%BC%A9%E7%82%B9-dfs/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.cheasim.com/2019/03/05/cf541d-gourmet-choice-%E7%BC%A9%E7%82%B9-dfs/</guid>
-      <description>&lt;h1 id=&#34;gourmet-choice&#34;&gt;Gourmet choice&lt;/h1&gt;
-&lt;h2 id=&#34;题意&#34;&gt;题意&lt;/h2&gt;
-&lt;p&gt;给定$n$个蛋糕和$m$个蛋糕，和他们之间的大小关系。问给所有的蛋糕一个可能最小的值，使得关系成立。&lt;/p&gt;
-&lt;h2 id=&#34;题解&#34;&gt;题解&lt;/h2&gt;
-&lt;p&gt;首先由于有$=$的存在，有一些蛋糕的值是要一样的。所以我们需要把题目中的相等的点给缩到一起。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Codeforces Round #542</title>
-      <link>https://www.cheasim.com/2019/03/02/codeforces-round-542/</link>
-      <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.cheasim.com/2019/03/02/codeforces-round-542/</guid>
-      <description>&lt;h1 id=&#34;codeforces-round-542&#34;&gt;Codeforces Round #542&lt;/h1&gt;
-&lt;h2 id=&#34;a-be-positive&#34;&gt;A. Be Positive&lt;/h2&gt;
-&lt;h3 id=&#34;题意&#34;&gt;题意&lt;/h3&gt;
-&lt;p&gt;给定一个数组$a_1,a_2,…,a_n$，让你到一个数字，是的数组内的所有数字处以这个数字之后，数组内大于0的数字超过$\cfrac{n}{2}$的上界。&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+&lt;h2 id="sushi-for-two" class="reading-heading"&gt;Sushi for Two&lt;a class="heading-anchor" href="#sushi-for-two" aria-label="链接到：Sushi for Two"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="题意" class="reading-heading"&gt;题意&lt;a class="heading-anchor" href="#%e9%a2%98%e6%84%8f" aria-label="链接到：题意"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;给定一个只含有1或者2的数组，让你找出一个子数组，子数组要求是$n个1 和 m个2$并要求$min(n,m)$最大。&lt;/p&gt;</description></item><item><title>[cf541D]Gourmet choice (缩点+dfs)</title><link>https://www.cheasim.com/2019/03/05/cf541d-gourmet-choice-%E7%BC%A9%E7%82%B9-dfs/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://www.cheasim.com/2019/03/05/cf541d-gourmet-choice-%E7%BC%A9%E7%82%B9-dfs/</guid><description>&lt;h1 id="gourmet-choice" class="reading-heading"&gt;Gourmet choice&lt;a class="heading-anchor" href="#gourmet-choice" aria-label="链接到：Gourmet choice"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="题意" class="reading-heading"&gt;题意&lt;a class="heading-anchor" href="#%e9%a2%98%e6%84%8f" aria-label="链接到：题意"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定$n$个蛋糕和$m$个蛋糕，和他们之间的大小关系。问给所有的蛋糕一个可能最小的值，使得关系成立。&lt;/p&gt;</description></item><item><title>Codeforces Round #542</title><link>https://www.cheasim.com/2019/03/02/codeforces-round-542/</link><pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate><guid>https://www.cheasim.com/2019/03/02/codeforces-round-542/</guid><description>&lt;h1 id="codeforces-round-542" class="reading-heading"&gt;Codeforces Round #542&lt;a class="heading-anchor" href="#codeforces-round-542" aria-label="链接到：Codeforces Round #542"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="a-be-positive" class="reading-heading"&gt;A. Be Positive&lt;a class="heading-anchor" href="#a-be-positive" aria-label="链接到：A. Be Positive"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="题意" class="reading-heading"&gt;题意&lt;a class="heading-anchor" href="#%e9%a2%98%e6%84%8f" aria-label="链接到：题意"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;给定一个数组$a_1,a_2,…,a_n$，让你到一个数字，是的数组内的所有数字处以这个数字之后，数组内大于0的数字超过$\cfrac{n}{2}$的上界。&lt;/p&gt;</description></item></channel></rss>

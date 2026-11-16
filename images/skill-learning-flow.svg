@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220" role="img" aria-labelledby="title desc">
+<title id="title">技能从外部提示到模型参数的概念示意</title><desc id="desc">外部技能提供上下文，训练采样产生轨迹，强化学习更新参数；提示预算逐步减少。</desc>
+<rect width="900" height="220" fill="#fdfcf9"/>
+<g fill="none" stroke="#9a5037" stroke-width="2"><path d="M30 50h230v90H30zM335 50h230v90H335zM640 50h230v90H640zM260 95h75m230 0h75"/><path d="m320 88 15 7-15 7m305-14 15 7-15 7"/></g>
+<g fill="#302e29" font-family="Georgia, Noto Serif SC, serif" font-size="22" text-anchor="middle"><text x="145" y="88">外部技能</text><text x="145" y="117" font-size="16">辅助上下文</text><text x="450" y="88">训练轨迹</text><text x="450" y="117" font-size="16">探索与反馈</text><text x="755" y="88">模型参数</text><text x="755" y="117" font-size="16">策略更新</text><text x="450" y="185" font-size="16" fill="#706a60">概念示意 · 提示预算逐步减少，不表示论文实验数据</text></g></svg>

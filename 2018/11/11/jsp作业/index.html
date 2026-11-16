@@ -1,558 +1,296 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="auto" data-theme="auto">
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>jsp作业 | CheaSim Blog</title><meta name=keywords content><meta name=description content="jsp第五次上机#
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>jsp作业 | CheaSim Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="jsp第五次上机
-题目1
+题目1#
+
 实现Hibernate的增加数据功能
-题目2
-实现Hibernate的查找数据功能
-项目构成
-DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。">
-<meta name="author" content="CheaSim">
-<link rel="canonical" href="https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://www.cheasim.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+题目2#
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<meta property="og:url" content="https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/">
-  <meta property="og:site_name" content="CheaSim Blog">
-  <meta property="og:title" content="jsp作业">
-  <meta property="og:description" content="jsp第五次上机 题目1 实现Hibernate的增加数据功能
-题目2 实现Hibernate的查找数据功能
-项目构成 DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2018-11-11T00:00:00+00:00">
-    <meta property="article:modified_time" content="2018-11-11T00:00:00+00:00">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="jsp作业">
-  <meta name="twitter:description" content="jsp第五次上机 题目1 实现Hibernate的增加数据功能
-题目2 实现Hibernate的查找数据功能
-项目构成 DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://www.cheasim.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "jsp作业",
-      "item": "https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "jsp作业",
-  "name": "jsp作业",
-  "description": "jsp第五次上机 题目1 实现Hibernate的增加数据功能\n题目2 实现Hibernate的查找数据功能\n项目构成 DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "jsp第五次上机 题目1 实现Hibernate的增加数据功能\n题目2 实现Hibernate的查找数据功能\n项目构成 DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。\njava类函数代码 接口类 package import import public public public } 实现类 package import import import import import import import import public SessionFactory sessionFactory = null Session session = null Transaction tx = null public public sessionFactory = new configure(\"hibernate.cfg.xml\" buildSessionFactory(); session = sessionFactory.openSession(); tx = session.beginTransaction(); } @Override public init(); session.save(student); tx.commit(); } @Override public init(); List students = session.createQuery(\"from Student\" return } } Action类 package import import import import import import import public private private private public return } public dao.saveStudent(student); return } public students = dao.getAll(); return } public return } public this } public return } public this } } model类 package import import public private private private public public this this this } public return } public this } public return } public this } public return } public this } @Override public if if Student that = (Student) o; return Objects.equals(name, that.name) \u0026\u0026 Objects.equals(address, that.address); } @Override public return } } 对应的数据库mapping students = students = session.createQuery(\"from Student\" for Object[] o = (Object[])iter.next(); System.out.println(o[0 } } } 显示页面 写了两种显示方式\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647 Hello World ID Name Address 0\"\u003e Student Id Name Address\n运行界面 输入信息之后submit加载到数据库中，并显示数据库中所有数据。\njsp作业\nhttps://www.cheasim.com/uncategorized/2018/11/11/jsp%E4%BD%9C%E4%B8%9A.html\n作者 CheaSim\n发布于 2018-11-11\n更新于 2018-11-11\n许可协议\n",
-  "wordCount" : "445",
-  "inLanguage": "zh-cn",
-  "datePublished": "2018-11-11T00:00:00Z",
-  "dateModified": "2018-11-11T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "CheaSim"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CheaSim Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.cheasim.com/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body id="top">
-    <header class="header">
-    <nav class="header-nav">
-        <div class="logo">
-            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu" class="menu">
-            <li>
-                <a href="https://www.cheasim.com/about/" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/archives/" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/CheaSim" title="GitHub">
-                    <span>GitHub</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-
-<article class="post-single">
-  <header class="post-header">
-    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-            <a href="/posts/">Posts</a>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-        <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-</nav>
-    <h1 class="post-title entry-hint-parent">
-      jsp作业
-    </h1>
-    <div class="post-meta">
-
-<span title='2018-11-11 00:00:00 +0000 UTC'>November 11, 2018</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+实现Hibernate的查找数据功能"><meta name=author content="CheaSim"><link rel=canonical href=https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://www.cheasim.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://www.cheasim.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://www.cheasim.com/favicon-32x32.png><link rel=apple-touch-icon href=https://www.cheasim.com/apple-touch-icon.png><link rel=mask-icon href=https://www.cheasim.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><link rel=stylesheet href=/vendor/katex/katex.min.css><script defer src=/vendor/katex/katex.min.js></script><script defer src=/vendor/katex/auto-render.min.js></script><script>document.addEventListener("DOMContentLoaded",()=>{if(!window.renderMathInElement)return;const e=document.querySelector(".post-content");e&&renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1,trust:!1})})</script><meta property="og:url" content="https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/"><meta property="og:site_name" content="CheaSim Blog"><meta property="og:title" content="jsp作业"><meta property="og:description" content="jsp第五次上机# 题目1# 实现Hibernate的增加数据功能
+题目2# 实现Hibernate的查找数据功能"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2018-11-11T00:00:00+00:00"><meta property="article:modified_time" content="2018-11-11T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="jsp作业"><meta name=twitter:description content="jsp第五次上机# 题目1# 实现Hibernate的增加数据功能
+题目2# 实现Hibernate的查找数据功能"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://www.cheasim.com/posts/"},{"@type":"ListItem","position":2,"name":"jsp作业","item":"https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"jsp作业","name":"jsp作业","description":"jsp第五次上机# 题目1# 实现Hibernate的增加数据功能\n题目2# 实现Hibernate的查找数据功能\n","keywords":[],"articleBody":"jsp第五次上机# 题目1# 实现Hibernate的增加数据功能\n题目2# 实现Hibernate的查找数据功能\n项目构成# DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。\njava类函数代码# 接口类# java复制 1package 2import 3import 4 5public 6public 7public 8} package import import public public public } 实现类# java复制 1package 2 3import 4import 5import 6import 7import 8import 9 10import 11import 12 13public 14SessionFactory sessionFactory = null 15Session session = null 16Transaction tx = null 17public 18public 19sessionFactory = new 20configure(\"hibernate.cfg.xml\" 21buildSessionFactory(); 22session = sessionFactory.openSession(); 23tx = session.beginTransaction(); 24} 25@Override 26public 27init(); 28session.save(student); 29tx.commit(); 30} 31 32@Override 33public 34init(); 35List students = session.createQuery(\"from Student\" 36return 37} 38} package import import import import import import import import public SessionFactory sessionFactory = null Session session = null Transaction tx = null public public sessionFactory = new configure(\"hibernate.cfg.xml\" buildSessionFactory(); session = sessionFactory.openSession(); tx = session.beginTransaction(); } @Override public init(); session.save(student); tx.commit(); } @Override public init(); List students = session.createQuery(\"from Student\" return } } Action类# java复制 1package 2 3import 4import 5import 6import 7import 8import 9import 10 11public 12private 13private 14private 15public 16return 17} 18public 19 20dao.saveStudent(student); 21return 22} 23public 24 25students = dao.getAll(); 26return 27} 28public 29return 30} 31public 32this 33} 34public 35return 36} 37public 38this 39} 40} package import import import import import import import public private private private public return } public dao.saveStudent(student); return } public students = dao.getAll(); return } public return } public this } public return } public this } } model类# java复制 1package 2 3import 4import 5public 6private 7private 8private 9public 10public 11this 12this 13this 14} 15public 16return 17} 18 19public 20this 21} 22 23public 24return 25} 26 27public 28this 29} 30 31public 32return 33} 34 35public 36this 37} 38 39@Override 40public 41if 42if 43Student that = (Student) o; 44return 45Objects.equals(name, that.name) \u0026\u0026 46Objects.equals(address, that.address); 47} 48 49@Override 50public 51return 52} 53} package import import public private private private public public this this this } public return } public this } public return } public this } public return } public this } @Override public if if Student that = (Student) o; return Objects.equals(name, that.name) \u0026\u0026 Objects.equals(address, that.address); } @Override public return } } 对应的数据库mapping# xml复制 1 2 students = students = session.createQuery(\"from Student\" 3for 4Object[] o = (Object[])iter.next(); 5System.out.println(o[0 6} 7} 8} students = students = session.createQuery(\"from Student\" for Object[] o = (Object[])iter.next(); System.out.println(o[0 } } } 显示页面# 写了两种显示方式\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647 Hello World ID Name Address 0\"\u003e Student Id Name Address\n运行界面# 输入信息之后submit加载到数据库中，并显示数据库中所有数据。\njsp作业\n原站文章链接\r作者 CheaSim\n发布于 2018-11-11\n更新于 2018-11-11\n许可协议\n","wordCount":"675","inLanguage":"zh-cn","datePublished":"2018-11-11T00:00:00Z","dateModified":"2018-11-11T00:00:00Z","author":{"@type":"Person","name":"CheaSim"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cheasim.com/2018/11/11/jsp%E4%BD%9C%E4%B8%9A/"},"publisher":{"@type":"Organization","name":"CheaSim Blog","logo":{"@type":"ImageObject","url":"https://www.cheasim.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://www.cheasim.com/ accesskey=h title="CheaSim Blog (Alt + H)">CheaSim Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://www.cheasim.com/about/ title=关于><span>关于</span></a></li><li><a href=https://www.cheasim.com/archives/ title=归档><span>归档</span></a></li><li><a href=https://www.cheasim.com/tags/ title=标签><span>标签</span></a></li><li><a href=https://www.cheasim.com/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li></ul></nav></header><main class=main><article class="post-single paper-article"><div class=reading-progress aria-hidden=true><span></span></div><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/posts/>Posts</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">jsp作业</h1><div class=post-meta><span class=paper-byline>谢辛 / CheaSim · <time datetime=2018-11-11>2018-11-11</time> · 更新 2018-11-11 · 约 2 分钟</span>
 &nbsp;·&nbsp;
-<span id="busuanzi_container_page_pv" class="busuanzi-page-pv">
-  阅读 <span id="busuanzi_value_page_pv">-</span> 次
-</span>
-
-
-</div>
-  </header> <details class="toc" >
-    <summary accesskey="c" title="(Alt + C)">
-        <span class="title">Table of Contents</span>
-    </summary>
-
-    <div class="inner"><ul>
-            <li>
-                <a href="#jsp%e7%ac%ac%e4%ba%94%e6%ac%a1%e4%b8%8a%e6%9c%ba" aria-label="jsp第五次上机">jsp第五次上机</a><ul>
-                    
-            <li>
-                <a href="#%e9%a2%98%e7%9b%ae1" aria-label="题目1">题目1</a></li>
-            <li>
-                <a href="#%e9%a2%98%e7%9b%ae2" aria-label="题目2">题目2</a></li>
-            <li>
-                <a href="#%e9%a1%b9%e7%9b%ae%e6%9e%84%e6%88%90" aria-label="项目构成">项目构成</a></li>
-            <li>
-                <a href="#java%e7%b1%bb%e5%87%bd%e6%95%b0%e4%bb%a3%e7%a0%81" aria-label="java类函数代码">java类函数代码</a><ul>
-                    <ul>
-                    
-            <li>
-                <a href="#%e6%8e%a5%e5%8f%a3%e7%b1%bb" aria-label="接口类">接口类</a></li>
-            <li>
-                <a href="#%e5%ae%9e%e7%8e%b0%e7%b1%bb" aria-label="实现类">实现类</a></li>
-            <li>
-                <a href="#action%e7%b1%bb" aria-label="Action类">Action类</a></li>
-            <li>
-                <a href="#model%e7%b1%bb" aria-label="model类">model类</a></li>
-            <li>
-                <a href="#%e5%af%b9%e5%ba%94%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%93mapping" aria-label="对应的数据库mapping">对应的数据库mapping</a></li>
-            <li>
-                <a href="#%e6%98%be%e7%a4%ba%e9%a1%b5%e9%9d%a2" aria-label="显示页面">显示页面</a></li></ul>
-                </ul>
-            </li>
-            <li>
-                <a href="#%e8%bf%90%e8%a1%8c%e7%95%8c%e9%9d%a2" aria-label="运行界面">运行界面</a>
-            </li>
-        </ul>
-        </li>
-        </ul>
-    </div>
-</details>
-
-  <div class="post-content md-content"><h1 id="jsp第五次上机">jsp第五次上机<a hidden class="anchor" aria-hidden="true" href="#jsp第五次上机">#</a></h1>
-<h2 id="题目1">题目1<a hidden class="anchor" aria-hidden="true" href="#题目1">#</a></h2>
-<p>实现Hibernate的增加数据功能</p>
-<h2 id="题目2">题目2<a hidden class="anchor" aria-hidden="true" href="#题目2">#</a></h2>
-<p>实现Hibernate的查找数据功能</p>
-<h2 id="项目构成">项目构成<a hidden class="anchor" aria-hidden="true" href="#项目构成">#</a></h2>
-<p>DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。</p>
-<h2 id="java类函数代码">java类函数代码<a hidden class="anchor" aria-hidden="true" href="#java类函数代码">#</a></h2>
-<h4 id="接口类">接口类<a hidden class="anchor" aria-hidden="true" href="#接口类">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>public
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="实现类">实现类<a hidden class="anchor" aria-hidden="true" href="#实现类">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>public
-</span></span><span style="display:flex;"><span>SessionFactory sessionFactory <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
-</span></span><span style="display:flex;"><span>Session session <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
-</span></span><span style="display:flex;"><span>Transaction tx <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span>sessionFactory <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span>
-</span></span><span style="display:flex;"><span>configure(<span style="color:#e6db74">&#34;hibernate.cfg.xml&#34;</span>
-</span></span><span style="display:flex;"><span>buildSessionFactory();
-</span></span><span style="display:flex;"><span>session <span style="color:#f92672">=</span> sessionFactory.<span style="color:#a6e22e">openSession</span>();
-</span></span><span style="display:flex;"><span>tx <span style="color:#f92672">=</span> session.<span style="color:#a6e22e">beginTransaction</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">init</span>();
-</span></span><span style="display:flex;"><span>session.<span style="color:#a6e22e">save</span>(student);
-</span></span><span style="display:flex;"><span>tx.<span style="color:#a6e22e">commit</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">init</span>();
-</span></span><span style="display:flex;"><span>List students <span style="color:#f92672">=</span> session.<span style="color:#a6e22e">createQuery</span>(<span style="color:#e6db74">&#34;from Student&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="action类">Action类<a hidden class="anchor" aria-hidden="true" href="#action类">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>dao.<span style="color:#a6e22e">saveStudent</span>(student);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>students <span style="color:#f92672">=</span> dao.<span style="color:#a6e22e">getAll</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="model类">model类<a hidden class="anchor" aria-hidden="true" href="#model类">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>import
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>
-</span></span><span style="display:flex;"><span>public
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>
-</span></span><span style="display:flex;"><span>Student that <span style="color:#f92672">=</span> (Student) o;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>Objects.<span style="color:#a6e22e">equals</span>(name, that.<span style="color:#a6e22e">name</span>) <span style="color:#f92672">&amp;&amp;</span>
-</span></span><span style="display:flex;"><span>Objects.<span style="color:#a6e22e">equals</span>(address, that.<span style="color:#a6e22e">address</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="对应的数据库mapping">对应的数据库mapping<a hidden class="anchor" aria-hidden="true" href="#对应的数据库mapping">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> students = students = session.createQuery(&#34;from Student&#34;
-</span></span><span style="display:flex;"><span>for
-</span></span><span style="display:flex;"><span>Object[] o = (Object[])iter.next();
-</span></span><span style="display:flex;"><span>System.out.println(o[0
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="显示页面">显示页面<a hidden class="anchor" aria-hidden="true" href="#显示页面">#</a></h4>
-<p>写了两种显示方式</p>
-<p>1234567891011121314151617181920212223242526272829303132333435363738394041424344454647  Hello World                        ID      Name      Address                                                   0&quot;&gt;            Student Id      Name      Address</p>
-<h2 id="运行界面">运行界面<a hidden class="anchor" aria-hidden="true" href="#运行界面">#</a></h2>
-<p>输入信息之后submit加载到数据库中，并显示数据库中所有数据。</p>
-<p>jsp作业</p>
-<p><a href="https://www.cheasim.com/uncategorized/2018/11/11/jsp%E4%BD%9C%E4%B8%9A.html">https://www.cheasim.com/uncategorized/2018/11/11/jsp%E4%BD%9C%E4%B8%9A.html</a></p>
-<p>作者
-CheaSim</p>
-<p>发布于
-2018-11-11</p>
-<p>更新于
-2018-11-11</p>
-<p>许可协议</p>
-
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://www.cheasim.com/2018/11/11/javabean%E5%92%8Chibernate/">
-    <span class="title">« </span>
-    <span>JavaBean和Hibernate</span>
-  </a>
-  <a class="next" href="https://www.cheasim.com/2018/11/08/ssh%E4%B8%AD%E7%9A%84sh%E9%85%8D%E7%BD%AE/">
-    <span class="title"> »</span>
-    <span>SSH中的SH配置</span>
-  </a>
-</nav>
-
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
-    <span class="busuanzi-site-stats">
-        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
-        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
-    </span> | 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
-        <polyline points="17 11 12 6 7 11"></polyline>
-        <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-</a>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
-        }
-    };
-</script>
-</body>
-
-</html>
+<span id=busuanzi_container_page_pv class=busuanzi-page-pv>阅读 <span id=busuanzi_value_page_pv>-</span> 次</span></div></header><section class=paper-abstract aria-label=摘要><h2>Abstract / 摘要</h2><p>jsp第五次上机# 题目1# 实现Hibernate的增加数据功能
+题目2# 实现Hibernate的查找数据功能</p></section><details class="toc reading-toc" open><summary><span>本篇目录</span><span class=toc-current aria-hidden=true></span></summary><div class=toc-scroll tabindex=0 aria-label=文章目录><nav id=TableOfContents><ul><li><a href=#题目1>题目1</a></li><li><a href=#题目2>题目2</a></li><li><a href=#项目构成>项目构成</a></li><li><a href=#java类函数代码>java类函数代码</a><ul><li></li></ul></li><li><a href=#运行界面>运行界面</a></li></ul></nav></div></details><div class="post-content md-content"><h1 id=jsp第五次上机 class=reading-heading>jsp第五次上机<a class=heading-anchor href=#jsp%e7%ac%ac%e4%ba%94%e6%ac%a1%e4%b8%8a%e6%9c%ba aria-label=链接到：jsp第五次上机>#</a></h1><h2 id=题目1 class=reading-heading>题目1<a class=heading-anchor href=#%e9%a2%98%e7%9b%ae1 aria-label=链接到：题目1>#</a></h2><p>实现Hibernate的增加数据功能</p><h2 id=题目2 class=reading-heading>题目2<a class=heading-anchor href=#%e9%a2%98%e7%9b%ae2 aria-label=链接到：题目2>#</a></h2><p>实现Hibernate的查找数据功能</p><h2 id=项目构成 class=reading-heading>项目构成<a class=heading-anchor href=#%e9%a1%b9%e7%9b%ae%e6%9e%84%e6%88%90 aria-label=链接到：项目构成>#</a></h2><p>DAO是项目的功能接口类，DAOImpl是DAO功能接口的实现类。AddStudent是主要的Action类，有两个方法，一个是增加学生数据一个是显示学生数据。Student和hbm由IDE自动根据数据库生成。</p><h2 id=java类函数代码 class=reading-heading>java类函数代码<a class=heading-anchor href=#java%e7%b1%bb%e5%87%bd%e6%95%b0%e4%bb%a3%e7%a0%81 aria-label=链接到：java类函数代码>#</a></h2><h4 id=接口类 class=reading-heading>接口类<a class=heading-anchor href=#%e6%8e%a5%e5%8f%a3%e7%b1%bb aria-label=链接到：接口类>#</a></h4><figure class=code-frame><figcaption><span>java</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="java 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=ln>1</span><span class=cl><span class=kn>package</span><span class=w>
+</span></span></span><span class=line><span class=ln>2</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln>3</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln>4</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>5</span><span class=cl><span class=nn>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>6</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>7</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>8</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>package
+import
+import
+public
+public
+public
+}</template></figure><h4 id=实现类 class=reading-heading>实现类<a class=heading-anchor href=#%e5%ae%9e%e7%8e%b0%e7%b1%bb aria-label=链接到：实现类>#</a></h4><figure class=code-frame><figcaption><span>java</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="java 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=ln> 1</span><span class=cl><span class=kn>package</span><span class=w>
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln> 3</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 8</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 9</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>10</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln>12</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>13</span><span class=cl><span class=nn>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>14</span><span class=cl><span class=n>SessionFactory</span><span class=w> </span><span class=n>sessionFactory</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=w>
+</span></span></span><span class=line><span class=ln>15</span><span class=cl><span class=n>Session</span><span class=w> </span><span class=n>session</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=w>
+</span></span></span><span class=line><span class=ln>16</span><span class=cl><span class=n>Transaction</span><span class=w> </span><span class=n>tx</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=w>
+</span></span></span><span class=line><span class=ln>17</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>18</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>19</span><span class=cl><span class=n>sessionFactory</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w>
+</span></span></span><span class=line><span class=ln>20</span><span class=cl><span class=n>configure</span><span class=p>(</span><span class=s>&#34;hibernate.cfg.xml&#34;</span><span class=w>
+</span></span></span><span class=line><span class=ln>21</span><span class=cl><span class=n>buildSessionFactory</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>22</span><span class=cl><span class=n>session</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>sessionFactory</span><span class=p>.</span><span class=na>openSession</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>23</span><span class=cl><span class=n>tx</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>session</span><span class=p>.</span><span class=na>beginTransaction</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>24</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>25</span><span class=cl><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=ln>26</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>27</span><span class=cl><span class=nf>init</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>28</span><span class=cl><span class=n>session</span><span class=p>.</span><span class=na>save</span><span class=p>(</span><span class=n>student</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=ln>29</span><span class=cl><span class=n>tx</span><span class=p>.</span><span class=na>commit</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>30</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>31</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>32</span><span class=cl><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=ln>33</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>34</span><span class=cl><span class=nf>init</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>35</span><span class=cl><span class=n>List</span><span class=w> </span><span class=n>students</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>session</span><span class=p>.</span><span class=na>createQuery</span><span class=p>(</span><span class=s>&#34;from Student&#34;</span><span class=w>
+</span></span></span><span class=line><span class=ln>36</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>37</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>38</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>package
+import
+import
+import
+import
+import
+import
+import
+import
+public
+SessionFactory sessionFactory = null
+Session session = null
+Transaction tx = null
+public
+public
+sessionFactory = new
+configure("hibernate.cfg.xml"
+buildSessionFactory();
+session = sessionFactory.openSession();
+tx = session.beginTransaction();
+}
+@Override
+public
+init();
+session.save(student);
+tx.commit();
+}
+@Override
+public
+init();
+List students = session.createQuery("from Student"
+return
+}
+}</template></figure><h4 id=action类 class=reading-heading>Action类<a class=heading-anchor href=#action%e7%b1%bb aria-label=链接到：Action类>#</a></h4><figure class=code-frame><figcaption><span>java</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="java 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=ln> 1</span><span class=cl><span class=kn>package</span><span class=w>
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln> 3</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 8</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 9</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln>10</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>12</span><span class=cl><span class=kd>private</span><span class=w>
+</span></span></span><span class=line><span class=ln>13</span><span class=cl><span class=kd>private</span><span class=w>
+</span></span></span><span class=line><span class=ln>14</span><span class=cl><span class=kd>private</span><span class=w>
+</span></span></span><span class=line><span class=ln>15</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>16</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>17</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>18</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>19</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>20</span><span class=cl><span class=n>dao</span><span class=p>.</span><span class=na>saveStudent</span><span class=p>(</span><span class=n>student</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=ln>21</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>22</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>23</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>24</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>25</span><span class=cl><span class=n>students</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>dao</span><span class=p>.</span><span class=na>getAll</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=ln>26</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>27</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>28</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>29</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>30</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>31</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>32</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>33</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>34</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>35</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>36</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>37</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>38</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>39</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>40</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>package
+import
+import
+import
+import
+import
+import
+import
+public
+private
+private
+private
+public
+return
+}
+public
+dao.saveStudent(student);
+return
+}
+public
+students = dao.getAll();
+return
+}
+public
+return
+}
+public
+this
+}
+public
+return
+}
+public
+this
+}
+}</template></figure><h4 id=model类 class=reading-heading>model类<a class=heading-anchor href=#model%e7%b1%bb aria-label=链接到：model类>#</a></h4><figure class=code-frame><figcaption><span>java</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="java 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=ln> 1</span><span class=cl><span class=kn>package</span><span class=w>
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln> 3</span><span class=cl><span class=nn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=kn>import</span><span class=w>
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=nn>public</span><span class=w>
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=kd>private</span><span class=w>
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=kd>private</span><span class=w>
+</span></span></span><span class=line><span class=ln> 8</span><span class=cl><span class=kd>private</span><span class=w>
+</span></span></span><span class=line><span class=ln> 9</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>10</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>11</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>12</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>13</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>14</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>15</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>16</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>17</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>18</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>19</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>20</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>21</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>22</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>23</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>24</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>25</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>26</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>27</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>28</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>29</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>30</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>31</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>32</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>33</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>34</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>35</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>36</span><span class=cl><span class=k>this</span><span class=w>
+</span></span></span><span class=line><span class=ln>37</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>38</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>39</span><span class=cl><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=ln>40</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>41</span><span class=cl><span class=k>if</span><span class=w>
+</span></span></span><span class=line><span class=ln>42</span><span class=cl><span class=k>if</span><span class=w>
+</span></span></span><span class=line><span class=ln>43</span><span class=cl><span class=n>Student</span><span class=w> </span><span class=n>that</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=n>Student</span><span class=p>)</span><span class=w> </span><span class=n>o</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=ln>44</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>45</span><span class=cl><span class=n>Objects</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>that</span><span class=p>.</span><span class=na>name</span><span class=p>)</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w>
+</span></span></span><span class=line><span class=ln>46</span><span class=cl><span class=n>Objects</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>address</span><span class=p>,</span><span class=w> </span><span class=n>that</span><span class=p>.</span><span class=na>address</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=ln>47</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>48</span><span class=cl><span class=w>
+</span></span></span><span class=line><span class=ln>49</span><span class=cl><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=ln>50</span><span class=cl><span class=kd>public</span><span class=w>
+</span></span></span><span class=line><span class=ln>51</span><span class=cl><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=ln>52</span><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=ln>53</span><span class=cl><span class=p>}</span></span></span></code></pre></div></div><template class=code-source>package
+import
+import
+public
+private
+private
+private
+public
+public
+this
+this
+this
+}
+public
+return
+}
+public
+this
+}
+public
+return
+}
+public
+this
+}
+public
+return
+}
+public
+this
+}
+@Override
+public
+if
+if
+Student that = (Student) o;
+return
+Objects.equals(name, that.name) &&
+Objects.equals(address, that.address);
+}
+@Override
+public
+return
+}
+}</template></figure><h4 id=对应的数据库mapping class=reading-heading>对应的数据库mapping<a class=heading-anchor href=#%e5%af%b9%e5%ba%94%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%93mapping aria-label=链接到：对应的数据库mapping>#</a></h4><figure class=code-frame><figcaption><span>xml</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="xml 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=ln>1</span><span class=cl>
+</span></span><span class=line><span class=ln>2</span><span class=cl> students = students = session.createQuery(&#34;from Student&#34;
+</span></span><span class=line><span class=ln>3</span><span class=cl>for
+</span></span><span class=line><span class=ln>4</span><span class=cl>Object[] o = (Object[])iter.next();
+</span></span><span class=line><span class=ln>5</span><span class=cl>System.out.println(o[0
+</span></span><span class=line><span class=ln>6</span><span class=cl>}
+</span></span><span class=line><span class=ln>7</span><span class=cl>}
+</span></span><span class=line><span class=ln>8</span><span class=cl>}</span></span></code></pre></div></div><template class=code-source>students = students = session.createQuery("from Student"
+for
+Object[] o = (Object[])iter.next();
+System.out.println(o[0
+}
+}
+}</template></figure><h4 id=显示页面 class=reading-heading>显示页面<a class=heading-anchor href=#%e6%98%be%e7%a4%ba%e9%a1%b5%e9%9d%a2 aria-label=链接到：显示页面>#</a></h4><p>写了两种显示方式</p><p>1234567891011121314151617181920212223242526272829303132333435363738394041424344454647 Hello World ID Name Address 0"> Student Id Name Address</p><h2 id=运行界面 class=reading-heading>运行界面<a class=heading-anchor href=#%e8%bf%90%e8%a1%8c%e7%95%8c%e9%9d%a2 aria-label=链接到：运行界面>#</a></h2><p>输入信息之后submit加载到数据库中，并显示数据库中所有数据。</p><p>jsp作业</p><p><a href=https://www.cheasim.com/uncategorized/2018/11/11/jsp%E4%BD%9C%E4%B8%9A.html>原站文章链接</a></p><p>作者
+CheaSim</p><p>发布于
+2018-11-11</p><p>更新于
+2018-11-11</p><p>许可协议</p></div><div class=paper-endmatter></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://www.cheasim.com/2018/11/11/javabean%E5%92%8Chibernate/><span class=title>« </span><span>JavaBean和Hibernate</span>
+</a><a class=next href=https://www.cheasim.com/2018/11/08/ssh%E4%B8%AD%E7%9A%84sh%E9%85%8D%E7%BD%AE/><span class=title>»</span>
+<span>SSH中的SH配置</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://www.cheasim.com/>CheaSim Blog</a></span> |
+<span class=busuanzi-site-stats><span id=busuanzi_container_site_pv>总访问 <span id=busuanzi_value_site_pv>-</span></span>
+<span id=busuanzi_container_site_uv>&nbsp;|&nbsp;访客 <span id=busuanzi_value_site_uv>-</span></span>
+</span>|
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script>document.getElementById("theme-toggle")?.addEventListener("click",()=>{const e=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=e,localStorage.setItem("pref-theme",e)})</script><script defer src=/js/paper.min.50a0fd241083bb2bf79dcca11adad2c86bea665e72218fee18efe8c9d1f07e99.js integrity="sha256-UKD9JBCDuyv3ncyhGtrSyGvqZl5yIY/uGO/oydHwfpk="></script><script defer src=/js/reading.min.9525e96cbb0864aa93300b6f7eeb49ab75e631c372e3995e6a8aceb4acb8d40b.js integrity="sha256-lSXpbLsIZKqTMAtvfutJq3XmMcNy45leaorOtKy41As="></script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{if(e.closest(".reading-toc"))return;e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script></body></html>

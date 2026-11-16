@@ -1,477 +1,105 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="auto" data-theme="auto">
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>树链剖分学习笔记 | CheaSim Blog</title><meta name=keywords content><meta name=description content="树链剖分学习笔记#
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>树链剖分学习笔记 | CheaSim Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="树链剖分学习笔记
-题型
-当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。">
-<meta name="author" content="CheaSim">
-<link rel="canonical" href="https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://www.cheasim.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://www.cheasim.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.cheasim.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://www.cheasim.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://www.cheasim.com/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+题型#
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    svg: {
-      fontCache: 'global'
-    }
-  };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<meta property="og:url" content="https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-  <meta property="og:site_name" content="CheaSim Blog">
-  <meta property="og:title" content="树链剖分学习笔记">
-  <meta property="og:description" content="树链剖分学习笔记 题型 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2018-09-29T00:00:00+00:00">
-    <meta property="article:modified_time" content="2018-09-29T00:00:00+00:00">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="树链剖分学习笔记">
-  <meta name="twitter:description" content="树链剖分学习笔记 题型 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://www.cheasim.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "树链剖分学习笔记",
-      "item": "https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "树链剖分学习笔记",
-  "name": "树链剖分学习笔记",
-  "description": "树链剖分学习笔记 题型 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "树链剖分学习笔记 题型 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。\n轻重边剖分 将树中的边分为两部分，轻边和重边，用$size[u]$来记录以$u$为根的子树的节点个数，之后令$v$为$u$的儿子中$size$最大的一个，那么我们就可以将$u$的边分为重边和轻边了(重边就是$(u.v)$)。\n之后我们就可以得到如下性质\n如果$(u,v)$为轻边，那么$size[v] \\leq size[u]/2$。因为如果大于的话，他就成为重边了。\n从根到某一点的路径上轻边的个数不会超过$logN$。假设从$root-\u003ev$，那么$size[v]\u003e=1$，可以递推出$size[root]\u003e=2^k$，其中$k$为根到点进过的点数。\n实现 初始化操作 首先我们定义以下几个数组\n$size[v]$表示以$v$为根的子树的节点数\n$dep[v]$表示$v$的深度（根的深度为1）\n$top[v]$表示所在重链的顶端节点\n$fa[v]$表示父亲节点，$son[v]$表示重儿子节点\n$w[v]$表示与父亲的连边\n然后我们使用两个dfs来把数组确定下来。\n第一个dfs求出fa,dep,size,top,w。\n第二个dfs\n对于循环到的$v$，当$son[v]$存在的时候，也就是非叶子节点，那么$top[son[v]] = top[v]$是显而易见的。在线段树中我们规定孩子节点的重边必须在父亲节点的后面，那么$w[son[v]]=totw+1$，其中$totw$表示线段树中加入的最后一条边的位置。之后进行递归dfs(son[v]);\n对于$v$的轻孩子，那么他们没有身处重链所以$top[x]=x$。那么我们为了线段树好看一点也将他加入线段树。$w[x]=totw+1$。\n经过两个dfs我们把所有的数组都给他确认了。\n这代码量该有多大啊，对于常年只写70行就要debug很久的我来说。\n更新操作 因为我们其实也是慢慢修改路径上的边的，所以我们先求个LCA。之后更新$u,v$到祖先节点。方法意会吧，或者看代码。\n查询操作 跟更新操作很像，就是在过程中不再更新，而是求值。\n例题 Aragorn’s Story +1 更新节点的时候必须在id[x]更新\n+1 大于小于没弄明白，在change函数中。\n+1 update的时候以为是线段树直接从左边更新到右边，其实是在那个重边更新，所以是update(val,id[x],id[t1],1,totw,1);这样的操作。\n#include using #define #define #define #define #define #define void int a = b; b = temp; } typedef typedef const //head const int int int struct int }G[maxn 个人鄙见： 树链剖分就是将树一部分分成区间修改，一部分分成单点修改，但是单点修改的复杂度控制在了$O(logN)$。 \u003e Reference: \u003e https://blog.csdn.net/dyx404514/article/details/8718249 树链剖分学习笔记 https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html 作者 CheaSim 发布于 2018-09-29 更新于 2018-09-30 许可协议 #[acm](/tags/acm/)[树链剖分](/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/) ",
-  "wordCount" : "1229",
-  "inLanguage": "zh-cn",
-  "datePublished": "2018-09-29T00:00:00Z",
-  "dateModified": "2018-09-29T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "CheaSim"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CheaSim Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.cheasim.com/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body id="top">
-    <header class="header">
-    <nav class="header-nav">
-        <div class="logo">
-            <a href="https://www.cheasim.com/" accesskey="h" title="CheaSim Blog (Alt + H)">CheaSim Blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu" class="menu">
-            <li>
-                <a href="https://www.cheasim.com/about/" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/archives/" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.cheasim.com/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/CheaSim" title="GitHub">
-                    <span>GitHub</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-
-<article class="post-single">
-  <header class="post-header">
-    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-            <a href="/posts/">Posts</a>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-        <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-</nav>
-    <h1 class="post-title entry-hint-parent">
-      树链剖分学习笔记
-    </h1>
-    <div class="post-meta">
-
-<span title='2018-09-29 00:00:00 +0000 UTC'>September 29, 2018</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>CheaSim</span>
+当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。"><meta name=author content="CheaSim"><link rel=canonical href=https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://www.cheasim.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://www.cheasim.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://www.cheasim.com/favicon-32x32.png><link rel=apple-touch-icon href=https://www.cheasim.com/apple-touch-icon.png><link rel=mask-icon href=https://www.cheasim.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><link rel=stylesheet href=/vendor/katex/katex.min.css><script defer src=/vendor/katex/katex.min.js></script><script defer src=/vendor/katex/auto-render.min.js></script><script>document.addEventListener("DOMContentLoaded",()=>{if(!window.renderMathInElement)return;const e=document.querySelector(".post-content");e&&renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1,trust:!1})})</script><meta property="og:url" content="https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="CheaSim Blog"><meta property="og:title" content="树链剖分学习笔记"><meta property="og:description" content="树链剖分学习笔记# 题型# 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2018-09-29T00:00:00+00:00"><meta property="article:modified_time" content="2018-09-29T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="树链剖分学习笔记"><meta name=twitter:description content="树链剖分学习笔记# 题型# 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://www.cheasim.com/posts/"},{"@type":"ListItem","position":2,"name":"树链剖分学习笔记","item":"https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"树链剖分学习笔记","name":"树链剖分学习笔记","description":"树链剖分学习笔记# 题型# 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。\n","keywords":[],"articleBody":"树链剖分学习笔记# 题型# 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。\n轻重边剖分# 将树中的边分为两部分，轻边和重边，用$size[u]$来记录以$u$为根的子树的节点个数，之后令$v$为$u$的儿子中$size$最大的一个，那么我们就可以将$u$的边分为重边和轻边了(重边就是$(u.v)$)。\n之后我们就可以得到如下性质\n如果$(u,v)$为轻边，那么$size[v] \\leq size[u]/2$。因为如果大于的话，他就成为重边了。\n从根到某一点的路径上轻边的个数不会超过$logN$。假设从$root-\u003ev$，那么$size[v]\u003e=1$，可以递推出$size[root]\u003e=2^k$，其中$k$为根到点进过的点数。\n实现# 初始化操作# 首先我们定义以下几个数组\n$size[v]$表示以$v$为根的子树的节点数\n$dep[v]$表示$v$的深度（根的深度为1）\n$top[v]$表示所在重链的顶端节点\n$fa[v]$表示父亲节点，$son[v]$表示重儿子节点\n$w[v]$表示与父亲的连边\n然后我们使用两个dfs来把数组确定下来。\n第一个dfs求出fa,dep,size,top,w。\n第二个dfs\n对于循环到的$v$，当$son[v]$存在的时候，也就是非叶子节点，那么$top[son[v]] = top[v]$是显而易见的。在线段树中我们规定孩子节点的重边必须在父亲节点的后面，那么$w[son[v]]=totw+1$，其中$totw$表示线段树中加入的最后一条边的位置。之后进行递归dfs(son[v]);\n对于$v$的轻孩子，那么他们没有身处重链所以$top[x]=x$。那么我们为了线段树好看一点也将他加入线段树。$w[x]=totw+1$。\n经过两个dfs我们把所有的数组都给他确认了。\n这代码量该有多大啊，对于常年只写70行就要debug很久的我来说。\n更新操作# 因为我们其实也是慢慢修改路径上的边的，所以我们先求个LCA。之后更新$u,v$到祖先节点。方法意会吧，或者看代码。\n查询操作# 跟更新操作很像，就是在过程中不再更新，而是求值。\n例题# Aragorn’s Story# +1 更新节点的时候必须在id[x]更新\n+1 大于小于没弄明白，在change函数中。\n+1 update的时候以为是线段树直接从左边更新到右边，其实是在那个重边更新，所以是update(val,id[x],id[t1],1,totw,1);这样的操作。\ncpp复制 1#include 2using 3#define 4#define 5#define 6#define 7#define 8#define 9void 10int 11a = b; 12b = temp; 13} 14typedef 15typedef 16const 17//head 18const 19int 20int 21int 22struct 23int 24}G[maxn 25 26个人鄙见： 27 28树链剖分就是将树一部分分成区间修改，一部分分成单点修改，但是单点修改的复杂度控制在了$O(logN)$。 29 30\u003e Reference: 31\u003e https://blog.csdn.net/dyx404514/article/details/8718249 32 33树链剖分学习笔记 34 35https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html 36 37作者 38CheaSim 39 40发布于 412018-09-29 42 43更新于 442018-09-30 45 46许可协议 47 48#[acm](/tags/acm/)[树链剖分](/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/) #include using #define #define #define #define #define #define void int a = b; b = temp; } typedef typedef const //head const int int int struct int }G[maxn 个人鄙见： 树链剖分就是将树一部分分成区间修改，一部分分成单点修改，但是单点修改的复杂度控制在了$O(logN)$。 \u003e Reference: \u003e https://blog.csdn.net/dyx404514/article/details/8718249 树链剖分学习笔记 https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html 作者 CheaSim 发布于 2018-09-29 更新于 2018-09-30 许可协议 #[acm](/tags/acm/)[树链剖分](/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/) ","wordCount":"1450","inLanguage":"zh-cn","datePublished":"2018-09-29T00:00:00Z","dateModified":"2018-09-29T00:00:00Z","author":{"@type":"Person","name":"CheaSim"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cheasim.com/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"},"publisher":{"@type":"Organization","name":"CheaSim Blog","logo":{"@type":"ImageObject","url":"https://www.cheasim.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://www.cheasim.com/ accesskey=h title="CheaSim Blog (Alt + H)">CheaSim Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://www.cheasim.com/about/ title=关于><span>关于</span></a></li><li><a href=https://www.cheasim.com/archives/ title=归档><span>归档</span></a></li><li><a href=https://www.cheasim.com/tags/ title=标签><span>标签</span></a></li><li><a href=https://www.cheasim.com/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li></ul></nav></header><main class=main><article class="post-single paper-article"><div class=reading-progress aria-hidden=true><span></span></div><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/posts/>Posts</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">树链剖分学习笔记</h1><div class=post-meta><span class=paper-byline>谢辛 / CheaSim · <time datetime=2018-09-29>2018-09-29</time> · 更新 2018-09-29 · 约 3 分钟</span>
 &nbsp;·&nbsp;
-<span id="busuanzi_container_page_pv" class="busuanzi-page-pv">
-  阅读 <span id="busuanzi_value_page_pv">-</span> 次
-</span>
-
-
-</div>
-  </header> <details class="toc" >
-    <summary accesskey="c" title="(Alt + C)">
-        <span class="title">Table of Contents</span>
-    </summary>
-
-    <div class="inner"><ul>
-            <li>
-                <a href="#%e6%a0%91%e9%93%be%e5%89%96%e5%88%86%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" aria-label="树链剖分学习笔记">树链剖分学习笔记</a><ul>
-                    
-            <li>
-                <a href="#%e9%a2%98%e5%9e%8b" aria-label="题型">题型</a></li>
-            <li>
-                <a href="#%e8%bd%bb%e9%87%8d%e8%be%b9%e5%89%96%e5%88%86" aria-label="轻重边剖分">轻重边剖分</a></li>
-            <li>
-                <a href="#%e5%ae%9e%e7%8e%b0" aria-label="实现">实现</a><ul>
-                    <ul>
-                    
-            <li>
-                <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e6%93%8d%e4%bd%9c" aria-label="初始化操作">初始化操作</a></li>
-            <li>
-                <a href="#%e6%9b%b4%e6%96%b0%e6%93%8d%e4%bd%9c" aria-label="更新操作">更新操作</a></li>
-            <li>
-                <a href="#%e6%9f%a5%e8%af%a2%e6%93%8d%e4%bd%9c" aria-label="查询操作">查询操作</a></li></ul>
-                </ul>
-            </li>
-            <li>
-                <a href="#%e4%be%8b%e9%a2%98" aria-label="例题">例题</a><ul>
-                    
-            <li>
-                <a href="#aragorns-story" aria-label="Aragorn’s Story">Aragorn’s Story</a>
-            </li>
-        </ul>
-        </li>
-        </ul>
-        </li>
-        </ul>
-    </div>
-</details>
-
-  <div class="post-content md-content"><h1 id="树链剖分学习笔记">树链剖分学习笔记<a hidden class="anchor" aria-hidden="true" href="#树链剖分学习笔记">#</a></h1>
-<h2 id="题型">题型<a hidden class="anchor" aria-hidden="true" href="#题型">#</a></h2>
-<p>当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。</p>
-<h2 id="轻重边剖分">轻重边剖分<a hidden class="anchor" aria-hidden="true" href="#轻重边剖分">#</a></h2>
-<p>将树中的边分为两部分，轻边和重边，用$size[u]$来记录以$u$为根的子树的节点个数，之后令$v$为$u$的儿子中$size$最大的一个，那么我们就可以将$u$的边分为重边和轻边了(重边就是$(u.v)$)。</p>
-<p>之后我们就可以得到如下性质</p>
-<ul>
-<li>
-<p>如果$(u,v)$为轻边，那么$size[v] \leq size[u]/2$。因为如果大于的话，他就成为重边了。</p>
-</li>
-<li>
-<p>从根到某一点的路径上轻边的个数不会超过$logN$。假设从$root->v$，那么$size[v]>=1$，可以递推出$size[root]>=2^k$，其中$k$为根到点进过的点数。</p>
-</li>
-</ul>
-<h2 id="实现">实现<a hidden class="anchor" aria-hidden="true" href="#实现">#</a></h2>
-<h4 id="初始化操作">初始化操作<a hidden class="anchor" aria-hidden="true" href="#初始化操作">#</a></h4>
-<p>首先我们定义以下几个数组</p>
-<ul>
-<li>
-<p>$size[v]$表示以$v$为根的子树的节点数</p>
-</li>
-<li>
-<p>$dep[v]$表示$v$的深度（根的深度为1）</p>
-</li>
-<li>
-<p>$top[v]$表示所在重链的顶端节点</p>
-</li>
-<li>
-<p>$fa[v]$表示父亲节点，$son[v]$表示重儿子节点</p>
-</li>
-<li>
-<p>$w[v]$表示与父亲的连边</p>
-</li>
-</ul>
-<p>然后我们使用两个dfs来把数组确定下来。</p>
-<p>第一个dfs求出fa,dep,size,top,w。</p>
-<p>第二个dfs</p>
-<ul>
-<li>
-<p>对于循环到的$v$，当$son[v]$存在的时候，也就是非叶子节点，那么$top[son[v]] = top[v]$是显而易见的。在线段树中我们规定孩子节点的重边必须在父亲节点的后面，那么$w[son[v]]=totw+1$，其中$totw$表示线段树中加入的最后一条边的位置。之后进行递归dfs(son[v]);</p>
-</li>
-<li>
-<p>对于$v$的轻孩子，那么他们没有身处重链所以$top[x]=x$。那么我们为了线段树好看一点也将他加入线段树。$w[x]=totw+1$。</p>
-</li>
-</ul>
-<p>经过两个dfs我们把所有的数组都给他确认了。</p>
-<p>这代码量该有多大啊，对于常年只写70行就要debug很久的我来说。</p>
-<h4 id="更新操作">更新操作<a hidden class="anchor" aria-hidden="true" href="#更新操作">#</a></h4>
-<p>因为我们其实也是慢慢修改路径上的边的，所以我们先求个LCA。之后更新$u,v$到祖先节点。方法意会吧，或者看代码。</p>
-<h4 id="查询操作">查询操作<a hidden class="anchor" aria-hidden="true" href="#查询操作">#</a></h4>
-<p>跟更新操作很像，就是在过程中不再更新，而是求值。</p>
-<h2 id="例题">例题<a hidden class="anchor" aria-hidden="true" href="#例题">#</a></h2>
-<h3 id="aragorns-story">Aragorn’s Story<a hidden class="anchor" aria-hidden="true" href="#aragorns-story">#</a></h3>
-<p>+1 更新节点的时候必须在id[x]更新</p>
-<p>+1 大于小于没弄明白，在change函数中。</p>
-<p>+1 update的时候以为是线段树直接从左边更新到右边，其实是在那个重边更新，所以是update(val,id[x],id[t1],1,totw,1);这样的操作。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> b;
-</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> temp;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//head
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">int</span>
-</span></span><span style="display:flex;"><span>}G[maxn
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">个人鄙见：</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">树链剖分就是将树一部分分成区间修改，一部分分成单点修改，但是单点修改的复杂度控制在了$</span>O(logN)<span style="color:#960050;background-color:#1e0010">$。</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> Reference:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> https:<span style="color:#75715e">//blog.csdn.net/dyx404514/article/details/8718249
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">树链剖分学习笔记</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>https:<span style="color:#75715e">//www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">作者</span>
-</span></span><span style="display:flex;"><span>CheaSim
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">发布于</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">09</span><span style="color:#f92672">-</span><span style="color:#ae81ff">29</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">更新于</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">09</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">许可协议</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#[acm](/tags/acm/)[树链剖分](/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/)
-</span></span></span></code></pre></div>
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://www.cheasim.com/2018/09/30/%E6%A8%A1%E6%9D%BF/">
-    <span class="title">« </span>
-    <span>模板</span>
-  </a>
-  <a class="next" href="https://www.cheasim.com/2018/09/28/lca%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0/">
-    <span class="title"> »</span>
-    <span>LCA专项练习</span>
-  </a>
-</nav>
-
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="https://www.cheasim.com/">CheaSim Blog</a></span> | 
-    <span class="busuanzi-site-stats">
-        <span id="busuanzi_container_site_pv">总访问 <span id="busuanzi_value_site_pv">-</span></span>
-        <span id="busuanzi_container_site_uv">&nbsp;|&nbsp;访客 <span id="busuanzi_value_site_uv">-</span></span>
-    </span> | 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
-        <polyline points="17 11 12 6 7 11"></polyline>
-        <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-</a>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
-        }
-    };
-</script>
-</body>
-
-</html>
+<span id=busuanzi_container_page_pv class=busuanzi-page-pv>阅读 <span id=busuanzi_value_page_pv>-</span> 次</span></div></header><section class=paper-abstract aria-label=摘要><h2>Abstract / 摘要</h2><p>树链剖分学习笔记# 题型# 当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。</p></section><details class="toc reading-toc" open><summary><span>本篇目录</span><span class=toc-current aria-hidden=true></span></summary><div class=toc-scroll tabindex=0 aria-label=文章目录><nav id=TableOfContents><ul><li><a href=#题型>题型</a></li><li><a href=#轻重边剖分>轻重边剖分</a></li><li><a href=#实现>实现</a><ul><li></li></ul></li><li><a href=#例题>例题</a><ul><li><a href=#aragorns-story>Aragorn’s Story</a></li></ul></li></ul></nav></div></details><div class="post-content md-content"><h1 id=树链剖分学习笔记 class=reading-heading>树链剖分学习笔记<a class=heading-anchor href=#%e6%a0%91%e9%93%be%e5%89%96%e5%88%86%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0 aria-label=链接到：树链剖分学习笔记>#</a></h1><h2 id=题型 class=reading-heading>题型<a class=heading-anchor href=#%e9%a2%98%e5%9e%8b aria-label=链接到：题型>#</a></h2><p>当一道题在询问两点之间修改后的权值或者是两点之间边修改后的权值。这类题目往往我们一开始就会思考用线段树来维护，但是线段树无法维护一颗树上的链，所以我们需要来将树上的链剖分下来。</p><h2 id=轻重边剖分 class=reading-heading>轻重边剖分<a class=heading-anchor href=#%e8%bd%bb%e9%87%8d%e8%be%b9%e5%89%96%e5%88%86 aria-label=链接到：轻重边剖分>#</a></h2><p>将树中的边分为两部分，轻边和重边，用$size[u]$来记录以$u$为根的子树的节点个数，之后令$v$为$u$的儿子中$size$最大的一个，那么我们就可以将$u$的边分为重边和轻边了(重边就是$(u.v)$)。</p><p>之后我们就可以得到如下性质</p><ul><li><p>如果$(u,v)$为轻边，那么$size[v] \leq size[u]/2$。因为如果大于的话，他就成为重边了。</p></li><li><p>从根到某一点的路径上轻边的个数不会超过$logN$。假设从$root->v$，那么$size[v]>=1$，可以递推出$size[root]>=2^k$，其中$k$为根到点进过的点数。</p></li></ul><h2 id=实现 class=reading-heading>实现<a class=heading-anchor href=#%e5%ae%9e%e7%8e%b0 aria-label=链接到：实现>#</a></h2><h4 id=初始化操作 class=reading-heading>初始化操作<a class=heading-anchor href=#%e5%88%9d%e5%a7%8b%e5%8c%96%e6%93%8d%e4%bd%9c aria-label=链接到：初始化操作>#</a></h4><p>首先我们定义以下几个数组</p><ul><li><p>$size[v]$表示以$v$为根的子树的节点数</p></li><li><p>$dep[v]$表示$v$的深度（根的深度为1）</p></li><li><p>$top[v]$表示所在重链的顶端节点</p></li><li><p>$fa[v]$表示父亲节点，$son[v]$表示重儿子节点</p></li><li><p>$w[v]$表示与父亲的连边</p></li></ul><p>然后我们使用两个dfs来把数组确定下来。</p><p>第一个dfs求出fa,dep,size,top,w。</p><p>第二个dfs</p><ul><li><p>对于循环到的$v$，当$son[v]$存在的时候，也就是非叶子节点，那么$top[son[v]] = top[v]$是显而易见的。在线段树中我们规定孩子节点的重边必须在父亲节点的后面，那么$w[son[v]]=totw+1$，其中$totw$表示线段树中加入的最后一条边的位置。之后进行递归dfs(son[v]);</p></li><li><p>对于$v$的轻孩子，那么他们没有身处重链所以$top[x]=x$。那么我们为了线段树好看一点也将他加入线段树。$w[x]=totw+1$。</p></li></ul><p>经过两个dfs我们把所有的数组都给他确认了。</p><p>这代码量该有多大啊，对于常年只写70行就要debug很久的我来说。</p><h4 id=更新操作 class=reading-heading>更新操作<a class=heading-anchor href=#%e6%9b%b4%e6%96%b0%e6%93%8d%e4%bd%9c aria-label=链接到：更新操作>#</a></h4><p>因为我们其实也是慢慢修改路径上的边的，所以我们先求个LCA。之后更新$u,v$到祖先节点。方法意会吧，或者看代码。</p><h4 id=查询操作 class=reading-heading>查询操作<a class=heading-anchor href=#%e6%9f%a5%e8%af%a2%e6%93%8d%e4%bd%9c aria-label=链接到：查询操作>#</a></h4><p>跟更新操作很像，就是在过程中不再更新，而是求值。</p><h2 id=例题 class=reading-heading>例题<a class=heading-anchor href=#%e4%be%8b%e9%a2%98 aria-label=链接到：例题>#</a></h2><h3 id=aragorns-story class=reading-heading>Aragorn’s Story<a class=heading-anchor href=#aragorns-story aria-label="链接到：Aragorn’s Story">#</a></h3><p>+1 更新节点的时候必须在id[x]更新</p><p>+1 大于小于没弄明白，在change函数中。</p><p>+1 update的时候以为是线段树直接从左边更新到右边，其实是在那个重边更新，所以是update(val,id[x],id[t1],1,totw,1);这样的操作。</p><figure class=code-frame><figcaption><span>cpp</span><button type=button class=code-copy aria-label=复制代码>复制</button></figcaption><div class=code-scroll tabindex=0 aria-label="cpp 代码"><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=ln> 1</span><span class=cl><span class=cp>#include
+</span></span></span><span class=line><span class=ln> 2</span><span class=cl><span class=k>using</span>
+</span></span><span class=line><span class=ln> 3</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 4</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 5</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 6</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 7</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 8</span><span class=cl><span class=cp>#define
+</span></span></span><span class=line><span class=ln> 9</span><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=ln>10</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>11</span><span class=cl><span class=n>a</span> <span class=o>=</span> <span class=n>b</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>12</span><span class=cl><span class=n>b</span> <span class=o>=</span> <span class=n>temp</span><span class=p>;</span>
+</span></span><span class=line><span class=ln>13</span><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=ln>14</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln>15</span><span class=cl><span class=k>typedef</span>
+</span></span><span class=line><span class=ln>16</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>17</span><span class=cl><span class=c1>//head
+</span></span></span><span class=line><span class=ln>18</span><span class=cl><span class=k>const</span>
+</span></span><span class=line><span class=ln>19</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>20</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>21</span><span class=cl><span class=kt>int</span>
+</span></span><span class=line><span class=ln>22</span><span class=cl><span class=k>struct</span>
+</span></span><span class=line><span class=ln>23</span><span class=cl><span class=nc>int</span>
+</span></span><span class=line><span class=ln>24</span><span class=cl><span class=p>}</span><span class=n>G</span><span class=p>[</span><span class=n>maxn</span>
+</span></span><span class=line><span class=ln>25</span><span class=cl>
+</span></span><span class=line><span class=ln>26</span><span class=cl><span class=err>个人鄙见：</span>
+</span></span><span class=line><span class=ln>27</span><span class=cl>
+</span></span><span class=line><span class=ln>28</span><span class=cl><span class=err>树链剖分就是将树一部分分成区间修改，一部分分成单点修改，但是单点修改的复杂度控制在了$</span><span class=n>O</span><span class=p>(</span><span class=n>logN</span><span class=p>)</span><span class=err>$。</span>
+</span></span><span class=line><span class=ln>29</span><span class=cl>
+</span></span><span class=line><span class=ln>30</span><span class=cl><span class=o>&gt;</span> <span class=nl>Reference</span><span class=p>:</span>
+</span></span><span class=line><span class=ln>31</span><span class=cl><span class=o>&gt;</span> <span class=nl>https</span><span class=p>:</span><span class=c1>//blog.csdn.net/dyx404514/article/details/8718249
+</span></span></span><span class=line><span class=ln>32</span><span class=cl>
+</span></span><span class=line><span class=ln>33</span><span class=cl><span class=err>树链剖分学习笔记</span>
+</span></span><span class=line><span class=ln>34</span><span class=cl>
+</span></span><span class=line><span class=ln>35</span><span class=cl><span class=nl>https</span><span class=p>:</span><span class=c1>//www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html
+</span></span></span><span class=line><span class=ln>36</span><span class=cl>
+</span></span><span class=line><span class=ln>37</span><span class=cl><span class=err>作者</span>
+</span></span><span class=line><span class=ln>38</span><span class=cl><span class=n>CheaSim</span>
+</span></span><span class=line><span class=ln>39</span><span class=cl>
+</span></span><span class=line><span class=ln>40</span><span class=cl><span class=err>发布于</span>
+</span></span><span class=line><span class=ln>41</span><span class=cl><span class=mi>2018</span><span class=o>-</span><span class=mi>09</span><span class=o>-</span><span class=mi>29</span>
+</span></span><span class=line><span class=ln>42</span><span class=cl>
+</span></span><span class=line><span class=ln>43</span><span class=cl><span class=err>更新于</span>
+</span></span><span class=line><span class=ln>44</span><span class=cl><span class=mi>2018</span><span class=o>-</span><span class=mi>09</span><span class=o>-</span><span class=mi>30</span>
+</span></span><span class=line><span class=ln>45</span><span class=cl>
+</span></span><span class=line><span class=ln>46</span><span class=cl><span class=err>许可协议</span>
+</span></span><span class=line><span class=ln>47</span><span class=cl>
+</span></span><span class=line><span class=ln>48</span><span class=cl><span class=cp>#[acm](/tags/acm/)[树链剖分](/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/)</span></span></span></code></pre></div></div><template class=code-source>#include
+using
+#define
+#define
+#define
+#define
+#define
+#define
+void
+int
+a = b;
+b = temp;
+}
+typedef
+typedef
+const
+//head
+const
+int
+int
+int
+struct
+int
+}G[maxn
+个人鄙见：
+树链剖分就是将树一部分分成区间修改，一部分分成单点修改，但是单点修改的复杂度控制在了$O(logN)$。
+> Reference:
+> https://blog.csdn.net/dyx404514/article/details/8718249
+树链剖分学习笔记
+https://www.cheasim.com/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/09/29/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html
+作者
+CheaSim
+发布于
+2018-09-29
+更新于
+2018-09-30
+许可协议
+#[acm](/tags/acm/)[树链剖分](/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/)</template></figure></div><div class=paper-endmatter></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://www.cheasim.com/2018/09/30/%E6%A8%A1%E6%9D%BF/><span class=title>« </span><span>模板</span>
+</a><a class=next href=https://www.cheasim.com/2018/09/28/lca%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0/><span class=title>»</span>
+<span>LCA专项练习</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://www.cheasim.com/>CheaSim Blog</a></span> |
+<span class=busuanzi-site-stats><span id=busuanzi_container_site_pv>总访问 <span id=busuanzi_value_site_pv>-</span></span>
+<span id=busuanzi_container_site_uv>&nbsp;|&nbsp;访客 <span id=busuanzi_value_site_uv>-</span></span>
+</span>|
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script>document.getElementById("theme-toggle")?.addEventListener("click",()=>{const e=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=e,localStorage.setItem("pref-theme",e)})</script><script defer src=/js/paper.min.50a0fd241083bb2bf79dcca11adad2c86bea665e72218fee18efe8c9d1f07e99.js integrity="sha256-UKD9JBCDuyv3ncyhGtrSyGvqZl5yIY/uGO/oydHwfpk="></script><script defer src=/js/reading.min.9525e96cbb0864aa93300b6f7eeb49ab75e631c372e3995e6a8aceb4acb8d40b.js integrity="sha256-lSXpbLsIZKqTMAtvfutJq3XmMcNy45leaorOtKy41As="></script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{if(e.closest(".reading-toc"))return;e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script></body></html>
